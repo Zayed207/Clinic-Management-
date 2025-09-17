@@ -1,0 +1,15 @@
+D:\Users\zayed\source\repos\ClinicManagement\DataLayer\bin\Debug\net8.0\appsetting.json
+D:\Users\zayed\source\repos\ClinicManagement\DataLayer\bin\Debug\net8.0\DataLayer.deps.json
+D:\Users\zayed\source\repos\ClinicManagement\DataLayer\bin\Debug\net8.0\DataLayer.runtimeconfig.json
+D:\Users\zayed\source\repos\ClinicManagement\DataLayer\bin\Debug\net8.0\DataLayer.dll
+D:\Users\zayed\source\repos\ClinicManagement\DataLayer\bin\Debug\net8.0\DataLayer.pdb
+D:\Users\zayed\source\repos\ClinicManagement\DataLayer\obj\Debug\net8.0\DataLayer.csproj.AssemblyReference.cache
+D:\Users\zayed\source\repos\ClinicManagement\DataLayer\obj\Debug\net8.0\DataLayer.GeneratedMSBuildEditorConfig.editorconfig
+D:\Users\zayed\source\repos\ClinicManagement\DataLayer\obj\Debug\net8.0\DataLayer.AssemblyInfoInputs.cache
+D:\Users\zayed\source\repos\ClinicManagement\DataLayer\obj\Debug\net8.0\DataLayer.AssemblyInfo.cs
+D:\Users\zayed\source\repos\ClinicManagement\DataLayer\obj\Debug\net8.0\DataLayer.csproj.CoreCompileInputs.cache
+D:\Users\zayed\source\repos\ClinicManagement\DataLayer\obj\Debug\net8.0\DataLayer.dll
+D:\Users\zayed\source\repos\ClinicManagement\DataLayer\obj\Debug\net8.0\refint\DataLayer.dll
+D:\Users\zayed\source\repos\ClinicManagement\DataLayer\obj\Debug\net8.0\DataLayer.pdb
+D:\Users\zayed\source\repos\ClinicManagement\DataLayer\obj\Debug\net8.0\DataLayer.genruntimeconfig.cache
+D:\Users\zayed\source\repos\ClinicManagement\DataLayer\obj\Debug\net8.0\ref\DataLayer.dll

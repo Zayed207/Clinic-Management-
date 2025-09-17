@@ -1,0 +1,11 @@
+D:\Users\zayed\source\repos\ClinicManagement\DataAccessSetting\bin\Debug\net8.0\DataAccessSetting.deps.json
+D:\Users\zayed\source\repos\ClinicManagement\DataAccessSetting\bin\Debug\net8.0\DataAccessSetting.dll
+D:\Users\zayed\source\repos\ClinicManagement\DataAccessSetting\bin\Debug\net8.0\DataAccessSetting.pdb
+D:\Users\zayed\source\repos\ClinicManagement\DataAccessSetting\obj\Debug\net8.0\DataAccessSetting.GeneratedMSBuildEditorConfig.editorconfig
+D:\Users\zayed\source\repos\ClinicManagement\DataAccessSetting\obj\Debug\net8.0\DataAccessSetting.AssemblyInfoInputs.cache
+D:\Users\zayed\source\repos\ClinicManagement\DataAccessSetting\obj\Debug\net8.0\DataAccessSetting.AssemblyInfo.cs
+D:\Users\zayed\source\repos\ClinicManagement\DataAccessSetting\obj\Debug\net8.0\DataAccessSetting.csproj.CoreCompileInputs.cache
+D:\Users\zayed\source\repos\ClinicManagement\DataAccessSetting\obj\Debug\net8.0\DataAccessSetting.dll
+D:\Users\zayed\source\repos\ClinicManagement\DataAccessSetting\obj\Debug\net8.0\refint\DataAccessSetting.dll
+D:\Users\zayed\source\repos\ClinicManagement\DataAccessSetting\obj\Debug\net8.0\DataAccessSetting.pdb
+D:\Users\zayed\source\repos\ClinicManagement\DataAccessSetting\obj\Debug\net8.0\ref\DataAccessSetting.dll
