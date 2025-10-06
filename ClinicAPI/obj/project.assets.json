@@ -97,6 +97,25 @@
           "Microsoft.AspNetCore.App"
         ]
       },
+      "Microsoft.AspNetCore.Authentication.JwtBearer/8.0.8": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.IdentityModel.Protocols.OpenIdConnect": "7.1.2"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll": {
+            "related": ".xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
       "Microsoft.Bcl.AsyncInterfaces/8.0.0": {
         "type": "package",
         "compile": {
@@ -1797,6 +1816,21 @@
         "lib/net8.0/Microsoft.AspNetCore.Authentication.Google.xml",
         "microsoft.aspnetcore.authentication.google.8.0.8.nupkg.sha512",
         "microsoft.aspnetcore.authentication.google.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Authentication.JwtBearer/8.0.8": {
+      "sha512": "J145j2LgD4kkkNkrf5DW/pKzithZRKN5EFY+KAO3SqweMyDfv4cgKgtOIsv2bhrOLGqPJixuZkZte7LfK1seYQ==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.authentication.jwtbearer/8.0.8",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll",
+        "lib/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.xml",
+        "microsoft.aspnetcore.authentication.jwtbearer.8.0.8.nupkg.sha512",
+        "microsoft.aspnetcore.authentication.jwtbearer.nuspec"
       ]
     },
     "Microsoft.Bcl.AsyncInterfaces/8.0.0": {
@@ -4891,6 +4925,7 @@
     "net8.0": [
       "BusinessLayer >= 1.0.0",
       "Microsoft.AspNetCore.Authentication.Google >= 8.0.8",
+      "Microsoft.AspNetCore.Authentication.JwtBearer >= 8.0.8",
       "Microsoft.EntityFrameworkCore.SqlServer >= 9.0.9",
       "Microsoft.EntityFrameworkCore.Tools >= 9.0.9",
       "Swashbuckle.AspNetCore >= 6.6.2"
@@ -4903,11 +4938,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Users\\zayed\\source\\repos\\ClinicManagement\\ClinicAPI\\ClinicAPI.csproj",
+      "projectUniqueName": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\ClinicAPI.csproj",
       "projectName": "ClinicAPI",
-      "projectPath": "D:\\Users\\zayed\\source\\repos\\ClinicManagement\\ClinicAPI\\ClinicAPI.csproj",
+      "projectPath": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\ClinicAPI.csproj",
       "packagesPath": "C:\\Users\\zayed\\.nuget\\packages\\",
-      "outputPath": "D:\\Users\\zayed\\source\\repos\\ClinicManagement\\ClinicAPI\\obj\\",
+      "outputPath": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -4926,8 +4961,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\Users\\zayed\\source\\repos\\ClinicManagement\\BusinessLayer\\BusinessLayer.csproj": {
-              "projectPath": "D:\\Users\\zayed\\source\\repos\\ClinicManagement\\BusinessLayer\\BusinessLayer.csproj"
+            "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\BusinessLayer\\BusinessLayer.csproj": {
+              "projectPath": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\BusinessLayer\\BusinessLayer.csproj"
             }
           }
         }
@@ -4949,6 +4984,10 @@
         "targetAlias": "net8.0",
         "dependencies": {
           "Microsoft.AspNetCore.Authentication.Google": {
+            "target": "Package",
+            "version": "[8.0.8, )"
+          },
+          "Microsoft.AspNetCore.Authentication.JwtBearer": {
             "target": "Package",
             "version": "[8.0.8, )"
           },

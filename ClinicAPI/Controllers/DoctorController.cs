@@ -1,5 +1,7 @@
 ﻿using BusinessLayer;
 using BusinessLayer.BusinessLogic;
+using BusinessLayer.DTOsForPresentationLayer;
+using ClinicAPI.temp.DTOs___Validations;
 using DataLayer.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,10 +16,11 @@ namespace ClinicAPI.Controllers
     public class DoctorController : ControllerBase
     {
         readonly DoctorServices _service;
-
+       
         public DoctorController(DoctorServices services)
         {
             _service = services;
+           
         }
 
 
@@ -28,17 +31,33 @@ namespace ClinicAPI.Controllers
         /// <param name="doctor">Doctor request DTO.</param>
         /// <returns>Created doctor ID if successful.</returns>
         [HttpPost("add")]
-        public async Task<ActionResult<int>> AddNewDoctor([FromBody] DoctorRequestDTO doctor)
+        public async Task<ActionResult<int>> AddNewDoctor( [FromBody] DoctorRequestDTO doctor )
         {
-            var result =await _service.AddNewDoctor(doctor);
-
-            return result.Status switch
+            if (doctor.DoctorTypeID_FK <= 0)
             {
-                ResultStatus.Success => CreatedAtAction(nameof(GetDoctorById), new { employeeId = result.Data }, result.Data),
-                ResultStatus.Conflict => Conflict(result.Message),
-                ResultStatus.InternalError => StatusCode(500, result.Message),
-                _ => BadRequest(result.Message)
-            };
+                var creationUrl = Url.Action("AddEmployee", "Employee", null,Request.Scheme);
+
+
+                return BadRequest(new
+                {
+                    Message = "Employeeid is missing. Please create a Employee .",
+                    CreateTypeUrl = creationUrl
+                });
+            }
+
+
+            {
+                var result = await _service.AddNewDoctor(doctor);
+
+                return result.Status switch
+                {
+                    ResultStatus.Success => CreatedAtAction(nameof(GetDoctorById), new { employeeId = result.Data }, result.Data),
+                    ResultStatus.Conflict => Conflict(result.Message),
+                    ResultStatus.InternalError => StatusCode(500, result.Message),
+                    _ => BadRequest(result.Message)
+                };
+
+            }
         }
 
         /// <summary>

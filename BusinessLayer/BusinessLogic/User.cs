@@ -92,16 +92,18 @@ namespace BusinessLayer
                 return builder.ToString();
             }
         }
-        public async Task <OperationResult<int> >AddNewUser(AddUserRequestDTO User)
+        public async Task <OperationResult<int> >AddNewUser(AddUserRequestDTO newuser)
         {
-            var user = new User(User);
+         
 
              
-            if (await _repo.IsUserNameExists(user.UserName))
+            if (await _repo.IsUserNameExists(newuser.UserName))
             {
                 return  OperationResult<int>.Conflict("This username already exists.");
             }
 
+            var user = new User(newuser);
+            user.Permissions = (int)User.enPermissionType.Register;
             try
             {
                 user.Password = HashPassword(user.Password);
@@ -287,7 +289,7 @@ namespace BusinessLayer
                 }
             }
 
-            // دالة مساعدة لتشفير الباسورد
+            
          
         }
     }

@@ -42,7 +42,7 @@ namespace BusinessLayer. DTOsForPresentationLayer
 
     public class PersonRequestDTO
     {
-        public int PersonID { get; set; }
+        
 
         [Required]
         public string FirstName { get; set; }

@@ -3,10 +3,13 @@ using BusinessLayer.Configurations;
 using BusinessLayer.Profiles;
 using ClinicAPI.Global;
 using DataLayer.Data;
-using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.BearerToken;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+
 
 
 
@@ -44,6 +47,25 @@ var configuration = builder.Configuration;
 
     
     builder.Services.AddProjectDependencies();
+    builder.Services.AddAuthentication("Bearer")
+      .AddJwtBearer(options =>
+      {
+          var jwtSection = builder.Configuration.GetSection("Jwt");
+
+          options.TokenValidationParameters = new TokenValidationParameters
+          {
+              ValidateIssuer = true,
+              ValidateAudience = true,
+              ValidateLifetime = true,
+              ValidateIssuerSigningKey = true,
+
+              ValidIssuer = jwtSection["Issuer"],
+              ValidAudience = jwtSection["Audience"],
+              IssuerSigningKey = new SymmetricSecurityKey(
+                  Encoding.UTF8.GetBytes(jwtSection["Key"])
+              )
+          };
+      });
     var app = builder.Build();
 
 

@@ -20,19 +20,7 @@ namespace DataLayer.Data
             _context = context;
         }
 
-        public  async Task< List<PersonEntity>> GetAllPeople()
-        {
-            using (_context )
-            {
-                var list = await _context.Person.ToListAsync();
-                return list;
-            }
-
-
-           
-        }
-
-
+      
 
         public  PersonEntity FindPersonByID( int id)
         {
@@ -58,28 +46,12 @@ namespace DataLayer.Data
             return person;
         }
 
-        public  bool Delete(int Person_Id)
-        {
-            int rowaffected = 0;
-            return rowaffected>0;
-        }
-        public  int AddPerson(PersonEntity Person)
-        {
-            int id = -1;
-            
-          
-            return id;
-        }
-        public  bool UpdatePerson(PersonEntity Person)
-        {
-           
-           
-            return false;
-        }
+       
+        async Task<int> IPersonRepository.AddPerson(PersonEntity entity)
+        {  _context.Add(entity);
+           await _context.SaveChangesAsync();
 
-        Task<int> IPersonRepository.AddPerson(PersonEntity entity)
-        {
-            throw new NotImplementedException();
+            return entity.PersonID;
         }
 
         Task<bool> IPersonRepository.UpdatePerson(PersonEntity entity)

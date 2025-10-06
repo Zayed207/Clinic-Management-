@@ -1,4 +1,0 @@
-D:\Users\zayed\source\repos\ClinicManagement\Demo\obj\Debug\net8.0\Demo.GeneratedMSBuildEditorConfig.editorconfig
-D:\Users\zayed\source\repos\ClinicManagement\Demo\obj\Debug\net8.0\Demo.AssemblyInfoInputs.cache
-D:\Users\zayed\source\repos\ClinicManagement\Demo\obj\Debug\net8.0\Demo.AssemblyInfo.cs
-D:\Users\zayed\source\repos\ClinicManagement\Demo\obj\Debug\net8.0\Demo.csproj.CoreCompileInputs.cache

@@ -5,6 +5,7 @@ using BusinessLayer.DTOsForPresentationLayer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using System.Numerics;
 using System.Threading.Tasks;
 
 namespace ClinicAPI.Controllers
@@ -21,31 +22,43 @@ namespace ClinicAPI.Controllers
                 _service = service;
             }
 
-            /// <summary>
-            /// Add a new person.
-            /// </summary>
-            [HttpPost("Add")]
-            [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(int))]
-            [ProducesResponseType(StatusCodes.Status409Conflict)]
-            [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-            [ProducesResponseType(StatusCodes.Status400BadRequest)]
-            public async Task<ActionResult<int>> AddPerson([FromBody] PersonRequestDTO person)
+        /// <summary>
+        /// Add a new person.
+        /// </summary>
+        [HttpPost("Add")]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(int))]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<int>> AddPerson([FromBody] PersonRequestDTO person)
+        {
+            if (person.UserID_FK<= 0)
             {
-                var result =await _service.AddNewPerson(person);
+                var creationUrl = Url.Action("AddUser", "User", null, Request.Scheme);
 
-                return result.Status switch
+
+                return BadRequest(new
                 {
-                    ResultStatus.Success => CreatedAtAction(nameof(GetPersonById), new { personId = result.Data }, result.Data),
-                    ResultStatus.Conflict => Conflict(result.Message),
-                    ResultStatus.InternalError => StatusCode(500, result.Message),
-                    _ => BadRequest(result.Message)
-                };
+                    Message = "Userid is missing. Please create a User.",
+                    CreateTypeUrl = creationUrl
+                });
             }
 
-            /// <summary>
-            /// Update an existing person.
-            /// </summary>
-            [HttpPut("Update")]
+            var result = await _service.AddNewPerson(person);
+
+            return result.Status switch
+            {
+                ResultStatus.Success => CreatedAtAction(nameof(GetPersonById), new { personId = result.Data }, result.Data),
+                ResultStatus.Conflict => Conflict(result.Message),
+                ResultStatus.InternalError => StatusCode(500, result.Message),
+                _ => BadRequest(result.Message)
+            };
+        }
+
+        /// <summary>
+        /// Update an existing person.
+        /// </summary>
+        [HttpPut("Update")]
             [ProducesResponseType(StatusCodes.Status200OK)]
             [ProducesResponseType(StatusCodes.Status404NotFound)]
             [ProducesResponseType(StatusCodes.Status500InternalServerError)]

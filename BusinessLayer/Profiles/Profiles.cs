@@ -24,10 +24,10 @@ namespace BusinessLayer.Profiles
             CreateMap<Employee, EmployeeEntity>();
 
             // Medical Record
-            CreateMap<MedicalRecord, MedicalRecordData>();
+            CreateMap<MedicalRecord, MedicalRecordEntity>();
 
             // Patient
-            CreateMap<Patient, PatientData>();
+            CreateMap<Patient, PatientEntity>();
 
             // Person (صححتها)
             CreateMap<Person, PersonEntity>();

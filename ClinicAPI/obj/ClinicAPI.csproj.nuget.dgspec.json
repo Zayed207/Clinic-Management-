@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Users\\zayed\\source\\repos\\ClinicManagement\\ClinicAPI\\ClinicAPI.csproj": {}
+    "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\ClinicAPI.csproj": {}
   },
   "projects": {
-    "D:\\Users\\zayed\\source\\repos\\ClinicManagement\\BusinessLayer\\BusinessLayer.csproj": {
+    "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\BusinessLayer\\BusinessLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Users\\zayed\\source\\repos\\ClinicManagement\\BusinessLayer\\BusinessLayer.csproj",
+        "projectUniqueName": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\BusinessLayer\\BusinessLayer.csproj",
         "projectName": "BusinessLayer",
-        "projectPath": "D:\\Users\\zayed\\source\\repos\\ClinicManagement\\BusinessLayer\\BusinessLayer.csproj",
+        "projectPath": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\BusinessLayer\\BusinessLayer.csproj",
         "packagesPath": "C:\\Users\\zayed\\.nuget\\packages\\",
-        "outputPath": "D:\\Users\\zayed\\source\\repos\\ClinicManagement\\BusinessLayer\\obj\\",
+        "outputPath": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\BusinessLayer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -30,8 +30,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\Users\\zayed\\source\\repos\\ClinicManagement\\DataLayer\\DataLayer.csproj": {
-                "projectPath": "D:\\Users\\zayed\\source\\repos\\ClinicManagement\\DataLayer\\DataLayer.csproj"
+              "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\DataLayer.csproj": {
+                "projectPath": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\DataLayer.csproj"
               }
             }
           }
@@ -77,14 +77,14 @@
         }
       }
     },
-    "D:\\Users\\zayed\\source\\repos\\ClinicManagement\\ClinicAPI\\ClinicAPI.csproj": {
+    "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\ClinicAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Users\\zayed\\source\\repos\\ClinicManagement\\ClinicAPI\\ClinicAPI.csproj",
+        "projectUniqueName": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\ClinicAPI.csproj",
         "projectName": "ClinicAPI",
-        "projectPath": "D:\\Users\\zayed\\source\\repos\\ClinicManagement\\ClinicAPI\\ClinicAPI.csproj",
+        "projectPath": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\ClinicAPI.csproj",
         "packagesPath": "C:\\Users\\zayed\\.nuget\\packages\\",
-        "outputPath": "D:\\Users\\zayed\\source\\repos\\ClinicManagement\\ClinicAPI\\obj\\",
+        "outputPath": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -103,8 +103,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\Users\\zayed\\source\\repos\\ClinicManagement\\BusinessLayer\\BusinessLayer.csproj": {
-                "projectPath": "D:\\Users\\zayed\\source\\repos\\ClinicManagement\\BusinessLayer\\BusinessLayer.csproj"
+              "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\BusinessLayer\\BusinessLayer.csproj": {
+                "projectPath": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\BusinessLayer\\BusinessLayer.csproj"
               }
             }
           }
@@ -126,6 +126,10 @@
           "targetAlias": "net8.0",
           "dependencies": {
             "Microsoft.AspNetCore.Authentication.Google": {
+              "target": "Package",
+              "version": "[8.0.8, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[8.0.8, )"
             },
@@ -167,14 +171,14 @@
         }
       }
     },
-    "D:\\Users\\zayed\\source\\repos\\ClinicManagement\\DataLayer\\DataLayer.csproj": {
+    "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\DataLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Users\\zayed\\source\\repos\\ClinicManagement\\DataLayer\\DataLayer.csproj",
+        "projectUniqueName": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\DataLayer.csproj",
         "projectName": "DataLayer",
-        "projectPath": "D:\\Users\\zayed\\source\\repos\\ClinicManagement\\DataLayer\\DataLayer.csproj",
+        "projectPath": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\DataLayer.csproj",
         "packagesPath": "C:\\Users\\zayed\\.nuget\\packages\\",
-        "outputPath": "D:\\Users\\zayed\\source\\repos\\ClinicManagement\\DataLayer\\obj\\",
+        "outputPath": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

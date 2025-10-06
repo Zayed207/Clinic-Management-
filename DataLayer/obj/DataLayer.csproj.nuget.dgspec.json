@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Users\\zayed\\source\\repos\\ClinicManagement\\DataLayer\\DataLayer.csproj": {}
+    "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\DataLayer.csproj": {}
   },
   "projects": {
-    "D:\\Users\\zayed\\source\\repos\\ClinicManagement\\DataLayer\\DataLayer.csproj": {
+    "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\DataLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Users\\zayed\\source\\repos\\ClinicManagement\\DataLayer\\DataLayer.csproj",
+        "projectUniqueName": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\DataLayer.csproj",
         "projectName": "DataLayer",
-        "projectPath": "D:\\Users\\zayed\\source\\repos\\ClinicManagement\\DataLayer\\DataLayer.csproj",
+        "projectPath": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\DataLayer.csproj",
         "packagesPath": "C:\\Users\\zayed\\.nuget\\packages\\",
-        "outputPath": "D:\\Users\\zayed\\source\\repos\\ClinicManagement\\DataLayer\\obj\\",
+        "outputPath": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

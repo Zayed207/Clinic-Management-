@@ -54,7 +54,7 @@ namespace BusinessLayer
             Clinic_ID_FK = appointment.Clinic_ID_FK;
             Appointment_Date_Time = appointment.Appointment_Date_Time;
             Appointment_Duration_Minutes = appointment.Appointment_Duration_Minutes;
-            Status_ID_FK =(enAppointmentStatus)appointment.Status_ID_FK;
+            Status_ID_FK =enAppointmentStatus.Pending;
             Appointment_Type_ID_FK =(enAppointmentType) appointment.Appointment_Type_ID_FK;
             Consultation_Mode_ID_FK = (enConsultationType)appointment.Consultation_Mode_ID_FK;
             Notes = appointment
@@ -80,10 +80,14 @@ namespace BusinessLayer
 
         public async Task <OperationResult<int>> AddNewAppointment(AppointmentRequestDTO appointment)
         {
+
+            if (await _repo.IsAppointmentUnavailable(appointment.Appointment_Date_Time)) { return OperationResult<int>.NotFound("The Appoinment is Unavalible"); }
+            var newappointment = new Appointment(appointment);
+           
             //checked patient and dotor
             try
             {
-                int id =await _repo.AddAppointment(_mapper.Map<AppointmentEntity>(appointment));
+                int id =await _repo.AddAppointment(_mapper.Map<AppointmentEntity>(newappointment));
                 if (id > 0)
                 {
                     return OperationResult<int>.Success(id, "Appointment created successfully.");
@@ -98,6 +102,7 @@ namespace BusinessLayer
 
         public async Task< OperationResult<bool> >UpdateAppointment(AppointmentRequestDTO appointment)
         {
+            if (await _repo.IsAppointmentUnavailable(appointment.Appointment_Date_Time)) { return OperationResult<bool>.NotFound("The Appoinment is Unavalible"); }
             try
             {
                 bool updated =await _repo.UpdateAppointment(_mapper.Map<AppointmentEntity>(new Appointment(appointment)));

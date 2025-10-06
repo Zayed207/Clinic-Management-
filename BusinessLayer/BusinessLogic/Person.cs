@@ -72,7 +72,7 @@ namespace BusinessLayer
         public Person(PersonRequestDTO perosn)
         {
 
-            this.PersonID = perosn.PersonID;
+
             this.FirstName = perosn.FirstName;
 
             this.LastName = perosn.LastName;
@@ -118,9 +118,11 @@ namespace BusinessLayer
 
         public async Task<OperationResult<int>> AddNewPerson(PersonRequestDTO person)
         {
+
+
             try
             {
-                int id =await _repo.AddPerson(_mapper.Map<PersonEntity>(person));
+                int id =await _repo.AddPerson(_mapper.Map<PersonEntity>(new Person( person)));
 
                 if (id > 0)
                     return OperationResult<int>.Success(id, "Person created successfully");

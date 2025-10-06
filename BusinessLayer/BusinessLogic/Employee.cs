@@ -33,6 +33,15 @@ namespace BusinessLayer
             Salary = Entity.Salary;
            
         }
+        public Employee(EmployeeRequestDTO  Entity)
+        {
+            EmployeeID = Entity.EmployeeID;
+            TypeEmpployeeID_FK = Entity.TypeEmpployeeID_FK;
+            PersonID_FK = Entity.PersonID_FK;
+            NationalID = Entity.NationalID;
+            Salary = Entity.Salary;
+
+        }
     }
     public class EmployeeServices
     {
@@ -49,7 +58,7 @@ namespace BusinessLayer
         {
             try
             {
-                var entity = _mapper.Map<EmployeeEntity>(employeeDto);
+                var entity = _mapper.Map<EmployeeEntity>(new Employee(employeeDto));
                 int id =await _repo.AddEmployee(entity);
                 if (id > 0)
                     return OperationResult<int>.Success(id, "Employee created successfully.");
@@ -65,7 +74,7 @@ namespace BusinessLayer
         {
             try
             {
-                var entity = _mapper.Map<EmployeeEntity>(employeeDto);
+                var entity = _mapper.Map<EmployeeEntity>(new Employee(employeeDto));
                 bool updated =await _repo.UpdateEmployee(entity);
                 if (updated)
                     return OperationResult<bool>.Updated("Employee updated successfully.");

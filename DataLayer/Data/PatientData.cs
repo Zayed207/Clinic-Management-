@@ -43,12 +43,12 @@ namespace DataLayer.Data
             
         }
 
-        public  async Task<PatientEntity> GetPatientById(int patientId)
-        {
+        //public  async Task<PatientEntity> GetPatientById(int patientId)
+        //{
            
-                return await _context.Patient.FirstOrDefaultAsync(x => x.PatientID == patientId);
+              
             
-        }
+        //}
 
         public  async Task<List<PatientEntity>> GetAllPatient()
         {
@@ -62,17 +62,17 @@ namespace DataLayer.Data
 
        
 
-        Task<PatientEntity> IPatientRepository.FindPatientUserID(int userid)
+      async  Task<PatientEntity> IPatientRepository.FindPatientUserID(int userid)
         {
             throw new NotImplementedException();
         }
 
-        Task<PatientEntity> IPatientRepository.FindByPatientID(int Patientid)
+        async Task<PatientEntity> IPatientRepository.FindByPatientID(int Patientid)
         {
-            throw new NotImplementedException();
+            return await _context.Patient.FirstOrDefaultAsync(x => x.PatientID == Patientid);
         }
 
-        Task<PatientEntity> IPatientRepository.FindPatientUserName(string patientname)
+     async   Task<PatientEntity> IPatientRepository.FindPatientUserName(string patientname)
         {
             throw new NotImplementedException();
         }

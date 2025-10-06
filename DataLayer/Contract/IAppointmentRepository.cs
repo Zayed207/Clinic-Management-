@@ -12,6 +12,7 @@ namespace DataLayer.Contract
 
     public interface IAppointmentRepository
     {
+        Task<bool> IsAppointmentUnavailable(DateTime date);
          Task<int> AddAppointment(AppointmentEntity entity);
         Task<bool> UpdateAppointment(AppointmentEntity entity);
         Task< bool >DeleteAppointment(int id);

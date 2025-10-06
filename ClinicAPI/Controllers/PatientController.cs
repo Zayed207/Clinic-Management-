@@ -1,6 +1,7 @@
 ﻿using APILayer.DTOs___Validations;
 using BusinessLayer;
 using BusinessLayer.BusinessLogic;
+using BusinessLayer.DTOsForPresentationLayer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -15,10 +16,12 @@ namespace ClinicAPI.Controllers
 
 
         readonly PatientServices _service;
+        private readonly PersonServices _personServices;
 
-        public PatientController(PatientServices service)
+        public PatientController(PatientServices service,PersonServices personServices)
         {
             _service = service;
+            _personServices = personServices;
         }
 
         /// <summary>
@@ -29,17 +32,31 @@ namespace ClinicAPI.Controllers
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<int>> AddNewPatient([FromBody] PatientRequestDTO patient)
+        public async Task<ActionResult<int>> AddNewPatient( [FromBody] PatientRequestDTO patient)
         {
-            var result =await _service.AddNewPatient(patient);
 
-            return result.Status switch
+            if (patient.PatientPersonID<= 0)
             {
-                ResultStatus.Success => CreatedAtAction(nameof(GetPatientById), new { patientId = result.Data }, result.Data),
-                ResultStatus.Conflict => Conflict(result.Message),
-                ResultStatus.InternalError => StatusCode(500, result.Message),
-                _ => BadRequest(result.Message)
-            };
+                var creationUrl = Url.Action("AddPerson", "Person", null, Request.Scheme);
+
+
+                return BadRequest(new
+                {
+                    Message = "PersonID is missing. Please create an Person.",
+                    CreateTypeUrl = creationUrl
+                });
+            }
+            { var result =await _service.AddNewPatient(patient);
+
+                return result.Status switch
+                {
+                    ResultStatus.Success => CreatedAtAction(nameof(GetPatientById), new { patientId = result.Data }, result.Data),
+                    ResultStatus.Conflict => Conflict(result.Message),
+                    ResultStatus.InternalError => StatusCode(500, result.Message),
+                    _ => BadRequest(result.Message)
+                };
+            }
+           
         }
 
         /// <summary>
@@ -87,7 +104,7 @@ namespace ClinicAPI.Controllers
         /// <summary>
         /// Get patient by ID.
         /// </summary>
-        [HttpGet("by{patientId}")]
+        [HttpGet("{patientId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

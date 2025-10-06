@@ -1,9 +1,11 @@
 ﻿using APILayer.DTOs___Validations;
 using BusinessLayer;
 using BusinessLayer.BusinessLogic;
+using BusinessLayer.DTOsForPresentationLayer;
 using ClinicAPI.temp.DTOs___Validations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Numerics;
 using System.Threading.Tasks;
 
 namespace ClinicAPI.Controllers
@@ -14,25 +16,40 @@ namespace ClinicAPI.Controllers
         public class EmployeeController : ControllerBase
         {
             readonly EmployeeServices _service;
+       
 
-            public EmployeeController(EmployeeServices services)
+        public EmployeeController(EmployeeServices services)
             {
                 _service = services;
+            
+        }
+
+        /// <summary>
+        /// Add a new employee.
+        /// </summary>
+        /// <param name="employee">Employee request DTO.</param>
+        /// <returns>Created employee ID if successful.</returns>
+        [HttpPost("add")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<int>> AddEmployee([FromBody] EmployeeRequestDTO employee)
+        {
+            if (employee.PersonID_FK <= 0)
+            {
+                var creationUrl = Url.Action("AddPerson", "Person", null, Request.Scheme);
+
+
+                return BadRequest(new
+                {
+                    Message = "Personid is missing. Please create a Person.",
+                    CreateTypeUrl = creationUrl
+                });
             }
 
-            /// <summary>
-            /// Add a new employee.
-            /// </summary>
-            /// <param name="employee">Employee request DTO.</param>
-            /// <returns>Created employee ID if successful.</returns>
-            [HttpPost("add")]
-            [ProducesResponseType(StatusCodes.Status201Created)]
-            [ProducesResponseType(StatusCodes.Status409Conflict)]
-            [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-            [ProducesResponseType(StatusCodes.Status400BadRequest)]
-            public async Task<ActionResult<int>> AddEmployee([FromBody] EmployeeRequestDTO employee)
             {
-                var result =await _service.AddNewEmployee(employee);
+                var result = await _service.AddNewEmployee(employee);
 
                 return result.Status switch
                 {
@@ -41,7 +58,9 @@ namespace ClinicAPI.Controllers
                     ResultStatus.InternalError => StatusCode(500, result.Message),
                     _ => BadRequest(result.Message)
                 };
+
             }
+        }
 
             /// <summary>
             /// Update an existing employee.

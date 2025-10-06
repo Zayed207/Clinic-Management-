@@ -27,6 +27,7 @@ namespace ClinicAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<int> >AddAppointment([FromBody] AppointmentRequestDTO appointment)
         {
+            if (appointment.Clinic_ID_FK <= 0 || appointment.Doctor_ID_FK <= 0 || appointment.Patient_ID_FK <= 0 || appointment.Appointment_Date_Time < DateTime.UtcNow) { return BadRequest("The appointment must to have clinic and doctor and patient and date bigger than today"); }
             var result = await _service.AddNewAppointment(appointment);
             return result.Status switch
             {

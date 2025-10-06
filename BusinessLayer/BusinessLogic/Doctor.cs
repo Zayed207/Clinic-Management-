@@ -74,7 +74,7 @@ namespace BusinessLayer
 
             try
             {
-                int id =await _repo.AddDoctor(_mapper.Map<DoctorEntity>(doctor));
+                int id =await _repo.AddDoctor(_mapper.Map<DoctorEntity>(new Doctor(doctor)));
                 return OperationResult<int>.Success(id, "Created Successfully");
             }
 
@@ -85,7 +85,7 @@ namespace BusinessLayer
         }
         public async Task<OperationResult<bool>> UpdateDoctor(DoctorRequestDTO doctor)
         {
-            bool updated =await _repo.UpdateDoctor(_mapper.Map<DoctorEntity>(doctor));
+            bool updated =await _repo.UpdateDoctor(_mapper.Map<DoctorEntity>(new Doctor(doctor)));
             try
             {
                 if (updated)

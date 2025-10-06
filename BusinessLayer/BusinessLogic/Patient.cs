@@ -82,9 +82,11 @@ namespace BusinessLayer
 
             public async Task<OperationResult<int>> AddNewPatient(PatientRequestDTO patient)
             {
+
+                
                 try
                 {
-                    var entity = _mapper.Map<PatientEntity>(patient);
+                    var entity = _mapper.Map<PatientEntity>(new Patient(patient));
                     var newId =await _repo.AddPatient(entity);
 
                     if (newId > 0)
@@ -102,7 +104,7 @@ namespace BusinessLayer
             {
                 try
                 {
-                    var success =await _repo.UpdatePatient(_mapper.Map<PatientEntity>(patient));
+                    var success =await _repo.UpdatePatient(_mapper.Map<PatientEntity>(new Patient(patient)));
                     if (success)
                         return OperationResult<string>.Updated("Patient updated successfully.");
 

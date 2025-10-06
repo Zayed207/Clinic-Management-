@@ -12,6 +12,13 @@ namespace DataLayer.Data
         {
             _context = context;
         }
+        public async Task<bool> IsAppointmentUnavailable(DateTime date)
+        {
+
+        return await  _context.Appointment.AnyAsync(c => c.Appointment_Date_Time >= date &&
+    c.Appointment_Date_Time <= date.AddMinutes(60));
+
+        }
 
         public  async Task<int> AddAppointment(AppointmentEntity appointment)
         {

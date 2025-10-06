@@ -20,8 +20,19 @@ namespace ClinicAPI.Controllers
         [HttpPost("Add")]
         public async Task<ActionResult<int>> AddMedicalRecord([FromBody] MedicalRecord record)
         {
-            var result =await _service.AddNewMedicalRecord(record);
+            if (record.PatientID_FK<= 0)
+            {
+                var creationUrl = Url.Action("AddPatient", "Patient", null, Request.Scheme);
 
+
+                return BadRequest(new
+                {
+                    Message = "Patientid is missing. Please create an Patient.",
+                    CreateTypeUrl = creationUrl
+                });
+            }
+            var result =await _service.AddNewMedicalRecord(record);
+            
             return result.Status switch
             {
                 ResultStatus.Success => CreatedAtAction(nameof(GetLastRecordByUserId), new { userId = result.Data }, result.Data),

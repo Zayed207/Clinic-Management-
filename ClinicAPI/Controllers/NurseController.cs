@@ -4,6 +4,9 @@ using DataLayer.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using BusinessLayer.DTOsForPresentationLayer;
+using ClinicAPI.temp.DTOs___Validations;
+using System.Numerics;
 
 namespace ClinicAPI.Controllers
 {
@@ -12,10 +15,12 @@ namespace ClinicAPI.Controllers
     public class NurseController : ControllerBase
     {
         private readonly NurseServices _service;
+        private readonly EmployeeServices _employeeservice;
 
-        public NurseController(NurseServices service)
+        public NurseController(NurseServices service, EmployeeServices employeeservice)
         {
             _service = service;
+            _employeeservice = employeeservice;
         }
 
         /// <summary>
@@ -26,9 +31,21 @@ namespace ClinicAPI.Controllers
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<int>> AddNurse([FromBody] NurseRequestDTO nurse)
+        public async Task<ActionResult<int>> AddNurse( [FromBody] NurseRequestDTO nurse)
         {
-            var result =await _service.AddNewNurse(nurse);
+            if (nurse.Employee_ID_FK<= 0)
+            {
+                var creationUrl = Url.Action("AddEmployee", "Employee", null, Request.Scheme);
+
+
+                return BadRequest(new
+                {
+                    Message = "nurse.EmployeeID is missing. Please create an Employee .",
+                    CreateTypeUrl = creationUrl
+                });
+            }
+
+            var result = await _service.AddNewNurse(nurse);
 
             return result.Status switch
             {
@@ -38,6 +55,9 @@ namespace ClinicAPI.Controllers
                 _ => BadRequest(result.Message)
             };
         }
+
+    
+        
 
         /// <summary>
         /// Update an existing nurse.

@@ -62,7 +62,7 @@ namespace BusinessLayer
         {
             try
             {
-                var entity = _mapper.Map<ClinicEntity>(clinicDto);
+                var entity = _mapper.Map<ClinicEntity>(new Clinic(clinicDto));
                 // if you want to ensure id initial value like original code:
                 // entity.ClinicID = -1;
                 int id =await _repo.AddClinic(entity);
@@ -80,7 +80,7 @@ namespace BusinessLayer
         {
             try
             {
-                var entity = _mapper.Map<ClinicEntity>(clinicDto);
+                var entity = _mapper.Map<ClinicEntity>(new Clinic(clinicDto));
                 bool updated =await _repo.UpdateClinic(entity);
                 if (updated)
                     return OperationResult<bool>.Updated("Clinic updated successfully.");

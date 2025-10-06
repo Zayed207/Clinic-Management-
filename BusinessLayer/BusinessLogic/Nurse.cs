@@ -52,7 +52,7 @@ namespace BusinessLayer
         {
             try
             {
-                var entity = _mapper.Map<NurseEntity>(nurse);
+                var entity = _mapper.Map<NurseEntity>(new Nurse(nurse));
                 var newId =await _repo.AddNurse(entity);
 
                 if (newId > 0)
@@ -70,7 +70,7 @@ namespace BusinessLayer
         {
             try
             {
-                var updated =await _repo.UpdateNurse(_mapper.Map<NurseEntity>(nurse));
+                var updated =await _repo.UpdateNurse(_mapper.Map<NurseEntity>(new Nurse(nurse)));
                 if (updated)
                     return OperationResult<string>.Updated("Nurse updated successfully.");
 
