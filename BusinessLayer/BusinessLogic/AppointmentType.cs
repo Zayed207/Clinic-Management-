@@ -3,18 +3,11 @@ using BusinessLayer;
 using BusinessLayer.BusinessLogic;
 using DataLayer.Contract;
 using DataLayer.Entities;
+using System.Threading.Tasks;
 
 public class AppointmentType
 {
-    public enum enAppointmentType
-    {
-        RegularCheckup = 1,      
-        FollowUp = 2,             
-        Emergency = 3,            
-        InitialConsultation = 4, 
-        Onlline= 5,            
-                
-    }
+    
 
     public int Type_ID { get; set; }
     public string Type_Name { get; set; }
@@ -22,8 +15,8 @@ public class AppointmentType
 
     public AppointmentType(AppointmentTypeEntity ATE)
     {
-        Type_ID = ATE.Type_ID;
-        Type_Name = ATE.Type_Name;
+        Type_ID = ATE.TypeID;
+        Type_Name = ATE.TypeName;
         Description = ATE.Description;
     }
 }
@@ -38,11 +31,12 @@ public class AppointmentTypeServices
         _mapper = mapper;
     }
 
-    public OperationResult<int> AddAppointmentType(AppointmentTypeDTO dto)
+    public async Task<OperationResult<int>> AddAppointmentType(AppointmentTypeDTO dto)
     {
         try
         {
-            int id = _repo.AddAppointmentType(_mapper.Map<AppointmentTypeEntity>(dto));
+            var a = _mapper.Map<AppointmentTypeEntity>(dto);
+            int id =await _repo.AddAppointmentType(a);
 
             if (id > 0)
                 return OperationResult<int>.Success(id, "Appointment type created successfully.");
@@ -55,11 +49,11 @@ public class AppointmentTypeServices
         }
     }
 
-    public OperationResult<bool> UpdateAppointmentType(AppointmentTypeDTO dto)
+    public async Task<OperationResult<bool>> UpdateAppointmentType(AppointmentTypeDTO dto)
     {
         try
         {
-            bool updated = _repo.UpdateAppointmentType(_mapper.Map<AppointmentTypeEntity>(dto));
+            bool updated =await _repo.UpdateAppointmentType(_mapper.Map<AppointmentTypeEntity>(dto));
 
             if (updated)
                 return OperationResult<bool>.Updated("Appointment type updated successfully.");
@@ -72,11 +66,11 @@ public class AppointmentTypeServices
         }
     }
 
-    public OperationResult<bool> DeleteAppointmentType(int id)
+    public async Task<OperationResult<bool>> DeleteAppointmentType(int id)
     {
         try
         {
-            bool deleted = _repo.DeleteAppointmentType(id);
+            bool deleted =await _repo.DeleteAppointmentType(id);
 
             if (deleted)
                 return OperationResult<bool>.Success(true, "Appointment type deleted successfully.");
@@ -89,11 +83,11 @@ public class AppointmentTypeServices
         }
     }
 
-    public OperationResult<AppointmentType> GetAppointmentTypeById(int id)
+    public async Task<OperationResult<AppointmentType>> GetAppointmentTypeById(int id)
     {
         try
         {
-            var entity = _repo.GetAppointmentTypeById(id);
+            var entity =await _repo.GetAppointmentTypeById(id);
 
             if (entity == null)
                 return OperationResult<AppointmentType>.NotFound("Appointment type not found.");
@@ -106,11 +100,11 @@ public class AppointmentTypeServices
         }
     }
 
-    public OperationResult<List<AppointmentType>> GetAllAppointmentTypes()
+    public async Task<OperationResult<List<AppointmentType>>> GetAllAppointmentTypes()
     {
         try
         {
-            var list = _repo.GetAllAppointmentTypes();
+            var list =await _repo.GetAllAppointmentTypes();
 
             if (list == null || list.Count == 0)
                 return OperationResult<List<AppointmentType>>.NotFound("No appointment types found.");

@@ -9,23 +9,31 @@ using BusinessLayer.BusinessLogic;
 using DataLayer.Contract;
 using DataLayer.Data;
 using DataLayer.Entities;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 namespace BusinessLayer
 {
     public class MedicalRecord
     {
 
-        public int MRN_ID { get; set; }
-        public int PatientID_FK { get; set; }
-        public string BloodType { get; set; }
-        public string ChronicDiseases { get; set; }
-        public DateTime IssueDate { get; set; }
+        public int MRID { get; set; }
 
-        public string Notes { get; set; }
+        public int PatientID_FK { get; set; }
+
+        public string BloodType { get; set; } = null!;
+
+        public string ChronicDiseases { get; set; } = null!;
+
+        public DateOnly IssueDate { get; set; }
+
+        public string Notes { get; set; } = null!;
+
+
+        
         IMapper mapper;
 
         public MedicalRecord(MedicalRecordEntity MRN)
         {
-            MRN_ID = MRN.MRNID;
+            MRID = MRN.MRID;
             PatientID_FK = MRN.PatientID_FK;
             BloodType = MRN.BloodType;
             ChronicDiseases = MRN.ChronicDiseases;
@@ -35,13 +43,24 @@ namespace BusinessLayer
         }
         public MedicalRecord(MedicalRecordRequestDTO MRN)
         {
-            MRN_ID = MRN.MRN_ID;
+            MRID = MRN.MRN_ID;
             PatientID_FK = MRN.PatientID_FK;
             BloodType = MRN.BloodType;
             ChronicDiseases = MRN.ChronicDiseases;
             IssueDate = MRN.IssueDate;
 
             Notes = MRN.Notes;
+        }
+        internal static List<MedicalRecord> MedicalRecordEntityListToMedicalRecord(List<MedicalRecordEntity> clinicEntities)
+        {
+            var clinics = new List<MedicalRecord>();
+
+            foreach (var entity in clinicEntities)
+            {
+                clinics.Add(new MedicalRecord(entity));
+
+            }
+            return clinics;
         }
     }
 
@@ -63,92 +82,115 @@ namespace BusinessLayer
         // Add new medical record
         public async Task<OperationResult<int>> AddNewMedicalRecord(MedicalRecord record)
         {
-            try
-            {
-                int id =await _repo.AddMedicalRecord(_mapper.Map<MedicalRecordEntity>(record));
 
-                if (id > 0)
-                    return OperationResult<int>.Success(id, "Medical record created successfully.");
-
-                return OperationResult<int>.InternalError("Failed to create medical record.");
-            }
-            catch (Exception ex)
+            var id = await _repo.AddMedicalRecord(_mapper.Map<MedicalRecordEntity>(record));
+            switch (id.ResultType)
             {
-                return OperationResult<int>.InternalError($"Unexpected error: {ex.Message}");
+                case DataLayerResult.Success:
+                    return OperationResult<int>.Success(id.Data, "Medical record created successfully.");
+
+                case DataLayerResult.Conflict:
+                    return OperationResult<int>.NotFound("Failed to create medical record.");
+
+                default:
+                    return OperationResult<int>.InternalError($"Unexpected error: {id.Message}");
+
+
             }
         }
 
         // Update record
         public async Task<OperationResult<bool>> UpdateMedicalRecord(MedicalRecord record)
         {
-            try
-            {
-                bool updated =await _repo.UpdateMedicalRecord(_mapper.Map<MedicalRecordEntity>(record));
 
-                if (updated)
-                    return OperationResult<bool>.Updated("Medical record updated successfully.");
-
-                return OperationResult<bool>.NotFound("Medical record not found.");
-            }
-            catch (Exception ex)
+            var updated = await _repo.UpdateMedicalRecord(_mapper.Map<MedicalRecordEntity>(record));
+            switch (updated.ResultType)
             {
-                return OperationResult<bool>.InternalError($"Unexpected error: {ex.Message}");
+                case DataLayerResult.Success:
+                    return OperationResult<bool>.Success(updated.Data, "Medical record updated successfully.");
+
+                case DataLayerResult.Conflict:
+                    return OperationResult<bool>.NotFound("Failed to update medical record.");
+
+                default:
+                    return OperationResult<bool>.InternalError($"Unexpected error: {updated.Message}");
+
+
             }
+            
+
+            
         }
 
         // Delete record
         public async Task<OperationResult<bool>> DeleteMedicalRecord(int mrnId)
         {
-            try
-            {
-                bool deleted =await _repo.DeleteMedicalRecord(mrnId);
+            if (mrnId <= 0) return OperationResult<bool>.ValidationError("this id is not valid");
 
-                if (deleted)
-                    return OperationResult<bool>.Success(true, "Medical record deleted successfully.");
-
-                return OperationResult<bool>.NotFound("Medical record not found.");
-            }
-            catch (Exception ex)
+            var deleted = await _repo.DeleteMedicalRecord(mrnId);
+            switch (deleted.ResultType)
             {
-                return OperationResult<bool>.InternalError($"Unexpected error: {ex.Message}");
+                case DataLayerResult.Success:
+                    return OperationResult<bool>.Success(deleted.Data, "Medical record deleted successfully.");
+
+                case DataLayerResult.Conflict:
+                    return OperationResult<bool>.NotFound("Failed to delete medical record.");
+
+                default:
+                    return OperationResult<bool>.InternalError($"Unexpected error: {deleted.Message}");
+
+
             }
+            
+
+           
         }
 
         // Get last record for patient
         public async Task<OperationResult<MedicalRecord>> GetLastMedcalRecordForPatientByUserId(int userId)
         {
-            try
-            {
-                var entity =await _repo.GetLastMedcalRecordForPatientByuserId(userId);
+            if (userId <= 0) return OperationResult<MedicalRecord>.ValidationError("this id is not valid");
+            var entity = await _repo.GetLastMedcalRecordForPatientByUserId(userId);
+            switch (entity.ResultType)
+    {
+        case DataLayerResult.Success:
+            return OperationResult<MedicalRecord>.Success(new MedicalRecord(entity.Data));
 
-                if (entity == null)
-                    return OperationResult<MedicalRecord>.NotFound("No medical record found for this patient.");
+        case DataLayerResult.Conflict:
+            return OperationResult<MedicalRecord>.NotFound("No medical record found for this patient..");
 
-                return OperationResult<MedicalRecord>.Success(new MedicalRecord(entity));
-            }
-            catch (Exception ex)
-            {
-                return OperationResult<MedicalRecord>.InternalError($"Unexpected error: {ex.Message}");
-            }
+        default:
+            return OperationResult<MedicalRecord>.InternalError($"Unexpected error: {entity.Message}");
+
+
+    }
+ 
+
+
         }
 
         // Get all records for patient
         public async Task<OperationResult<List<MedicalRecord>>> GetMedicalRecordsForPatientByUserID(int userId)
         {
-            try
-            {
-                var entities =await _repo.GetMedicalRecordsForPatientByUserID(userId);
 
-                if (entities == null || entities.Count == 0)
-                    return OperationResult<List<MedicalRecord>>.NotFound("No medical records found for this patient.");
+            if(userId <= 0) return OperationResult<List<MedicalRecord>>.ValidationError("this id is not valid");
+            var entities = await _repo.GetMedicalRecordsForPatientByUserID(userId);
+            switch (entities.ResultType)
+    {
+        case DataLayerResult.Success:
+            return OperationResult<List<MedicalRecord>>.Success(MedicalRecord.MedicalRecordEntityListToMedicalRecord(entities.Data), "Medical record loaded successfully.");
 
-                var records = entities.Select(e => new MedicalRecord(e)).ToList();
-                return OperationResult<List<MedicalRecord>>.Success(records);
-            }
-            catch (Exception ex)
-            {
-                return OperationResult<List<MedicalRecord>>.InternalError($"Unexpected error: {ex.Message}");
-            }
+        case DataLayerResult.Conflict:
+            return OperationResult<List<MedicalRecord>>.NotFound("No medical records found for this patient.");
+
+        default:
+            return OperationResult<List<MedicalRecord>>.InternalError($"Unexpected error: {entities.Message}");
+
+
+    }
+   
+
+       
         }
 
     }

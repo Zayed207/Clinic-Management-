@@ -1,14 +1,17 @@
-﻿namespace DataLayer.Entities
+﻿using System;
+using System.Collections.Generic;
+
+namespace DataLayer.Entities;
+
+public partial class PaymentProviderEntity
 {
-    public partial class PaymentProviderEntity
-    {
-        public short ProviderID { get; set; }
-        public string ProviderName { get; set; }
-        public string ProviderType { get; set; }
-        public string Description { get; set; }
+    public short ProviderID { get; set; }
 
-        public ICollection<PaymentEntity> Payments { get; set; }
+    public string ProviderName { get; set; } = null!;
 
-        public ICollection<AccountEntity> accounts { get; set; }
-    }
+    public string ProviderType { get; set; } = null!;
+
+    public string Description { get; set; } = null!;
+
+    public virtual ICollection<PaymentEntity> Payments { get; set; } = new List<PaymentEntity>();
 }

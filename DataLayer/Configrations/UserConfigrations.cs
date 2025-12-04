@@ -22,6 +22,7 @@ namespace DataLayer.Configrations
             builder.Property(u => u.Email)
                    .HasMaxLength(200)
                    .IsRequired();
+            builder.Property(u => u.RoleID_FK).HasColumnType("smallint").IsRequired();
         }
     }
     }

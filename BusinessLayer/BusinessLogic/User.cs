@@ -5,6 +5,7 @@ using DataLayer;
 using DataLayer.Contract;
 using DataLayer.Data;
 using DataLayer.Entities;
+using Microsoft.IdentityModel.Tokens;
 using System.ComponentModel.DataAnnotations;
 using System.Security.Cryptography;
 using System.Text;
@@ -13,20 +14,23 @@ using System.Threading.Tasks;
 namespace BusinessLayer
 {
     public class User
-    {
-
-      
+    { 
 
         public enum enPermissionType { Doctor = 1, Nures = 2, Secertary = 3, Patient = 4, Register = 5 }
         public int UserID { get; set; }
-        public string UserName { get; set; }
 
-        public string Password { get; set; }
-        public string Email { get; set; }
-        public short? Permissions { get; set; }
+        public string UserName { get; set; } = null!;
+
+        public string Password { get; set; } = null!;
+
+        public string Email { get; set; } = null!;
+
+        public short RoleID{ get; set; }
+
+        public bool IsActive { get; set; }
 
         public enPermissionType PermissionType { get; set; }
-        public bool IsActive { get; set; }
+        
 
 
        
@@ -36,7 +40,7 @@ namespace BusinessLayer
             UserName = dalDto.UserName;
             Password = dalDto.Password;
             Email = dalDto.Email;
-            Permissions = dalDto.Permissions;
+            RoleID = dalDto.RoleID_FK;
 
             IsActive = dalDto.IsActive;
         }
@@ -47,9 +51,8 @@ namespace BusinessLayer
             UserName = dalDto.UserName;
             Password = dalDto.Password;
             Email = dalDto.Email;
-            Permissions = dalDto.Permissions;
+            RoleID = (short)dalDto.PermissionType;
 
-            IsActive = dalDto.IsActive;
         }
         public User(AddUserRequestDTO dalDto)
         {
@@ -57,9 +60,10 @@ namespace BusinessLayer
             UserName = dalDto.UserName;
             Password = dalDto.Password;
             Email = dalDto.Email;
-            Permissions = dalDto.Permissions;
+            RoleID = (short)dalDto.PermissionType;
 
-            
+
+
         }
     }
 
@@ -94,111 +98,139 @@ namespace BusinessLayer
         }
         public async Task <OperationResult<int> >AddNewUser(AddUserRequestDTO newuser)
         {
+            var exist= await _repo.IsUserNameExists(newuser.UserName);
+
+            switch (exist.ResultType)
+            {
+                case DataLayerResult.Success:
+                    return OperationResult<int>.Success(1, "This username already exists.");
+
+                case DataLayerResult.Conflict:
+                    return OperationResult<int>.NotFound("This username aviable.");
+                default:
+                    return OperationResult<int>.InternalError($"Unexpected error: {exist.Message}");
+            }
+
+          
+
+            newuser.Password = HashPassword(newuser.Password);
+            var userId = await _repo.AddUser(_mapper.Map<UserEntity>(new User(newuser)));
+            switch (userId.ResultType)
+            {
+                case DataLayerResult.Success:
+                    return OperationResult<int>.Success(userId.Data, "User created successfully");
+
+                case DataLayerResult.Conflict:
+                    return OperationResult<int>.NotFound("Failed to create user.");
+
+                default:
+                    return OperationResult<int>.InternalError($"Unexpected error: {userId.Message}");
+
+
+            }
+
+            
+
+            
+           
          
-
-             
-            if (await _repo.IsUserNameExists(newuser.UserName))
-            {
-                return  OperationResult<int>.Conflict("This username already exists.");
-            }
-
-            var user = new User(newuser);
-            user.Permissions = (int)User.enPermissionType.Register;
-            try
-            {
-                user.Password = HashPassword(user.Password);
-                int userId = await _repo.AddUser(_mapper.Map<UserEntity>(user));
-
-                if (userId > 0)
-                    return OperationResult<int>.Success(userId, "User created successfully.");
-
-                return OperationResult<int>.InternalError("Failed to create user.");
-            }
-            catch (Exception ex)
-            {
-                return OperationResult<int>.InternalError($"Unexpected error: {ex.Message}");
-            }
         }
 
         public async Task<OperationResult<bool>> UpdateUser(UpdateUserRequestDTO user)
         {
-            if (await _repo.IsUserNameExists(user.UserName))
-            {
-                return OperationResult<bool>.Conflict("This username already exists.");
-            }
-            try
 
-            {
 
-                user.Password=HashPassword(user.Password);
-                bool updated = await _repo.UpdateUser(_mapper.Map<UserEntity>(user));
-
-                if (updated)
-                    return OperationResult<bool>.Updated("User updated successfully.");
-                else
-                    return OperationResult<bool>.NotFound("User not found or nothing to update.");
-            }
-            catch (Exception ex)
+            user.Password = HashPassword(user.Password);
+            var updated = await _repo.UpdateUser(_mapper.Map<UserEntity>(user));
+           
+            switch (updated.ResultType)
             {
-                return OperationResult<bool>.InternalError($"Unexpected error: {ex.Message}");
+                case DataLayerResult.Success:
+                    return OperationResult<bool>.Success(updated.Data, "User updated successfully.");
+
+                case DataLayerResult.Conflict:
+                    return OperationResult<bool>.NotFound("User not found");
+
+                default:
+                    return OperationResult<bool>.InternalError($"Unexpected error: {updated.Message}");
+
+
             }
+
+
+         
         }
 
-        public async Task<OperationResult<bool>> DeleteUserByUserID(int id)
+        public async Task<OperationResult<bool>> DeleteUserByUserID(int userId)
         {
-            try
-            {
-                bool deleted =await _repo.DeleteUser(id);
+             if (userId <= 0) return OperationResult<bool>.ValidationError("this id is not valid");
 
-                if (deleted)
-                    return OperationResult<bool>.Success(true, "User deleted successfully.");
-                else
+            var deleted = await _repo.DeleteUser(userId);
+            switch (deleted.ResultType)
+            {
+                case DataLayerResult.Success:
+                    return OperationResult<bool>.Success(deleted.Data, "User deleted successfully.");
+
+                case DataLayerResult.Conflict:
                     return OperationResult<bool>.NotFound("User not found.");
+
+                default:
+                    return OperationResult<bool>.InternalError($"Unexpected error: {deleted.Message}");
+
+
             }
-            catch (Exception ex)
-            {
-                return OperationResult<bool>.InternalError($"Unexpected error: {ex.Message}");
-            }
+          
+
+          
         }
 
-        public async Task<OperationResult<User>> GetUserByID(int userID)
+        public async Task<OperationResult<User>> GetUserByID(int userId)
         {
-            try
-            {
-                var entity =await _repo.GetUserByID(userID);
+            if (userId <= 0) return OperationResult<User>.ValidationError("this id is not valid");
 
-                if (entity == null)
+            var entity = await _repo.GetUserById(userId);
+            switch (entity.ResultType)
+            {
+                case DataLayerResult.Success:
+                    return OperationResult<User>.Success(new User(entity.Data), "User  founded.");
+
+                case DataLayerResult.Conflict:
                     return OperationResult<User>.NotFound("User not found.");
 
-                return OperationResult<User>.Success(new User(entity), "User found.");
+                default:
+                    return OperationResult<User>.InternalError($"Unexpected error: {entity.Message}");
+
+
             }
-            catch (Exception ex)
-            {
-                return OperationResult<User>.InternalError($"Unexpected error: {ex.Message}");
-            }
+            
+
         }
 
         public async Task<OperationResult<User>> GetUserByUserName(string userName, string password)
         {
-            try
-            {
-                password = HashPassword(password);
-                var entity =await _repo.GetUserByUserName(userName, password);
+            if (userName.IsNullOrEmpty()|| password.IsNullOrEmpty()) return OperationResult<User>.ValidationError("validation erorr ");
 
-                if (entity == null)
-                    return OperationResult<User>.NotFound("Invalid username or password.");
-
-                return OperationResult<User>.Success(new User(entity), "Login successful.");
-            }
-            catch (Exception ex)
+            password = HashPassword(password);
+            var entity = await _repo.GetUserByUserName(userName, password);
+            switch (entity.ResultType)
             {
-                return OperationResult<User>.InternalError($"Unexpected error: {ex.Message}");
+                case DataLayerResult.Success:
+                    return OperationResult<User>.Success(new User(entity.Data), "User  founded.");
+
+                case DataLayerResult.Conflict:
+                    return OperationResult<User>.NotFound("User not found.");
+
+                default:
+                    return OperationResult<User>.InternalError($"Unexpected error: {entity.Message}");
+
+
             }
+           
+
+      
         }
 
-        /// <summary>
-        /// Authenticate user by username and password.
-        /// </summary>
+       
         public async Task<OperationResult<User>> Authenticate(string userName, string password)
             {
                 try
@@ -209,7 +241,7 @@ namespace BusinessLayer
                     if (userEntity == null)
                         return OperationResult<User>.NotFound("Invalid username or password");
 
-                    var user = new User(userEntity);
+                    var user = new User(userEntity.Data);
                     return OperationResult<User>.Success(user, "Login successful");
                 }
                 catch (Exception ex)
@@ -223,52 +255,46 @@ namespace BusinessLayer
             /// </summary>
             public async Task<OperationResult<bool>> ChangePassword(int userId, string oldPassword, string newPassword)
             {
-                try
-                {
 
-                    var userEntity = await _repo .GetUserByID(userId);
-                    if (userEntity == null)
-                        return OperationResult<bool>.NotFound("User not found");
+            // business validation
+            if (userId <= 0)
+                return OperationResult<bool>.ValidationError("this userId is not valid");
+            if (oldPassword.IsNullOrEmpty() || newPassword.IsNullOrEmpty()) 
+                return OperationResult<bool>.ValidationError("validation password erorr ");
 
-                    // تحقق إن الباسورد القديم صحيح
-                    if (userEntity.Password != HashPassword(oldPassword))
-                        return OperationResult<bool>.Conflict("Old password is incorrect");
+            //logic validation
+            var userEntity = await _repo.GetUserById(userId);
 
-                    userEntity.Password = HashPassword(newPassword);
-                    bool updated =await _repo.UpdateUser(userEntity);
+            if (userEntity.Data.Password!= HashPassword(oldPassword))
+                return OperationResult<bool>.Conflict("Old password is incorrect");
 
-                    return updated
-                        ? OperationResult<bool>.Updated("Password updated successfully")
-                        : OperationResult<bool>.InternalError("Failed to update password");
-                }
-                catch (Exception ex)
-                {
-                    return OperationResult<bool>.InternalError($"Unexpected error: {ex.Message}");
-                }
+            //update
+            userEntity. Data.Password = HashPassword(newPassword);
+            var updated = await _repo.UpdateUser(userEntity.Data);
+
+            switch (updated.ResultType)
+            {
+                case DataLayerResult.Success:
+                    return OperationResult<bool>.Success(updated.Data, "User updated successfully.");
+
+              
+
+                default:
+                    return OperationResult<bool>.InternalError($"Unexpected error: {updated.Message}");
+
+
             }
 
-            /// <summary>
-            /// Reset password by admin (default password = '123456' for example).
-            /// </summary>
+
+           
+                 
+            }
+
+            
             public async Task<OperationResult<bool>> ResetPassword(int userId)
             {
-                try
-                {
-                    var userEntity =await _repo.GetUserByID(userId);
-                    if (userEntity == null)
-                        return OperationResult<bool>.NotFound("User not found");
-
-                    userEntity.Password = HashPassword("123456"); // أو ممكن تبعتها بالإيميل
-                    bool updated =await _repo.UpdateUser(userEntity);
-
-                    return updated
-                        ? OperationResult<bool>.Updated("Password reset successfully")
-                        : OperationResult<bool>.InternalError("Failed to reset password");
-                }
-                catch (Exception ex)
-                {
-                    return OperationResult<bool>.InternalError($"Unexpected error: {ex.Message}");
-                }
+              throw new NotImplementedException();
+                  
             }
 
             /// <summary>
@@ -276,22 +302,52 @@ namespace BusinessLayer
             /// </summary>
             public async Task<OperationResult<bool>> IsUserNameExists(string username)
             {
-                try
-                {
-                    bool exists =await _repo.IsUserNameExists(username);
-                    return exists
-                        ? OperationResult<bool>.Conflict("Username already exists")
-                        : OperationResult<bool>.Success(false, "Username is available");
-                }
-                catch (Exception ex)
-                {
-                    return OperationResult<bool>.InternalError($"Unexpected error: {ex.Message}");
-                }
+            if (username.IsNullOrEmpty()) return OperationResult<bool>.ValidationError("this username is empty");
+
+            var exist= await _repo.IsUserNameExists(username);
+            switch (exist.ResultType)
+            {
+                case DataLayerResult.Success:
+                    return OperationResult<bool>.Success(exist.Data, "already exists");
+
+                case DataLayerResult.Conflict:
+                    return OperationResult<bool>.NotFound("Username is available.");
+
+                default:
+                    return OperationResult<bool>.InternalError($"Unexpected error: {exist.Message}");
+
+
+            }
+           
+               
+            }
+
+
+        public async Task<OperationResult<User>> GetUserByUserName(string username)
+        {
+            if (username.IsNullOrEmpty()) return OperationResult<User>.ValidationError("this username is empty");
+
+            var entity = await _repo.GetUserByUserName(username);
+            switch (entity.ResultType)
+            {
+                case DataLayerResult.Success:
+                    return OperationResult<User>.Success(new User(entity.Data), "exist");
+
+                case DataLayerResult.Conflict:
+                    return OperationResult<User>.NotFound("Username is not exist.");
+
+                default:
+                    return OperationResult<User>.InternalError($"Unexpected error: {entity.Message}");
+
+
             }
 
             
-         
+
+           
         }
+
+    }
     }
         
 

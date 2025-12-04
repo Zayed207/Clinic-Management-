@@ -1,13 +1,15 @@
-﻿namespace DataLayer.Entities
+﻿using System;
+using System.Collections.Generic;
+
+namespace DataLayer.Entities;
+
+public partial class DoctorTypeEntity
 {
-    public class DoctorTypeEntity
-    {
-        public short DoctorTypeID { get; set; }
-        public string TypeName { get; set; }
-        public string Description { get; set; }
+    public short DoctorTypeID{ get; set; }
 
-        public ICollection<DoctorEntity> Doctor { get; set; }
-    }
+    public string TypeName { get; set; } = null!;
+
+    public string Description { get; set; } = null!;
+
+    public virtual ICollection<DoctorEntity> Doctors { get; set; } = new List<DoctorEntity>();
 }
-
-

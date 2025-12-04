@@ -1,17 +1,18 @@
-﻿namespace DataLayer.Entities
+﻿using System;
+using System.Collections.Generic;
+
+namespace DataLayer.Entities;
+
+public partial class ScheduleEntity
 {
-    public class ScheduleEntity
-    {
-        public int ScheduleID { get; set; }
-        public int EmployeeID_FK { get; set; }
+    public int ScheduleID { get; set; }
 
-        public EmployeeEntity Employee { get; set; }
-        public DateTime ScheduleDate { get; set; }
-        
-        public DateTime ActualStartTime { get; set; }
-        public DateTime ActualEndTime { get; set; }
-    }
+    public int EmployeeID_FK { get; set; }
+    public DateOnly ScheduleDate { get; set; }
 
+    public TimeOnly ActualStartTime { get; set; }
+
+    public TimeOnly ActualEndTime { get; set; }
+
+    public EmployeeEntity? Employee { get; set; }
 }
-
-

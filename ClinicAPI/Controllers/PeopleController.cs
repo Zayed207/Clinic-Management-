@@ -22,9 +22,7 @@ namespace ClinicAPI.Controllers
                 _service = service;
             }
 
-        /// <summary>
-        /// Add a new person.
-        /// </summary>
+     
         [HttpPost("Add")]
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(int))]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
@@ -32,8 +30,7 @@ namespace ClinicAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<int>> AddPerson([FromBody] PersonRequestDTO person)
         {
-            if (person.UserID_FK<= 0)
-            {
+           
                 var creationUrl = Url.Action("AddUser", "User", null, Request.Scheme);
 
 
@@ -42,7 +39,7 @@ namespace ClinicAPI.Controllers
                     Message = "Userid is missing. Please create a User.",
                     CreateTypeUrl = creationUrl
                 });
-            }
+            
 
             var result = await _service.AddNewPerson(person);
 
@@ -55,9 +52,7 @@ namespace ClinicAPI.Controllers
             };
         }
 
-        /// <summary>
-        /// Update an existing person.
-        /// </summary>
+      
         [HttpPut("Update")]
             [ProducesResponseType(StatusCodes.Status200OK)]
             [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -76,17 +71,15 @@ namespace ClinicAPI.Controllers
                 };
             }
 
-            /// <summary>
-            /// Delete a person by ID.
-            /// </summary>
+        
             [HttpDelete("by{personId}")]
             [ProducesResponseType(StatusCodes.Status200OK)]
             [ProducesResponseType(StatusCodes.Status404NotFound)]
             [ProducesResponseType(StatusCodes.Status500InternalServerError)]
             [ProducesResponseType(StatusCodes.Status400BadRequest)]
-            public async Task<ActionResult> DeletePerson(int personId)
+            public async Task<ActionResult> DeletePersonByPersonID(int personId)
             {
-                var result =await _service.DeletePerson(personId);
+                var result =await _service.DeletePersonByID(personId);
 
                 return result.Status switch
                 {
@@ -97,9 +90,7 @@ namespace ClinicAPI.Controllers
                 };
             }
 
-            /// <summary>
-            /// Get person by ID.
-            /// </summary>
+          
             [HttpGet("by{personId}")]
             [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Person))]
             [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -118,9 +109,7 @@ namespace ClinicAPI.Controllers
                 };
             }
 
-            /// <summary>
-            /// Get person by UserId.
-            /// </summary>
+           
             [HttpGet("by-{userId}")]
             [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Person))]
             [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -139,9 +128,7 @@ namespace ClinicAPI.Controllers
                 };
             }
 
-            /// <summary>
-            /// Get person by Email.
-            /// </summary>
+   
             [HttpGet("by_{Email}")]
             [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Person))]
             [ProducesResponseType(StatusCodes.Status404NotFound)]

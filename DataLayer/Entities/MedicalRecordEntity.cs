@@ -1,24 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DataLayer.Entities
+namespace DataLayer.Entities;
+
+public partial class MedicalRecordEntity
 {
-    public class MedicalRecordEntity
-    {
-        public int MRNID { get; set; }
-        public int PatientID_FK { get; set; }
-        public PatientEntity Patient { get; set; }
+    public int MRID{ get; set; }
 
+    public int PatientID_FK { get; set; }
 
-        public string BloodType { get; set; }
-        public string ChronicDiseases { get; set; }
-        public DateTime IssueDate { get; set; }
-        
-        public string? Notes { get; set; }
+    public string BloodType { get; set; } = null!;
 
+    public string ChronicDiseases { get; set; } = null!;
 
-    }
+    public DateOnly IssueDate { get; set; }
+
+    public string Notes { get; set; } = null!;
+
+    public virtual PatientEntity Patient{ get; set; } = null!;
 }

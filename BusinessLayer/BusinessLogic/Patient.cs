@@ -25,26 +25,15 @@ namespace BusinessLayer
 
         public string EmergencyContactPhone { get; set; }
 
-        public DateTime RegisterDatew { get; set; }
+        public DateOnly RegisterDatew { get; set; }
 
         public Person person;
 
-        public Patient(int patientID, int patientPersonID, string emergencyContactName,
-            string emergencyContactPhone, DateTime registerDatew)
-        {
-            PatientID = patientID;
-            PatientPersonID = patientPersonID;
 
-            EmergencyContactName = emergencyContactName;
-            EmergencyContactPhone = emergencyContactPhone;
-            RegisterDatew = registerDatew;
-
-
-        }
         public Patient(PatientEntity patient)
         {
             PatientID = patient.PatientID;
-            PatientPersonID = patient.PatientPersonID;
+            PatientPersonID = patient.PatientPersonID_FK;
 
             EmergencyContactName = patient.EmergencyContactName;
             EmergencyContactPhone = patient.EmergencyContactPhone;
@@ -57,7 +46,6 @@ namespace BusinessLayer
         public Patient(PatientRequestDTO patient)
         {
 
-            PatientPersonID = patient.PatientPersonID;
 
             EmergencyContactName = patient.EmergencyContactName;
             EmergencyContactPhone = patient.EmergencyContactPhone;
@@ -65,11 +53,23 @@ namespace BusinessLayer
 
 
         }
+        internal static List<Patient> MedicalRecordEntityListToMedicalRecord(List<PatientEntity> clinicEntities)
+        {
+            var clinics = new List<Patient>();
+
+            foreach (var entity in clinicEntities)
+            {
+                clinics.Add(new Patient(entity));
+
+            }
+            return clinics;
+        }
 
 
+    }
 
 
-         public class PatientServices
+    public class PatientServices
         {
             private readonly IMapper _mapper;
             private readonly IPatientRepository _repo;
@@ -80,105 +80,138 @@ namespace BusinessLayer
                 _repo = patient;
             }
 
-            public async Task<OperationResult<int>> AddNewPatient(PatientRequestDTO patient)
+        public async Task<OperationResult<int>> AddNewPatient(PatientRequestDTO patient)
+        {
+
+
+
+
+            var newId = await _repo.AddPatient(_mapper.Map<PatientEntity>(new Patient(patient)));
+            switch (newId.ResultType)
             {
+                case DataLayerResult.Success:
+                    return OperationResult<int>.Success(newId.Data, "Patient  Added successfully.");
 
-                
-                try
-                {
-                    var entity = _mapper.Map<PatientEntity>(new Patient(patient));
-                    var newId =await _repo.AddPatient(entity);
+                case DataLayerResult.Conflict:
+                    return OperationResult<int>.NotFound("Patient could not be added");
 
-                    if (newId > 0)
-                        return OperationResult<int>.Success(newId);
+                default:
+                    return OperationResult<int>.InternalError($"Unexpected error: {newId.Message}");
 
-                    return OperationResult<int>.Conflict("Patient could not be added.");
-                }
-                catch (Exception ex)
-                {
-                    return OperationResult<int>.InternalError(ex.Message);
-                }
+
             }
 
-            public async Task<OperationResult<string>> UpdatePatient(PatientRequestDTO patient)
-            {
-                try
-                {
-                    var success =await _repo.UpdatePatient(_mapper.Map<PatientEntity>(new Patient(patient)));
-                    if (success)
-                        return OperationResult<string>.Updated("Patient updated successfully.");
 
-                    return OperationResult<string>.NotFound("Patient not found.");
-                }
-                catch (Exception ex)
+
+        }
+            
+
+            public async Task<OperationResult<bool>> UpdatePatient(PatientRequestDTO patient)
+            {
+            var updated = await _repo.UpdatePatient(_mapper.Map<PatientEntity>(new Patient(patient)));
+            switch (updated.ResultType)
                 {
-                    return OperationResult<string>.InternalError(ex.Message);
+                    case DataLayerResult.Success:
+                        return OperationResult<bool>.Success(updated.Data, "Patient updated successfully.");
+
+                    case DataLayerResult.Conflict:
+                        return OperationResult<bool>.NotFound("Patient not found.");
+
+                    default:
+                        return OperationResult<bool>.InternalError($"Unexpected error: {updated.Message}");
+
+
                 }
+              
+                 
             }
 
-            public async Task<OperationResult<string>> DeleteByPatientID(int patientId)
+            public async Task<OperationResult<bool>> DeleteByPatientID(int patientId)
             {
-                try
-                {
-                    var success =await _repo.DeletePatient(patientId);
-                    if (success)
-                        return OperationResult<string>.Success("Patient deleted successfully.");
+                if (patientId <= 0) return OperationResult<bool>.ValidationError("this id is not valid");
 
-                    return OperationResult<string>.NotFound("Patient not found.");
-                }
-                catch (Exception ex)
+                var deleted  = await _repo.DeletePatient(patientId);
+            switch (deleted.ResultType)
                 {
-                    return OperationResult<string>.InternalError(ex.Message);
+                    case DataLayerResult.Success:
+                        return OperationResult<bool>.Success(deleted.Data, "Patient deleted successfully.");
+
+                    case DataLayerResult.Conflict:
+                        return OperationResult<bool>.NotFound("Patient not found..");
+
+                    default:
+                        return OperationResult<bool>.InternalError($"Unexpected error: {deleted.Message}");
+
+
                 }
+              
             }
 
             public async Task<OperationResult<Patient>> FindPatientByUserID(int userId)
             {
-                try
+                if (userId <= 0) return OperationResult<Patient>.ValidationError("this id is not valid");
+
+                        var entity = await _repo.FindPatientUserID(userId);
+                        switch (entity.ResultType)
                 {
-                    var entity =await _repo.FindPatientUserID(userId);
-                    if (entity == null)
+                    case DataLayerResult.Success:
+                        return OperationResult<Patient>.Success(new Patient(entity.Data), "Patient  founded.");
+
+                    case DataLayerResult.Conflict:
                         return OperationResult<Patient>.NotFound("Patient not found.");
 
-                    return OperationResult<Patient>.Success(new Patient(entity));
+                    default:
+                        return OperationResult<Patient>.InternalError($"Unexpected error: {entity.Message}");
+
+
                 }
-                catch (Exception ex)
-                {
-                    return OperationResult<Patient>.InternalError(ex.Message);
-                }
+  
+             
             }
 
             public async Task<OperationResult<Patient>> FindByPatientID(int patientId)
             {
-                try
-                {
-                    var entity =await _repo.FindByPatientID(patientId);
-                    if (entity == null)
-                        return OperationResult<Patient>.NotFound("Patient not found.");
 
-                    return OperationResult<Patient>.Success(new Patient(entity));
-                }
-                catch (Exception ex)
+                if (patientId <= 0) return OperationResult<Patient>.ValidationError("this id is not valid");
+
+                        var entity = await _repo.FindByPatientID(patientId);
+                        switch (entity.ResultType)
                 {
-                    return OperationResult<Patient>.InternalError(ex.Message);
+                    case DataLayerResult.Success:
+                        return OperationResult<Patient>.Success(new Patient(entity.Data), "Medical record deleted successfully.");
+
+                    case DataLayerResult.Conflict:
+                        return OperationResult<Patient>.NotFound("Failed to delete medical record.");
+
+                    default:
+                        return OperationResult<Patient>.InternalError($"Unexpected error: {entity.Message}");
+
+
                 }
+    
+               
             }
 
             public async Task<OperationResult<Patient>> FindPatientByUserName(string name)
             {
-                try
-                {
-                    var entity =await _repo.FindPatientUserName(name);
-                    if (entity == null)
-                        return OperationResult<Patient>.NotFound("Patient not found.");
 
-                    return OperationResult<Patient>.Success(new Patient(entity));
-                }
-                catch (Exception ex)
-                {
-                    return OperationResult<Patient>.InternalError(ex.Message);
-                }
+            var entity = await _repo.FindPatientUserName(name);
+            switch (entity.ResultType)
+            {
+                case DataLayerResult.Success:
+                    return OperationResult<Patient>.Success(new Patient(entity.Data), "Patient  founded");
+
+                case DataLayerResult.Conflict:
+                    return OperationResult<Patient>.NotFound("Patient not found");
+
+                default:
+                    return OperationResult<Patient>.InternalError($"Unexpected error: {entity.Message}");
+
+
             }
+                }
+             
+            }}
 
             //public OperationResult<List<Patient>> GetAllPatients()
             //{
@@ -195,6 +228,6 @@ namespace BusinessLayer
             //        return Result<List<Patient>>.InternalError(ex.Message);
             //    }
             //}
-        }
-    }
-}
+        
+    
+

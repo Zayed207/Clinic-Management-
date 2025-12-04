@@ -1,33 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DataLayer.Entities
+namespace DataLayer.Entities;
+
+public partial class UserEntity
 {
-    public class UserEntity
-    {
+    public int UserID { get; set; }
 
-   
-        public int UserID { get; set; }
+    public string UserName { get; set; } = null!;
 
-        
-        public string UserName { get; set; }
+    public string Password { get; set; } = null!;
 
+    public string Email { get; set; } = null!;
 
-        public string Password { get; set; }
+    public short RoleID_FK { get; set; }
 
-        
-        public string Email { get; set; }
-        public short ?Permissions { get; set; }
-      
+    public bool IsActive { get; set; }
 
-     
-        public bool IsActive { get; set; }
+    public virtual EmployeeEntity? Employees { get; set; } 
 
-        public PersonEntity Person { get; set; }
-    }
-    }
-
+    public virtual PatientEntity? Patient { get; set; }
+}

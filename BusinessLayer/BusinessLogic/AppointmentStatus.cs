@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 
 public class AppointmentStatus
 {
-    public enum enAppointmentStatus { Compelete = 1, Cancelled = 2, Pending = 3 }
+   
     public int Status_ID { get; set; }
     public string Status_Name { get; set; }
     public string Description { get; set; }
 
     public AppointmentStatus(AppointmentStatusEntity ASE)
     {
-        Status_ID = ASE.Status_ID;
-        Status_Name = ASE.Status_Name;
+        Status_ID = ASE.StatusID;
+        Status_Name = ASE.StatusName;
         Description = ASE.Description;
     }
 }
@@ -38,7 +38,7 @@ public class AppointmentStatusServices
     {
         try
         {
-            int id =await _repo.AddAppointmentStatus(_mapper.Map<AppointmentStatusEntity>(dto));
+            var id =await _repo.AddAppointmentStatus(_mapper.Map<AppointmentStatusEntity>(dto));
 
             if (id > 0)
                 return OperationResult<int>.Success(id, "Appointment status created successfully.");

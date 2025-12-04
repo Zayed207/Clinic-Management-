@@ -1,6 +1,7 @@
 ﻿using DataLayer.Contract;
 using DataLayer.Entities;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,31 +17,119 @@ namespace DataLayer.Data
 		{
 			_context = context;
 		}
-		public  async Task<int> AddPatient(PatientEntity patient)
+		public  async Task<DataLayerOperationResult<int>> AddPatient(PatientEntity patient)
         {
+
+           
+            try
+            {
+
+
+
+
 
                 _context.Patient.Add(patient);
-               await _context.SaveChangesAsync();
-                return patient.PatientID;
-            
+                if (await _context.SaveChangesAsync() > 0)
+
+                    return DataLayerOperationResult<int>.SuccessOperation(patient.PatientID);
+
+
+                return DataLayerOperationResult<int>.Fail("adding not successfuly");
+
+
+
+
+            }
+
+            catch (Exception ex)
+            {
+                Log.Error("DataBase Exception in  DataLayer/AddPatient ", ex);
+
+                return DataLayerOperationResult<int>.InternalError();
+
+            }
         }
 
-        public  async Task<bool> UpdatePatient(PatientEntity patient)
+        public  async Task<DataLayerOperationResult<bool>> UpdatePatient(PatientEntity patient)
         {
             
+               
+                
+            try
+
+            {
+
+                var exsit = await _context.Employees.FindAsync(patient.PatientID);
+                if (exsit == null)
+                {
+                    return DataLayerOperationResult<bool>.Fail("this employee is not exist");
+
+                }
+
+
+
                 _context.Patient.Update(patient);
-                return await _context.SaveChangesAsync() > 0;
-            
+                if (await _context.SaveChangesAsync() > 0)
+
+                    return DataLayerOperationResult<bool>.SuccessOperation(true);
+
+
+                return DataLayerOperationResult<bool>.Fail("woring!!");
+
+
+
+
+            }
+
+            catch (Exception ex)
+            {
+                Log.Error("DataBase Exception in  DataLayer/UpdatePatient ", ex);
+
+                return DataLayerOperationResult<bool>.InternalError();
+
+            }
         }
 
-        public  async Task<bool> DeletePatient(int patientId)
+        public  async Task<DataLayerOperationResult<bool>> DeletePatient(int patientId)
         {
 
-                var patient = _context.Patient.Find(patientId);
-                if (patient == null) return false;
+                
+               
+                
+              
+            try
+
+            {
+
+                var patient =await _context.Patient.FindAsync(patientId);
+                if (patient == null)
+                {
+                    return DataLayerOperationResult<bool>.Fail("this doctor is not exist");
+
+                }
+
+
+
                 _context.Patient.Remove(patient);
-                return await _context.SaveChangesAsync() > 0;
-            
+                if (await _context.SaveChangesAsync() > 0)
+
+                    return DataLayerOperationResult<bool>.SuccessOperation(true);
+
+
+                return DataLayerOperationResult<bool>.Fail("deleting is not successfuly");
+
+
+
+
+            }
+
+            catch (Exception ex)
+            {
+                Log.Error("DataBase Exception in  DataLayer/DeletePatient ", ex);
+
+                return DataLayerOperationResult<bool>.InternalError();
+
+            }
         }
 
         //public  async Task<PatientEntity> GetPatientById(int patientId)
@@ -50,29 +139,49 @@ namespace DataLayer.Data
             
         //}
 
-        public  async Task<List<PatientEntity>> GetAllPatient()
+        public  async Task<DataLayerOperationResult<List<PatientEntity>>> GetAllPatient()
         {
-            using (_context)
+            
+                
+
+            try
+
             {
-                return await _context.Patient.AsNoTracking().ToListAsync();
+                var patients = await _context.Patient.AsNoTracking().ToListAsync();
+                if (patients == null || patients.Count == 0) return DataLayerOperationResult<List<PatientEntity>>.Fail("No employees avaliable");
+
+
+
+                return DataLayerOperationResult<List<PatientEntity>>.SuccessOperation(patients);
+
             }
+
+            catch (Exception ex)
+            {
+                Log.Error("DataBase Exception in  DataLayer/GetAllPatient ", ex);
+
+                return DataLayerOperationResult<List<PatientEntity>>.InternalError();
+
+            }
+
         }
 
         
 
-       
 
-      async  Task<PatientEntity> IPatientRepository.FindPatientUserID(int userid)
+
+
+        async  Task<DataLayerOperationResult<PatientEntity>> IPatientRepository.FindPatientUserID(int userid)
         {
             throw new NotImplementedException();
         }
 
-        async Task<PatientEntity> IPatientRepository.FindByPatientID(int Patientid)
+        async Task<DataLayerOperationResult<PatientEntity>> IPatientRepository.FindByPatientID(int Patientid)
         {
-            return await _context.Patient.FirstOrDefaultAsync(x => x.PatientID == Patientid);
+            throw new NotImplementedException();
         }
 
-     async   Task<PatientEntity> IPatientRepository.FindPatientUserName(string patientname)
+        async Task<DataLayerOperationResult<PatientEntity>> IPatientRepository.FindPatientUserName(string patientname)
         {
             throw new NotImplementedException();
         }

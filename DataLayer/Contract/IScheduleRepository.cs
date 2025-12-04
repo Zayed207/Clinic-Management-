@@ -1,13 +1,15 @@
-﻿using DataLayer.Entities;
+﻿using DataLayer.Data;
+using DataLayer.Entities;
 
 namespace DataLayer.Contract
 {
     public interface IScheduleRepository
     {
-        int AddSchedule(ScheduleEntity entity);
-        bool UpdateSchedule(ScheduleEntity entity);
-        bool DeleteSchedule(int id);
-       
-        
+        public  Task<DataLayerOperationResult<int>> AddScheduleAsync(ScheduleEntity schedule);
+        public Task<DataLayerOperationResult<bool>> UpdateSchedule(ScheduleEntity schedule);
+
+        public  Task<DataLayerOperationResult<bool>> DeleteSchedule(int scheduleId);
+
+
     }
 }

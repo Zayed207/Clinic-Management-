@@ -1,4 +1,4 @@
-﻿using BusinessLayer;
+﻿using BusinessLayer.IntegrationsConfigurations.PayPal;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

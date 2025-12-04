@@ -3,6 +3,7 @@ using BusinessLayer;
 using DataLayer.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using BusinessLayer.Authentication;
 
 namespace ClinicAPI.Controllers
 {
@@ -31,7 +32,7 @@ namespace ClinicAPI.Controllers
 
             else
             {
-                var token = _jWT.GenerateToken(Convert.ToString(result.Data.UserID), Convert.ToString(result.Data.Permissions), login.UserName);
+                var token = _jWT.GenerateToken(Convert.ToString(result.Data.UserID), Convert.ToString(result.Data.RoleID), login.UserName);
                 return Ok(token);
             
             }

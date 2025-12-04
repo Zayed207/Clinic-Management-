@@ -14,7 +14,7 @@ namespace DataLayer.Data
         public Clinicdbcontext(DbContextOptions<Clinicdbcontext> options) : base(options)
         {
         }
-        public DbSet<AccountEntity> Accounts { get; set; } = null;
+       
         public DbSet<AppointmentEntity> Appointment { get; set; } = null;
         public DbSet<AppointmentStatusEntity> AppointmentStatus { get; set; } = null;
         public DbSet<AppointmentTypeEntity> AppointmentType { get; set; } = null;
@@ -26,7 +26,6 @@ namespace DataLayer.Data
         public DbSet<EmployeeEntity> Employees { get; set; } = null!;
 
         public DbSet<EmployeeTypeEntity> employeeTypes { get; set; } = null;
-        public DbSet<NurseEntity> Nurse { get; set; } = null!;
         public DbSet<PatientEntity> Patient { get; set; } = null!;
         public DbSet<PersonEntity> Person { get; set; } = null!;
        

@@ -2,16 +2,22 @@
 
 namespace DataLayer.Contract
 {
+    using DataLayer.Data;
     using System.Collections.Generic;
 
-    public interface IUserRepository
-    {
-        Task<int >AddUser(UserEntity entity);
-        Task<bool> UpdateUser(UserEntity entity);
-        Task<bool >DeleteUser(int id);
-        Task<UserEntity> GetUserByUserName(string userName, string password);
-        Task <UserEntity >GetUserByID(int userID);
-        Task< bool >IsUserNameExists(string userName);
-       
-    }
+    
+        public interface IUserRepository
+        {
+          public  Task<DataLayerOperationResult<int>> AddUser(UserEntity user);
+          public  Task<DataLayerOperationResult<bool>> UpdateUser(UserEntity user);
+          public  Task<DataLayerOperationResult<bool>> DeleteUser(int userId);
+          public  Task<DataLayerOperationResult<UserEntity>> GetUserById(int userId);
+          public  Task<DataLayerOperationResult<List<UserEntity>>> GetAllUsers();
+          public  Task<DataLayerOperationResult<bool>> IsUserNameExists(string userName);
+          public  Task<DataLayerOperationResult<UserEntity>> GetUserByUserName(string userName, string password);
+          public  Task<DataLayerOperationResult<UserEntity>> GetUserByUserName(string userName);
+        }
+
+
+    
 }

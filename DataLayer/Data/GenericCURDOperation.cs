@@ -1,4 +1,5 @@
-﻿//using Microsoft.EntityFrameworkCore;
+﻿//using DataLayer.Data;
+//using Microsoft.EntityFrameworkCore;
 //using System;
 //using System.Collections.Generic;
 //using System.Linq;
@@ -10,14 +11,14 @@
 //{
 //    internal class GenericCURDOperation
 //    {
-//        public class Repository<T> 
+//        public class Repository<T>
 //        {
-//            private readonly Clinicdb_context __context;
+//            private readonly Clinicdbcontext __context;
 //            private readonly DbSet<T> _dbSet;
 
-//            public Repository(T  _context)
+//            public Repository(T _context)
 //            {
-              
+
 //            }
 
 //            public async Task<T> GetByIdAsync(int id)

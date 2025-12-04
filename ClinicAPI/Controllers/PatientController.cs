@@ -24,9 +24,7 @@ namespace ClinicAPI.Controllers
             _personServices = personServices;
         }
 
-        /// <summary>
-        /// Add a new patient.
-        /// </summary>
+       
         [HttpPost("add")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
@@ -35,8 +33,7 @@ namespace ClinicAPI.Controllers
         public async Task<ActionResult<int>> AddNewPatient( [FromBody] PatientRequestDTO patient)
         {
 
-            if (patient.PatientPersonID<= 0)
-            {
+            
                 var creationUrl = Url.Action("AddPerson", "Person", null, Request.Scheme);
 
 
@@ -45,8 +42,8 @@ namespace ClinicAPI.Controllers
                     Message = "PersonID is missing. Please create an Person.",
                     CreateTypeUrl = creationUrl
                 });
-            }
-            { var result =await _service.AddNewPatient(patient);
+
+            var result =await _service.AddNewPatient(patient);
 
                 return result.Status switch
                 {
@@ -57,11 +54,8 @@ namespace ClinicAPI.Controllers
                 };
             }
            
-        }
+        
 
-        /// <summary>
-        /// Update an existing patient.
-        /// </summary>
         [HttpPut("update")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -80,9 +74,7 @@ namespace ClinicAPI.Controllers
             };
         }
 
-        /// <summary>
-        /// Delete a patient by ID.
-        /// </summary>
+     
         [HttpDelete("by{patientId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -101,9 +93,6 @@ namespace ClinicAPI.Controllers
             };
         }
 
-        /// <summary>
-        /// Get patient by ID.
-        /// </summary>
         [HttpGet("{patientId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -122,9 +111,7 @@ namespace ClinicAPI.Controllers
             };
         }
 
-        /// <summary>
-        /// Get patient by UserId.
-        /// </summary>
+      
         [HttpGet("by{userId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -164,9 +151,7 @@ namespace ClinicAPI.Controllers
             };
         }
 
-        /// <summary>
-        /// Get all patients.
-        /// </summary>
+       
         //[HttpGet("all")]
         //[ProducesResponseType(StatusCodes.Status200OK)]
         //[ProducesResponseType(StatusCodes.Status204NoContent)]

@@ -2,15 +2,16 @@
 
 namespace DataLayer.Contract
 {
+    using DataLayer.Data;
     using System.Collections.Generic;
 
     public interface IDoctorTypeRepository
     {
-        int AddDoctorType(DoctorTypeEntity entity);
-        bool UpdateDoctorType(DoctorTypeEntity entity);
-        bool DeleteDoctorType(int id);
-        DoctorTypeEntity? GetDoctorTypeById(int id);
-        int? GetPaymentProviderIDByName(string name);
-        List<DoctorTypeEntity> GetAllDoctorTypes();
+        public  Task<DataLayerOperationResult<int>> AddDoctorType(DoctorTypeEntity entity);
+        public  Task<DataLayerOperationResult<bool>> UpdateDoctorType(DoctorTypeEntity entity);
+        public  Task<DataLayerOperationResult<bool>> DeleteDoctorType(int id);
+        public  Task<DataLayerOperationResult<DoctorTypeEntity>> GetDoctorTypeById(int id);
+      
+        public  Task<DataLayerOperationResult<List<DoctorTypeEntity>>> GetAllDoctorTypes();
     }
 }

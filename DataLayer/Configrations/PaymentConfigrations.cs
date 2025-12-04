@@ -26,27 +26,28 @@ namespace DataLayer.Configrations
             builder.Property(p => p.Status)
                    .HasColumnType("nvarchar(50)");
 
-            // Relation with Appointment
+           
             builder.HasOne(p => p.Appointment)
                    .WithOne(a => a.Payment)
                    .HasForeignKey<PaymentEntity>(p => p.AppointmentID_FK);
 
-            // Relation with Account (FromAccount)
-            builder.HasOne(p => p.FromAccount)
-                   .WithMany(a => a.PaymentsFrom)
-                   .HasForeignKey(p => p.FromAccountID)
+           
+            builder.HasOne(p => p.Doctor)
+                   .WithMany(a => a.Payments)
+                   .HasForeignKey(p => p.DoctorID_FK)
                    .OnDelete(DeleteBehavior.Restrict);
 
-            // Relation with Account (ToAccount)
-            builder.HasOne(p => p.ToAccount)
-                   .WithMany(a => a.PaymentsTo)
-                   .HasForeignKey(p => p.ToAccountID)
+           
+            builder.HasOne(p => p.PatientPersonID)
+                   .WithMany(a => a.Payments)
+                   .HasForeignKey(p => p.PatientPersonID_FK)
                    .OnDelete(DeleteBehavior.Restrict);
 
-            // Relation with Provider
+            
             builder.HasOne(p => p.Provider)
                    .WithMany(pr => pr.Payments)
-                   .HasForeignKey(p => p.ProviderID);
+                   .HasForeignKey(p => p.ProviderID_FK);
+
         }
     }
 }

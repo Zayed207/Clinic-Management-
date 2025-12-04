@@ -1,22 +1,17 @@
 ﻿namespace DataLayer.Contract
 {
+    using DataLayer.Data;
+    using DataLayer.Entities;
     using System.Collections.Generic;
 
     public interface IAppointmentStatusRepository
     {
-        Task< int >AddAppointmentStatus(AppointmentStatusEntity entity);
-        Task< bool >UpdateAppointmentStatus(AppointmentStatusEntity entity);
-        Task< bool >DeleteAppointmentStatus(int id);
-        Task< AppointmentStatusEntity>? GetAppointmentStatusById(int id);
-       Task< List<AppointmentStatusEntity> >GetAllAppointmentStatuses();
+       public Task<DataLayerOperationResult<int >>AddAppointmentStatus(AppointmentStatusEntity entity);
+       public Task<DataLayerOperationResult<bool> >UpdateAppointmentStatus(AppointmentStatusEntity entity);
+       public Task<DataLayerOperationResult<bool >>DeleteAppointmentStatus(int id);
+       public Task<DataLayerOperationResult<AppointmentStatusEntity>> GetAppointmentStatusById(int id);
+       public Task<DataLayerOperationResult<List<AppointmentStatusEntity>> >GetAllAppointmentStatuses();
     }
 
-    //public interface IPayPalRepository
-    //{
-    //    int AddPayPal(PayPalEntity entity);
-    //    bool UpdatePayPal(PayPalEntity entity);
-    //    bool DeletePayPal(int id);
-    //    PayPalEntity? GetPayPalById(int id);
-    //    List<PayPalEntity> GetAllPayPals();
-    //}
+  
 }

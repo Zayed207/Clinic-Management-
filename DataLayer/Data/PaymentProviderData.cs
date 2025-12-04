@@ -1,6 +1,7 @@
 ﻿using DataLayer.Contract;
 using DataLayer.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace DataLayer.Data
 {
@@ -11,50 +12,127 @@ namespace DataLayer.Data
 		{
 			_context = context;
 		}
-		public  int AddProvider(PaymentProviderEntity provider)
+		public  async Task<DataLayerOperationResult<int>> AddProvider(PaymentProviderEntity provider)
         {
-            using (_context )
+          
+                
+                
+            
+            try
             {
+
+
+
+
+
                 _context.PaymentProviders.Add(provider);
-                _context.SaveChanges();
-                return provider.ProviderID;
+                if (await _context.SaveChangesAsync() > 0)
+
+                    return DataLayerOperationResult<int>.SuccessOperation(provider.ProviderID);
+
+
+                return DataLayerOperationResult<int>.Fail("adding not successfuly");
+
+
+
+
+            }
+
+            catch (Exception ex)
+            {
+
+                return DataLayerOperationResult<int>.InternalError();
+
             }
         }
 
-        public  bool UpdateProvider(PaymentProviderEntity provider)
+        public  async Task<DataLayerOperationResult<bool>> UpdateProvider(PaymentProviderEntity provider)
         {
-            using (_context)
+           
+            try
+
             {
+
+                var exsit = await _context.PaymentProviders.FindAsync(provider.ProviderID);
+                if (exsit == null)
+                {
+                    return DataLayerOperationResult<bool>.Fail("this employee is not exist");
+
+                }
+
+
+
                 _context.PaymentProviders.Update(provider);
-                return _context.SaveChanges() > 0;
+                if (await _context.SaveChangesAsync() > 0)
+
+                    return DataLayerOperationResult<bool>.SuccessOperation(true);
+
+
+                return DataLayerOperationResult<bool>.Fail("woring!!");
+
+
+
+
+            }
+
+            catch (Exception ex)
+            {
+
+                return DataLayerOperationResult<bool>.InternalError();
+
             }
         }
 
-        public  bool DeleteProvider(int providerId)
+        public  async Task<DataLayerOperationResult<bool>> DeleteProviderByID(int providerId)
         {
-            using (_context)
+           
+            try
+
             {
+
                 var provider = _context.PaymentProviders.Find(providerId);
-                if (provider == null) return false;
+                if (provider == null)
+                {
+                    return DataLayerOperationResult<bool>.Fail("this doctor is not exist");
+
+                }
+
+
+
                 _context.PaymentProviders.Remove(provider);
-                return _context.SaveChanges() > 0;
+                if (await _context.SaveChangesAsync() > 0)
+
+                    return DataLayerOperationResult<bool>.SuccessOperation(true);
+
+
+                return DataLayerOperationResult<bool>.Fail("deleting is not successfuly");
+
+
+
+
+            }
+
+            catch (Exception ex)
+            {
+
+                return DataLayerOperationResult<bool>.InternalError();
+
             }
         }
 
         public  PaymentProviderEntity GetProviderById(int providerId)
         {
-            using (_context )
-            {
-                return _context.PaymentProviders.FirstOrDefault(x => x.ProviderID == providerId);
-            }
+          
+                 _context.PaymentProviders.FirstOrDefault(x => x.ProviderID == providerId);
+            throw new NotImplementedException();
+
         }
 
         public  List<PaymentProviderEntity> GetAllProviders()
         {
-            using (_context)
-            {
+          
                 return _context.PaymentProviders.AsNoTracking().ToList();
-            }
+            
         }
 
         public int AddPaymentProvider(PaymentProviderEntity entity)

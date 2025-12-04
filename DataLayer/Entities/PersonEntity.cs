@@ -1,29 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DataLayer.Entities
+namespace DataLayer.Entities;
+
+public partial class PersonEntity
 {
-    public class PersonEntity
-    {
+    public int PersonID { get; set; }
 
-        public int PersonID { get; set; }
-        public string FirstName { get; set; }
+    public string FirstName { get; set; } = null!;
 
-        public string LastName { get; set; }
-        public DateTime DateOfBirth { get; set; } 
-        public string Phone { get; set; }
-        public string Address { get; set; }
-        public string Country { get; set; } 
+    public string LastName { get; set; } = null!;
+    public string ThirdName { get; set; } = null!;
+    public string SecondName { get; set; } = null!;
 
-        public short? Age { get; set; } 
-        public int?  UserID_FK {  get; set; }
-        public UserEntity user { get; set; }
-        public EmployeeEntity Employee { get; set; }
+    public DateOnly DateOfBirth { get; set; }
 
-        public PatientEntity patient{ get; set; }
-    }
+    public string Phone { get; set; } = null!;
+
+    public string Address { get; set; } = null!;
+
+    public string Country { get; set; } = null!;
+
+    public short? Age { get; set; }
+
+    public string FullName { get; set; } = null!;
+
+    public char Gender { get; set; }
+    public virtual EmployeeEntity? Employee { get; set; }
+
+    public virtual PatientEntity? Patient { get; set; }
+
+    public virtual ICollection<PaymentEntity> Payments { get; set; } = new List<PaymentEntity>();
 }

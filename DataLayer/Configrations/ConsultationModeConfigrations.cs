@@ -10,7 +10,7 @@ namespace DataLayer.Configrations
         {
             builder.HasKey(x => x.ModeID);
             builder.Property(x => x.ModeID).ValueGeneratedOnAdd();
-            builder.Property(x => x.Mode_Name).HasColumnType("nvarchar(50)").IsRequired();
+            builder.Property(x => x.ModeName).HasColumnType("nvarchar(50)").IsRequired();
             builder.Property(x => x.Description).HasColumnType("nvarchar(150)").IsRequired();
             
         }

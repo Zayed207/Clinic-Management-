@@ -3,8 +3,64 @@
   "WorkspaceRootPath": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{3615710B-6452-4AE8-9AE6-3E619A58651F}|ClinicAPI\\ClinicAPI.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\clinicapi\\global\\s.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3615710B-6452-4AE8-9AE6-3E619A58651F}|ClinicAPI\\ClinicAPI.csproj|solutionrelative:clinicapi\\global\\s.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B2EC1D84-AAFA-4153-93C5-9CEA0C7E1FCA}|DataLayer\\DataLayer.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\datalayer\\data\\paymentdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B2EC1D84-AAFA-4153-93C5-9CEA0C7E1FCA}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\data\\paymentdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B2EC1D84-AAFA-4153-93C5-9CEA0C7E1FCA}|DataLayer\\DataLayer.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\datalayer\\contract\\ipaymentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B2EC1D84-AAFA-4153-93C5-9CEA0C7E1FCA}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\contract\\ipaymentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B2EC1D84-AAFA-4153-93C5-9CEA0C7E1FCA}|DataLayer\\DataLayer.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\datalayer\\data\\patientdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B2EC1D84-AAFA-4153-93C5-9CEA0C7E1FCA}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\data\\patientdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B2EC1D84-AAFA-4153-93C5-9CEA0C7E1FCA}|DataLayer\\DataLayer.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\datalayer\\data\\medicalrecorddata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B2EC1D84-AAFA-4153-93C5-9CEA0C7E1FCA}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\data\\medicalrecorddata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B2EC1D84-AAFA-4153-93C5-9CEA0C7E1FCA}|DataLayer\\DataLayer.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\datalayer\\data\\employeedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B2EC1D84-AAFA-4153-93C5-9CEA0C7E1FCA}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\data\\employeedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B2EC1D84-AAFA-4153-93C5-9CEA0C7E1FCA}|DataLayer\\DataLayer.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\datalayer\\data\\doctortypedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B2EC1D84-AAFA-4153-93C5-9CEA0C7E1FCA}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\data\\doctortypedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B2EC1D84-AAFA-4153-93C5-9CEA0C7E1FCA}|DataLayer\\DataLayer.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\datalayer\\data\\doctordata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B2EC1D84-AAFA-4153-93C5-9CEA0C7E1FCA}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\data\\doctordata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B2EC1D84-AAFA-4153-93C5-9CEA0C7E1FCA}|DataLayer\\DataLayer.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\datalayer\\data\\datalayeropreationresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B2EC1D84-AAFA-4153-93C5-9CEA0C7E1FCA}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\data\\datalayeropreationresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B2EC1D84-AAFA-4153-93C5-9CEA0C7E1FCA}|DataLayer\\DataLayer.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\datalayer\\data\\consultationmodedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B2EC1D84-AAFA-4153-93C5-9CEA0C7E1FCA}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\data\\consultationmodedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B2EC1D84-AAFA-4153-93C5-9CEA0C7E1FCA}|DataLayer\\DataLayer.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\datalayer\\data\\clinicdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B2EC1D84-AAFA-4153-93C5-9CEA0C7E1FCA}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\data\\clinicdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B2EC1D84-AAFA-4153-93C5-9CEA0C7E1FCA}|DataLayer\\DataLayer.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\datalayer\\data\\clinicdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B2EC1D84-AAFA-4153-93C5-9CEA0C7E1FCA}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\data\\clinicdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B2EC1D84-AAFA-4153-93C5-9CEA0C7E1FCA}|DataLayer\\DataLayer.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\datalayer\\data\\appointmenttypedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B2EC1D84-AAFA-4153-93C5-9CEA0C7E1FCA}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\data\\appointmenttypedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B2EC1D84-AAFA-4153-93C5-9CEA0C7E1FCA}|DataLayer\\DataLayer.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\datalayer\\data\\appointmentstatusdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B2EC1D84-AAFA-4153-93C5-9CEA0C7E1FCA}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\data\\appointmentstatusdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B2EC1D84-AAFA-4153-93C5-9CEA0C7E1FCA}|DataLayer\\DataLayer.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\datalayer\\data\\appointmentdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B2EC1D84-AAFA-4153-93C5-9CEA0C7E1FCA}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\data\\appointmentdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B2EC1D84-AAFA-4153-93C5-9CEA0C7E1FCA}|DataLayer\\DataLayer.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\datalayer\\contract\\iappointmentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B2EC1D84-AAFA-4153-93C5-9CEA0C7E1FCA}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\contract\\iappointmentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,20 +70,188 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "S.cs",
-              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\Global\\S.cs",
-              "RelativeDocumentMoniker": "ClinicAPI\\Global\\S.cs",
-              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\Global\\S.cs",
-              "RelativeToolTip": "ClinicAPI\\Global\\S.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADUAAAAOAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "IPaymentRepository.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\Contract\\IPaymentRepository.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Contract\\IPaymentRepository.cs",
+              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\Contract\\IPaymentRepository.cs",
+              "RelativeToolTip": "DataLayer\\Contract\\IPaymentRepository.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABYAAABdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-12T07:36:07.603Z",
-              "IsPinned": true,
+              "WhenOpened": "2025-12-02T17:51:38.127Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PaymentData.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\Data\\PaymentData.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Data\\PaymentData.cs",
+              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\Data\\PaymentData.cs",
+              "RelativeToolTip": "DataLayer\\Data\\PaymentData.cs",
+              "ViewState": "AgIAAKYAAAAAAAAAAAAawLAAAABYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-02T17:50:11.668Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PatientData.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\Data\\PatientData.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Data\\PatientData.cs",
+              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\Data\\PatientData.cs",
+              "RelativeToolTip": "DataLayer\\Data\\PatientData.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAD4vy0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-02T17:49:25.621Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MedicalRecordData.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\Data\\MedicalRecordData.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Data\\MedicalRecordData.cs",
+              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\Data\\MedicalRecordData.cs",
+              "RelativeToolTip": "DataLayer\\Data\\MedicalRecordData.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAYwC8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-02T17:47:32.573Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "EmployeeData.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\Data\\EmployeeData.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Data\\EmployeeData.cs",
+              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\Data\\EmployeeData.cs",
+              "RelativeToolTip": "DataLayer\\Data\\EmployeeData.cs",
+              "ViewState": "AgIAACIAAAAAAAAAAAAYwDMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-02T17:46:08.341Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "DoctorTypeData.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\Data\\DoctorTypeData.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Data\\DoctorTypeData.cs",
+              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\Data\\DoctorTypeData.cs",
+              "RelativeToolTip": "DataLayer\\Data\\DoctorTypeData.cs",
+              "ViewState": "AgIAAJ4AAAAAAAAAAAAswLIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-02T17:44:28.592Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "DoctorData.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\Data\\DoctorData.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Data\\DoctorData.cs",
+              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\Data\\DoctorData.cs",
+              "RelativeToolTip": "DataLayer\\Data\\DoctorData.cs",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAUwFcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-02T17:43:08.696Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "DataLayerOpreationResult.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\Data\\DataLayerOpreationResult.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Data\\DataLayerOpreationResult.cs",
+              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\Data\\DataLayerOpreationResult.cs",
+              "RelativeToolTip": "DataLayer\\Data\\DataLayerOpreationResult.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-02T17:43:07.714Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ConsultationModeData.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\Data\\ConsultationModeData.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Data\\ConsultationModeData.cs",
+              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\Data\\ConsultationModeData.cs",
+              "RelativeToolTip": "DataLayer\\Data\\ConsultationModeData.cs",
+              "ViewState": "AgIAACsAAAAAAAAAAAAkwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-02T17:43:03.599Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ClinicdbContext.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\Data\\ClinicdbContext.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Data\\ClinicdbContext.cs",
+              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\Data\\ClinicdbContext.cs",
+              "RelativeToolTip": "DataLayer\\Data\\ClinicdbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-02T17:43:02.648Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "ClinicData.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\Data\\ClinicData.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Data\\ClinicData.cs",
+              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\Data\\ClinicData.cs",
+              "RelativeToolTip": "DataLayer\\Data\\ClinicData.cs",
+              "ViewState": "AgIAAM4AAAAAAAAAAAAswLYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-02T17:41:51.389Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "AppointmentTypeData.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\Data\\AppointmentTypeData.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Data\\AppointmentTypeData.cs",
+              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\Data\\AppointmentTypeData.cs",
+              "RelativeToolTip": "DataLayer\\Data\\AppointmentTypeData.cs",
+              "ViewState": "AgIAAKAAAAAAAAAAAAAowLwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-02T17:40:12.749Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "AppointmentStatusData.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\Data\\AppointmentStatusData.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Data\\AppointmentStatusData.cs",
+              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\Data\\AppointmentStatusData.cs",
+              "RelativeToolTip": "DataLayer\\Data\\AppointmentStatusData.cs",
+              "ViewState": "AgIAAKIAAAAAAAAAAAAAALUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-02T17:39:01.244Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "IAppointmentRepository.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\Contract\\IAppointmentRepository.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Contract\\IAppointmentRepository.cs",
+              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\Contract\\IAppointmentRepository.cs",
+              "RelativeToolTip": "DataLayer\\Contract\\IAppointmentRepository.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAABAAAABFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-02T17:36:29.638Z",
               "EditorCaption": ""
             },
             {
@@ -37,6 +261,19 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "AppointmentData.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\Data\\AppointmentData.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Data\\AppointmentData.cs",
+              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\Data\\AppointmentData.cs",
+              "RelativeToolTip": "DataLayer\\Data\\AppointmentData.cs",
+              "ViewState": "AgIAAB4BAAAAAAAAAAAIwCkBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-02T16:59:52.556Z",
+              "EditorCaption": ""
             }
           ]
         }

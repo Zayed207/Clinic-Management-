@@ -22,70 +22,6 @@ namespace DataLayer.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("AppointmentStatusEntity", b =>
-                {
-                    b.Property<int>("Status_ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Status_ID"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Status_Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Status_ID");
-
-                    b.ToTable("AppointmentStatus");
-                });
-
-            modelBuilder.Entity("AppointmentTypeEntity", b =>
-                {
-                    b.Property<int>("Type_ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Type_ID"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Type_Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Type_ID");
-
-                    b.ToTable("AppointmentType");
-                });
-
-            modelBuilder.Entity("DataLayer.Entities.AccountEntity", b =>
-                {
-                    b.Property<int>("AccountID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AccountID"));
-
-                    b.Property<string>("AccountName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<short>("AccountProviderID_FK")
-                        .HasColumnType("smallint");
-
-                    b.HasKey("AccountID");
-
-                    b.HasIndex("AccountProviderID_FK");
-
-                    b.ToTable("Accounts");
-                });
-
             modelBuilder.Entity("DataLayer.Entities.AppointmentEntity", b =>
                 {
                     b.Property<int>("Appointment_ID")
@@ -94,48 +30,90 @@ namespace DataLayer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Appointment_ID"));
 
-                    b.Property<DateTime>("Appointment_Date_Time")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTime>("AppointmentDateTime")
+                        .HasColumnType("datetime");
 
-                    b.Property<int?>("Appointment_Duration_Minutes")
+                    b.Property<short>("AppointmentDurationMinutes")
+                        .HasColumnType("smallint");
+
+                    b.Property<int>("AppointmentTypeID_FK")
                         .HasColumnType("int");
 
-                    b.Property<int>("Appointment_Type_ID_FK")
+                    b.Property<int>("ClinicID_FK")
                         .HasColumnType("int");
 
-                    b.Property<int>("Clinic_ID_FK")
+                    b.Property<int>("ConsultationModeID_FK")
                         .HasColumnType("int");
 
-                    b.Property<int>("Consultation_Mode_ID_FK")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Doctor_ID_FK")
+                    b.Property<int>("DoctorID_FK")
                         .HasColumnType("int");
 
                     b.Property<string>("Notes")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(255)");
 
-                    b.Property<int>("Patient_ID_FK")
+                    b.Property<int>("PatientID_FK")
                         .HasColumnType("int");
 
-                    b.Property<int>("Status_ID_FK")
+                    b.Property<int>("StatusID_FK")
                         .HasColumnType("int");
 
                     b.HasKey("Appointment_ID");
 
-                    b.HasIndex("Appointment_Type_ID_FK");
+                    b.HasIndex("AppointmentTypeID_FK");
 
-                    b.HasIndex("Clinic_ID_FK");
+                    b.HasIndex("ClinicID_FK");
 
-                    b.HasIndex("Consultation_Mode_ID_FK");
+                    b.HasIndex("ConsultationModeID_FK");
 
-                    b.HasIndex("Doctor_ID_FK");
+                    b.HasIndex("DoctorID_FK");
 
-                    b.HasIndex("Patient_ID_FK");
+                    b.HasIndex("PatientID_FK");
 
-                    b.HasIndex("Status_ID_FK");
+                    b.HasIndex("StatusID_FK");
 
                     b.ToTable("Appointment");
+                });
+
+            modelBuilder.Entity("DataLayer.Entities.AppointmentStatusEntity", b =>
+                {
+                    b.Property<int>("StatusID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StatusID"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("StatusName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("StatusID");
+
+                    b.ToTable("AppointmentStatus");
+                });
+
+            modelBuilder.Entity("DataLayer.Entities.AppointmentTypeEntity", b =>
+                {
+                    b.Property<int>("TypeID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TypeID"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("TypeName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("TypeID");
+
+                    b.ToTable("AppointmentType");
                 });
 
             modelBuilder.Entity("DataLayer.Entities.ClinicEntity", b =>
@@ -146,6 +124,9 @@ namespace DataLayer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClinicID"));
 
+                    b.Property<bool>("Available")
+                        .HasColumnType("bit");
+
                     b.Property<string>("City")
                         .IsRequired()
                         .HasColumnType("nvarchar(20)");
@@ -154,15 +135,23 @@ namespace DataLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("End")
-                        .HasColumnType("datetime");
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<TimeOnly>("End")
+                        .HasColumnType("time(0)");
 
                     b.Property<string>("LocationDescription")
                         .IsRequired()
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<DateTime>("Start")
-                        .HasColumnType("datetime");
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<TimeOnly>("Start")
+                        .HasColumnType("time(0)");
 
                     b.HasKey("ClinicID");
 
@@ -181,7 +170,7 @@ namespace DataLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(150)");
 
-                    b.Property<string>("Mode_Name")
+                    b.Property<string>("ModeName")
                         .IsRequired()
                         .HasColumnType("nvarchar(50)");
 
@@ -198,42 +187,34 @@ namespace DataLayer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DoctorID"));
 
-                    b.Property<int>("ClinicID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ClinicID_FK")
-                        .HasColumnType("int");
-
                     b.Property<short>("DoctorTypeID_FK")
                         .HasColumnType("smallint");
 
-                    b.Property<int>("Employee_ID_FK")
+                    b.Property<int>("EmployeeID_FK")
                         .HasColumnType("int");
 
-                    b.Property<bool?>("Is_On_Call")
+                    b.Property<bool>("IsOnCall")
                         .HasColumnType("bit");
 
                     b.Property<string>("MedicalLicenseNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(10,2)");
 
                     b.Property<string>("Specialization")
                         .IsRequired()
-                        .HasColumnType("nvarchar");
+                        .HasColumnType("nvarchar(200)");
 
-                    b.Property<short?>("Years_of_Experience")
+                    b.Property<short?>("YearsOfExperience")
                         .HasColumnType("smallint");
 
                     b.HasKey("DoctorID");
 
-                    b.HasIndex("ClinicID");
-
                     b.HasIndex("DoctorTypeID_FK");
 
-                    b.HasIndex("Employee_ID_FK")
+                    b.HasIndex("EmployeeID_FK")
                         .IsUnique();
 
                     b.ToTable("Doctor");
@@ -268,6 +249,9 @@ namespace DataLayer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmployeeID"));
 
+                    b.Property<int>("ClinicID_FK")
+                        .HasColumnType("int");
+
                     b.Property<short>("EmpployeeTypeID_FK")
                         .HasColumnType("smallint");
 
@@ -278,18 +262,23 @@ namespace DataLayer.Migrations
                     b.Property<int>("PersonID_FK")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Salary")
-                        .HasColumnType("decimal(10,2)");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<int>("UserID_FK")
+                        .HasColumnType("int");
+
                     b.HasKey("EmployeeID");
+
+                    b.HasIndex("ClinicID_FK");
 
                     b.HasIndex("EmpployeeTypeID_FK");
 
                     b.HasIndex("PersonID_FK")
+                        .IsUnique();
+
+                    b.HasIndex("UserID_FK")
                         .IsUnique();
 
                     b.ToTable("Employees");
@@ -314,11 +303,11 @@ namespace DataLayer.Migrations
 
             modelBuilder.Entity("DataLayer.Entities.MedicalRecordEntity", b =>
                 {
-                    b.Property<int>("MRNID")
+                    b.Property<int>("MRID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MRNID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MRID"));
 
                     b.Property<string>("BloodType")
                         .IsRequired()
@@ -328,8 +317,8 @@ namespace DataLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(150)");
 
-                    b.Property<DateTime>("IssueDate")
-                        .HasColumnType("datetime");
+                    b.Property<DateOnly>("IssueDate")
+                        .HasColumnType("date");
 
                     b.Property<string>("Notes")
                         .IsRequired()
@@ -338,35 +327,11 @@ namespace DataLayer.Migrations
                     b.Property<int>("PatientID_FK")
                         .HasColumnType("int");
 
-                    b.HasKey("MRNID");
+                    b.HasKey("MRID");
 
                     b.HasIndex("PatientID_FK");
 
                     b.ToTable("MedicalRecord");
-                });
-
-            modelBuilder.Entity("DataLayer.Entities.NurseEntity", b =>
-                {
-                    b.Property<short>("NurseID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("smallint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("NurseID"));
-
-                    b.Property<int>("ClinicID_FK")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Employee_ID_FK")
-                        .HasColumnType("int");
-
-                    b.HasKey("NurseID");
-
-                    b.HasIndex("ClinicID_FK");
-
-                    b.HasIndex("Employee_ID_FK")
-                        .IsUnique();
-
-                    b.ToTable("Nurse");
                 });
 
             modelBuilder.Entity("DataLayer.Entities.PatientEntity", b =>
@@ -383,15 +348,21 @@ namespace DataLayer.Migrations
                     b.Property<string>("EmergencyContactPhone")
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<int>("PatientPersonID")
+                    b.Property<int>("PatientPersonID_FK")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("RegisterDatew")
-                        .HasColumnType("datetime");
+                    b.Property<DateOnly>("RegisterDatew")
+                        .HasColumnType("date");
+
+                    b.Property<int>("UserID_FK")
+                        .HasColumnType("int");
 
                     b.HasKey("PatientID");
 
-                    b.HasIndex("PatientPersonID")
+                    b.HasIndex("PatientPersonID_FK")
+                        .IsUnique();
+
+                    b.HasIndex("UserID_FK")
                         .IsUnique();
 
                     b.ToTable("Patient");
@@ -411,32 +382,32 @@ namespace DataLayer.Migrations
                     b.Property<int>("AppointmentID_FK")
                         .HasColumnType("int");
 
-                    b.Property<int?>("FromAccountID")
+                    b.Property<int>("DoctorID_FK")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PatientPersonID_FK")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("PaymentDate")
                         .HasColumnType("datetime");
 
-                    b.Property<short?>("ProviderID")
+                    b.Property<short>("ProviderID_FK")
                         .HasColumnType("smallint");
 
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("ToAccountID")
-                        .HasColumnType("int");
-
                     b.HasKey("PaymentID");
 
                     b.HasIndex("AppointmentID_FK")
                         .IsUnique();
 
-                    b.HasIndex("FromAccountID");
+                    b.HasIndex("DoctorID_FK");
 
-                    b.HasIndex("ProviderID");
+                    b.HasIndex("PatientPersonID_FK");
 
-                    b.HasIndex("ToAccountID");
+                    b.HasIndex("ProviderID_FK");
 
                     b.ToTable("Payment");
                 });
@@ -485,12 +456,20 @@ namespace DataLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("datetime");
+                    b.Property<DateOnly>("DateOfBirth")
+                        .HasColumnType("date");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasColumnType("char(1)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -500,14 +479,15 @@ namespace DataLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("UserID_FK")
-                        .HasColumnType("int");
+                    b.Property<string>("SecondName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("ThirdName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("PersonID");
-
-                    b.HasIndex("UserID_FK")
-                        .IsUnique()
-                        .HasFilter("[UserID_FK] IS NOT NULL");
 
                     b.ToTable("Person");
                 });
@@ -520,22 +500,21 @@ namespace DataLayer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ScheduleID"));
 
-                    b.Property<DateTime>("ActualEndTime")
-                        .HasColumnType("datetime");
+                    b.Property<TimeOnly>("ActualEndTime")
+                        .HasColumnType("time");
 
-                    b.Property<DateTime>("ActualStartTime")
-                        .HasColumnType("datetime");
+                    b.Property<TimeOnly>("ActualStartTime")
+                        .HasColumnType("time");
 
                     b.Property<int>("EmployeeID_FK")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("ScheduleDate")
-                        .HasColumnType("datetime");
+                    b.Property<DateOnly>("ScheduleDate")
+                        .HasColumnType("date");
 
                     b.HasKey("ScheduleID");
 
-                    b.HasIndex("EmployeeID_FK")
-                        .IsUnique();
+                    b.HasIndex("EmployeeID_FK");
 
                     b.ToTable("Schedule");
                 });
@@ -560,7 +539,7 @@ namespace DataLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<short?>("Permissions")
+                    b.Property<short>("RoleID_FK")
                         .HasColumnType("smallint");
 
                     b.Property<string>("UserName")
@@ -579,52 +558,41 @@ namespace DataLayer.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("DataLayer.Entities.AccountEntity", b =>
-                {
-                    b.HasOne("DataLayer.Entities.PaymentProviderEntity", "PaymentProvider")
-                        .WithMany("accounts")
-                        .HasForeignKey("AccountProviderID_FK")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("PaymentProvider");
-                });
-
             modelBuilder.Entity("DataLayer.Entities.AppointmentEntity", b =>
                 {
-                    b.HasOne("AppointmentTypeEntity", "AppointmentType")
+                    b.HasOne("DataLayer.Entities.AppointmentTypeEntity", "AppointmentType")
                         .WithMany("Appointments")
-                        .HasForeignKey("Appointment_Type_ID_FK")
+                        .HasForeignKey("AppointmentTypeID_FK")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("DataLayer.Entities.ClinicEntity", "Clinic")
                         .WithMany("Appointments")
-                        .HasForeignKey("Clinic_ID_FK")
+                        .HasForeignKey("ClinicID_FK")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("DataLayer.Entities.ConsultationModeEntity", "ConsultationMode")
-                        .WithMany("Appointmentsnt")
-                        .HasForeignKey("Consultation_Mode_ID_FK")
+                        .WithMany("Appointments")
+                        .HasForeignKey("ConsultationModeID_FK")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("DataLayer.Entities.DoctorEntity", "Doctor")
                         .WithMany("Appointments")
-                        .HasForeignKey("Doctor_ID_FK")
+                        .HasForeignKey("DoctorID_FK")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("DataLayer.Entities.PatientEntity", "Patient")
                         .WithMany("Appointments")
-                        .HasForeignKey("Patient_ID_FK")
+                        .HasForeignKey("PatientID_FK")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("AppointmentStatusEntity", "Status")
+                    b.HasOne("DataLayer.Entities.AppointmentStatusEntity", "Status")
                         .WithMany("Appointments")
-                        .HasForeignKey("Status_ID_FK")
+                        .HasForeignKey("StatusID_FK")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -643,54 +611,62 @@ namespace DataLayer.Migrations
 
             modelBuilder.Entity("DataLayer.Entities.DoctorEntity", b =>
                 {
-                    b.HasOne("DataLayer.Entities.ClinicEntity", "Clinic")
-                        .WithMany("doctors")
-                        .HasForeignKey("ClinicID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DataLayer.Entities.DoctorTypeEntity", "doctorType")
-                        .WithMany("Doctor")
+                    b.HasOne("DataLayer.Entities.DoctorTypeEntity", "DoctorType")
+                        .WithMany("Doctors")
                         .HasForeignKey("DoctorTypeID_FK")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DataLayer.Entities.EmployeeEntity", "Employee")
-                        .WithOne("doctor")
-                        .HasForeignKey("DataLayer.Entities.DoctorEntity", "Employee_ID_FK")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .WithOne("Doctor")
+                        .HasForeignKey("DataLayer.Entities.DoctorEntity", "EmployeeID_FK")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Clinic");
+                    b.Navigation("DoctorType");
 
                     b.Navigation("Employee");
-
-                    b.Navigation("doctorType");
                 });
 
             modelBuilder.Entity("DataLayer.Entities.EmployeeEntity", b =>
                 {
-                    b.HasOne("DataLayer.Entities.EmployeeTypeEntity", "EmployeeType")
+                    b.HasOne("DataLayer.Entities.ClinicEntity", "Clinic")
+                        .WithMany("Employees")
+                        .HasForeignKey("ClinicID_FK")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DataLayer.Entities.EmployeeTypeEntity", "EmpployeeType")
                         .WithMany("Employees")
                         .HasForeignKey("EmpployeeTypeID_FK")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DataLayer.Entities.PersonEntity", "person")
+                    b.HasOne("DataLayer.Entities.PersonEntity", "Person")
                         .WithOne("Employee")
                         .HasForeignKey("DataLayer.Entities.EmployeeEntity", "PersonID_FK")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("EmployeeType");
+                    b.HasOne("DataLayer.Entities.UserEntity", "User")
+                        .WithOne("Employees")
+                        .HasForeignKey("DataLayer.Entities.EmployeeEntity", "UserID_FK")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("person");
+                    b.Navigation("Clinic");
+
+                    b.Navigation("EmpployeeType");
+
+                    b.Navigation("Person");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("DataLayer.Entities.MedicalRecordEntity", b =>
                 {
                     b.HasOne("DataLayer.Entities.PatientEntity", "Patient")
-                        .WithMany("medicalRecords")
+                        .WithMany("MedicalRecords")
                         .HasForeignKey("PatientID_FK")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -698,34 +674,23 @@ namespace DataLayer.Migrations
                     b.Navigation("Patient");
                 });
 
-            modelBuilder.Entity("DataLayer.Entities.NurseEntity", b =>
-                {
-                    b.HasOne("DataLayer.Entities.ClinicEntity", "ClinicID")
-                        .WithMany("nurses")
-                        .HasForeignKey("ClinicID_FK")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DataLayer.Entities.EmployeeEntity", "EmployeeID")
-                        .WithOne("nurse")
-                        .HasForeignKey("DataLayer.Entities.NurseEntity", "Employee_ID_FK")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ClinicID");
-
-                    b.Navigation("EmployeeID");
-                });
-
             modelBuilder.Entity("DataLayer.Entities.PatientEntity", b =>
                 {
-                    b.HasOne("DataLayer.Entities.PersonEntity", "Person")
-                        .WithOne("patient")
-                        .HasForeignKey("DataLayer.Entities.PatientEntity", "PatientPersonID")
+                    b.HasOne("DataLayer.Entities.PersonEntity", "PatientPerson")
+                        .WithOne("Patient")
+                        .HasForeignKey("DataLayer.Entities.PatientEntity", "PatientPersonID_FK")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Person");
+                    b.HasOne("DataLayer.Entities.UserEntity", "User")
+                        .WithOne("Patient")
+                        .HasForeignKey("DataLayer.Entities.PatientEntity", "UserID_FK")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("PatientPerson");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("DataLayer.Entities.PaymentEntity", b =>
@@ -736,106 +701,88 @@ namespace DataLayer.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("DataLayer.Entities.AccountEntity", "FromAccount")
-                        .WithMany("PaymentsFrom")
-                        .HasForeignKey("FromAccountID")
-                        .OnDelete(DeleteBehavior.Restrict);
+                    b.HasOne("DataLayer.Entities.DoctorEntity", "Doctor")
+                        .WithMany("Payments")
+                        .HasForeignKey("DoctorID_FK")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("DataLayer.Entities.PersonEntity", "PatientPersonID")
+                        .WithMany("Payments")
+                        .HasForeignKey("PatientPersonID_FK")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("DataLayer.Entities.PaymentProviderEntity", "Provider")
                         .WithMany("Payments")
-                        .HasForeignKey("ProviderID");
-
-                    b.HasOne("DataLayer.Entities.AccountEntity", "ToAccount")
-                        .WithMany("PaymentsTo")
-                        .HasForeignKey("ToAccountID")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("ProviderID_FK")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Appointment");
 
-                    b.Navigation("FromAccount");
+                    b.Navigation("Doctor");
+
+                    b.Navigation("PatientPersonID");
 
                     b.Navigation("Provider");
-
-                    b.Navigation("ToAccount");
-                });
-
-            modelBuilder.Entity("DataLayer.Entities.PersonEntity", b =>
-                {
-                    b.HasOne("DataLayer.Entities.UserEntity", "user")
-                        .WithOne("Person")
-                        .HasForeignKey("DataLayer.Entities.PersonEntity", "UserID_FK");
-
-                    b.Navigation("user");
                 });
 
             modelBuilder.Entity("DataLayer.Entities.ScheduleEntity", b =>
                 {
                     b.HasOne("DataLayer.Entities.EmployeeEntity", "Employee")
-                        .WithOne("schedule")
-                        .HasForeignKey("DataLayer.Entities.ScheduleEntity", "EmployeeID_FK")
+                        .WithMany("Schedules")
+                        .HasForeignKey("EmployeeID_FK")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Employee");
                 });
 
-            modelBuilder.Entity("AppointmentStatusEntity", b =>
-                {
-                    b.Navigation("Appointments");
-                });
-
-            modelBuilder.Entity("AppointmentTypeEntity", b =>
-                {
-                    b.Navigation("Appointments");
-                });
-
-            modelBuilder.Entity("DataLayer.Entities.AccountEntity", b =>
-                {
-                    b.Navigation("PaymentsFrom");
-
-                    b.Navigation("PaymentsTo");
-                });
-
             modelBuilder.Entity("DataLayer.Entities.AppointmentEntity", b =>
                 {
-                    b.Navigation("Payment")
-                        .IsRequired();
+                    b.Navigation("Payment");
+                });
+
+            modelBuilder.Entity("DataLayer.Entities.AppointmentStatusEntity", b =>
+                {
+                    b.Navigation("Appointments");
+                });
+
+            modelBuilder.Entity("DataLayer.Entities.AppointmentTypeEntity", b =>
+                {
+                    b.Navigation("Appointments");
                 });
 
             modelBuilder.Entity("DataLayer.Entities.ClinicEntity", b =>
                 {
                     b.Navigation("Appointments");
 
-                    b.Navigation("doctors");
-
-                    b.Navigation("nurses");
+                    b.Navigation("Employees");
                 });
 
             modelBuilder.Entity("DataLayer.Entities.ConsultationModeEntity", b =>
                 {
-                    b.Navigation("Appointmentsnt");
+                    b.Navigation("Appointments");
                 });
 
             modelBuilder.Entity("DataLayer.Entities.DoctorEntity", b =>
                 {
                     b.Navigation("Appointments");
+
+                    b.Navigation("Payments");
                 });
 
             modelBuilder.Entity("DataLayer.Entities.DoctorTypeEntity", b =>
                 {
-                    b.Navigation("Doctor");
+                    b.Navigation("Doctors");
                 });
 
             modelBuilder.Entity("DataLayer.Entities.EmployeeEntity", b =>
                 {
-                    b.Navigation("doctor")
-                        .IsRequired();
+                    b.Navigation("Doctor");
 
-                    b.Navigation("nurse")
-                        .IsRequired();
-
-                    b.Navigation("schedule")
-                        .IsRequired();
+                    b.Navigation("Schedules");
                 });
 
             modelBuilder.Entity("DataLayer.Entities.EmployeeTypeEntity", b =>
@@ -847,29 +794,28 @@ namespace DataLayer.Migrations
                 {
                     b.Navigation("Appointments");
 
-                    b.Navigation("medicalRecords");
+                    b.Navigation("MedicalRecords");
                 });
 
             modelBuilder.Entity("DataLayer.Entities.PaymentProviderEntity", b =>
                 {
                     b.Navigation("Payments");
-
-                    b.Navigation("accounts");
                 });
 
             modelBuilder.Entity("DataLayer.Entities.PersonEntity", b =>
                 {
-                    b.Navigation("Employee")
-                        .IsRequired();
+                    b.Navigation("Employee");
 
-                    b.Navigation("patient")
-                        .IsRequired();
+                    b.Navigation("Patient");
+
+                    b.Navigation("Payments");
                 });
 
             modelBuilder.Entity("DataLayer.Entities.UserEntity", b =>
                 {
-                    b.Navigation("Person")
-                        .IsRequired();
+                    b.Navigation("Employees");
+
+                    b.Navigation("Patient");
                 });
 #pragma warning restore 612, 618
         }

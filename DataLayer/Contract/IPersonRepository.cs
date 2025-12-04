@@ -2,20 +2,41 @@
 
 namespace DataLayer.Contract
 {
+    using DataLayer.Data;
     using System;
     using System.Collections.Generic;
 
-    public interface IPersonRepository
-    {
-       Task <int> AddPerson(PersonEntity entity);
-       Task <bool> UpdatePerson(PersonEntity entity);
-       Task <bool >DeletePerson(int id);
-       Task < PersonEntity >FindPersonById(int personId);
-       Task  <PersonEntity  >FindPersonByEmail(string email);
-       Task  <PersonEntity  >FindPersonByUserId(int userId);
+   
+        public interface IPersonRepository
+        {
+          
+            public Task<DataLayerOperationResult<PersonEntity>> FindPersonByID(int id);
 
+         
+            public Task<DataLayerOperationResult<PersonEntity>> FindPersonByFullName(
+                string firstName,
+                string secondName,
+                string thirdName,
+                string lastName);
 
+      
+            public Task<DataLayerOperationResult<PersonEntity>> FindPersonByFullName(
+                string firstName,
+                string secondName);
 
+          
+            public Task<DataLayerOperationResult<int>> AddPerson(PersonEntity entity);
 
+           
+            public Task<DataLayerOperationResult<bool>> UpdatePerson(PersonEntity entity);
+            public Task<DataLayerOperationResult<bool>> DeletePersonByID(int id);
+
+       
     }
+
+
+
+
+
+    
 }

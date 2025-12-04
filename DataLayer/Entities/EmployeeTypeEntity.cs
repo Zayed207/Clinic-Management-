@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DataLayer.Entities
+namespace DataLayer.Entities;
+
+public partial class EmployeeTypeEntity
 {
-    public partial class EmployeeTypeEntity {
+    public short EmployeeTypeID{ get; set; }
 
-        public  short EmployeeTypeID{ get; set; }
-        public string TypeName{ get; set; }
-        public ICollection<EmployeeEntity> Employees { get; set; }
-    }
+    public string TypeName { get; set; } = null!;
+
+    public virtual ICollection<EmployeeEntity> Employees { get; set; } = new List<EmployeeEntity>();
 }

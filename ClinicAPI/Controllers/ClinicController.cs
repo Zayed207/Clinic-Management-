@@ -4,6 +4,7 @@ using BusinessLayer.BusinessLogic;
 using BusinessLayer.DTOsForPresentationLayer;
 using DataLayer.Data;
 using DataLayer.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -21,9 +22,7 @@ namespace ClinicAPI.Controllers
             _service = service;
         }
 
-        /// <summary>
-        /// Add a new clinic.
-        /// </summary>
+        
         [HttpPost("Add")]
         public async Task<ActionResult<int>> AddNewClinic([FromBody] ClinicRequestDTO clinic)
         {
@@ -36,9 +35,7 @@ namespace ClinicAPI.Controllers
             };
         }
 
-        /// <summary>
-        /// Update a clinic.
-        /// </summary>
+        
         [HttpPut("Update")]
         public async Task<ActionResult> UpdateClinic([FromBody] ClinicRequestDTO clinic)
         {
@@ -52,9 +49,7 @@ namespace ClinicAPI.Controllers
             };
         }
 
-        /// <summary>
-        /// Delete a clinic by ID.
-        /// </summary>
+       
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteClinic(int id)
         {
@@ -68,9 +63,7 @@ namespace ClinicAPI.Controllers
             };
         }
 
-        /// <summary>
-        /// Get clinic by ID.
-        /// </summary>
+    
         [HttpGet("{id}")]
         public async Task<ActionResult<Clinic>> GetClinicById(int id)
         {
@@ -84,10 +77,9 @@ namespace ClinicAPI.Controllers
             };
         }
 
-        /// <summary>
-        /// Get all clinics.
-        /// </summary>
+       
         [HttpGet("all")]
+        [Authorize]
         public async Task<ActionResult<List<Clinic>>> GetAllClinics()
         {
             var result =await _service.GetAllClinics();

@@ -1,14 +1,15 @@
-﻿using DataLayer.Entities;
+﻿using System;
+using System.Collections.Generic;
 
-public class AppointmentStatusEntity
+namespace DataLayer.Entities;
+
+public partial class AppointmentStatusEntity
 {
-    public int Status_ID { get; set; }
-    public string Status_Name { get; set; }
-    public string Description { get; set; }
+    public int StatusID { get; set; }
 
-    public ICollection<AppointmentEntity> Appointments { get; set; }
+    public string StatusName { get; set; } = null!;
 
+    public string Description { get; set; } = null!;
 
-
-
+    public virtual ICollection<AppointmentEntity> Appointments { get; set; } = new List<AppointmentEntity>();
 }

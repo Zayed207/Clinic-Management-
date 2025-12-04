@@ -1,45 +1,31 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DataLayer.Entities
+namespace DataLayer.Entities;
+
+public partial class PaymentEntity
 {
-    public class PaymentEntity
-    {
-        public int PaymentID { get; set; }
-        public int AppointmentID_FK { get; set; }
-        public int ?FromAccountID { get; set; }
-        public int ?ToAccountID { get; set; }
-        public short? ProviderID { get; set; }
-        public decimal Amount { get; set; }
-        public DateTime PaymentDate { get; set; }
-        public string Status { get; set; }
+    public int PaymentID { get; set; }
 
-        // Relations
-        public AppointmentEntity Appointment { get; set; }
-        public AccountEntity FromAccount { get; set; }
-        public AccountEntity ToAccount { get; set; }
-        public PaymentProviderEntity Provider { get; set; }
+    public int AppointmentID_FK { get; set; }
 
+    public int DoctorID_FK { get; set; }
 
-    }
+    public int PatientPersonID_FK{ get; set; }
 
-    //public class PaymentConfigrations : IEntityTypeConfiguration<PaymentEntity>
-    //{
-    //    public void Configure(EntityTypeBuilder<PaymentEntity> builder)
-    //    {
-    //        builder.HasKey(x => x.PaymentID);
-    //        builder.Property(x => x.PaymentID).ValueGeneratedOnAdd();
-    //        builder.Property(x => x.BloodType).HasColumnType("nvarchar(50)").IsRequired();
-    //        builder.Property(x => x.ChronicDiseases).HasColumnType("nvarchar(150)").IsRequired();
-    //        builder.Property(x => x.IssueDate).HasColumnType("datetime").IsRequired();
-    //        builder.Property(x => x.Notes).HasColumnType("nvarchar(250)").IsRequired();
+    public short ProviderID_FK { get; set; }
 
-    //    }
+    public decimal Amount { get; set; }
 
-    //}
+    public DateTime PaymentDate { get; set; }
+
+    public string Status { get; set; } = null!;
+
+    public virtual AppointmentEntity Appointment{ get; set; } = null!;
+
+    public virtual DoctorEntity? Doctor{ get; set; }
+
+    public virtual PersonEntity? PatientPersonID{ get; set; }
+
+    public virtual PaymentProviderEntity? Provider { get; set; }
 }

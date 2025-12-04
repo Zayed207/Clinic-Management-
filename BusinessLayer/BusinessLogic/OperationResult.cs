@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.BusinessLogic;
+using DataLayer.Contract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,30 +16,36 @@ namespace BusinessLayer.BusinessLogic
         NotFound,
         Conflict,
         InternalError,
-        Updated
+        Updated,
+        Valid
     }
-    public class OperationResult<T> 
+    public class OperationResult<T>
         {
-            public ResultStatus Status { get; set; }
-            public string Message { get; set; }
-            public T Data { get; set; }
+            public ResultStatus Status { get; private set; }
+            public string Message { get; private set; }
+            public T Data { get; private set; }
 
-            private OperationResult(ResultStatus status, string message, T data = default)
+  
+
+        private OperationResult(ResultStatus status, string message, T data = default)
             {
                 Status = status;
                 Message = message;
                 Data = data;
             }
 
-          
-            public static OperationResult<T> Success(T data, string message = "Operation completed successfully")
+      
+
+        public static OperationResult<T> Success(T data, string message = "Operation completed successfully")
                 => new OperationResult<T>(ResultStatus.Success, message, data);
 
         public static OperationResult<T> Updated( string message = "Operation completed successfully")
              => new OperationResult<T>(ResultStatus.Success, message);
 
         public static OperationResult<T> ValidationError(string message)
-                => new OperationResult<T>(ResultStatus.ValidationError, message);
+              => new OperationResult<T>(ResultStatus.ValidationError, message);
+        public static OperationResult<T> Validate(string message =" valid")
+                => new OperationResult<T>(ResultStatus.Valid,message);
 
             public static OperationResult<T> NotFound(string message = "Resource not found")
                 => new OperationResult<T>(ResultStatus.NotFound, message);

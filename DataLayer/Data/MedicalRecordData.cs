@@ -1,6 +1,7 @@
 ﻿using DataLayer.Contract;
 using DataLayer.Entities;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,53 +18,194 @@ namespace DataLayer.Data
 		{
 			_context = context;
 		}
-		public  async Task<int> AddMedicalRecord(MedicalRecordEntity record)
+		public  async Task<DataLayerOperationResult<int>> AddMedicalRecord(MedicalRecordEntity record)
         {
            
+          
+            try
+            {
+
+
+
+
+
                 _context.MedicalRecord.Add(record);
-           await     _context.SaveChangesAsync();
-                return record.MRNID;
-            
+                if (await _context.SaveChangesAsync() > 0)
+
+                    return DataLayerOperationResult<int>.SuccessOperation(record.MRID);
+
+
+                return DataLayerOperationResult<int>.Fail("adding not successfuly");
+
+
+
+
+            }
+
+            catch (Exception ex)
+            {
+                Log.Error("DataBase Exception in  DataLayer/AddMedicalRecord ", ex);
+
+                return DataLayerOperationResult<int>.InternalError();
+
+            }
         }
 
-        public  async Task<bool> UpdateMedicalRecord(MedicalRecordEntity record)
+        public  async Task<DataLayerOperationResult<bool>> UpdateMedicalRecord(MedicalRecordEntity record)
         {
             
+               
+               ;
+            try
+
+            {
+
+                var exsit = await _context.Employees.FindAsync(record.MRID);
+                if (exsit == null)
+                {
+                    return DataLayerOperationResult<bool>.Fail("this employee is not exist");
+
+                }
+
+
+
                 _context.MedicalRecord.Update(record);
-                return await _context.SaveChangesAsync() > 0;
-            
+                if (await _context.SaveChangesAsync() > 0)
+
+                    return DataLayerOperationResult<bool>.SuccessOperation(true);
+
+
+                return DataLayerOperationResult<bool>.Fail("woring!!");
+
+
+
+
+            }
+
+            catch (Exception ex)
+            {
+                Log.Error("DataBase Exception in  DataLayer/UpdateMedicalRecord ", ex);
+
+
+                return DataLayerOperationResult<bool>.InternalError();
+
+            }
         }
 
-        public  async Task<bool> DeleteMedicalRecord(int recordId)
+        public  async Task<DataLayerOperationResult<bool>> DeleteMedicalRecord(int recordId)
         {
 
-                var record = _context.MedicalRecord.Find(recordId);
-                if (record == null) return false;
+               
+               
+            try
+
+            {
+
+                var record =await _context.MedicalRecord.FindAsync(recordId);
+                if (record == null)
+                {
+                    return DataLayerOperationResult<bool>.Fail("this mdecalrecordid dosen't exist");
+
+                }
+
+
+
                 _context.MedicalRecord.Remove(record);
-                return await _context.SaveChangesAsync() > 0;
-            
+                if (await _context.SaveChangesAsync() > 0)
+
+                    return DataLayerOperationResult<bool>.SuccessOperation(true);
+
+
+                return DataLayerOperationResult<bool>.Fail("deleting is not successfuly");
+
+
+
+
+            }
+
+            catch (Exception ex)
+            {
+                Log.Error("DataBase Exception in  DataLayer/DeleteMedicalRecord ", ex);
+
+
+                return DataLayerOperationResult<bool>.InternalError();
+
+            }
         }
 
-        public  async Task<MedicalRecordEntity> GetMedicalRecordById(int recordId)
+        public  async Task<DataLayerOperationResult<MedicalRecordEntity>> GetMedicalRecordById(int recordId)
         {
-            
-                return await _context.MedicalRecord.FirstOrDefaultAsync(x => x.MRNID == recordId);
-            
+            try
+
+            {
+
+                var record = await _context.MedicalRecord.FirstOrDefaultAsync(x=>x.MRID==recordId);
+                if (record == null)
+                {
+                    return DataLayerOperationResult<MedicalRecordEntity>.Fail("this mdecalrecordid dosen't exist");
+
+                }
+
+
+
+               
+
+                    return DataLayerOperationResult<MedicalRecordEntity>.SuccessOperation(record);
+
+
+              
+
+
+
+
+            }
+
+            catch (Exception ex)
+            {
+                Log.Error("DataBase Exception in  DataLayer/GetMedicalRecordById ", ex);
+
+
+                return DataLayerOperationResult<MedicalRecordEntity>.InternalError();
+
+            }
+
         }
 
-        public  async Task<List<MedicalRecordEntity>> GetAllMedicalRecord()
+        public  async Task<DataLayerOperationResult<List<MedicalRecordEntity>>> GetAllMedicalRecordOfPatient(int patientid)
         {
            
-                return await _context.MedicalRecord.AsNoTracking().ToListAsync();
-            
+                
+            try
+
+            {
+                var medicalRecords = await _context.MedicalRecord.AsNoTracking().ToListAsync();
+                if (medicalRecords == null || medicalRecords.Count == 0) return DataLayerOperationResult<List<MedicalRecordEntity>>.Fail("No employees avaliable");
+
+
+
+                return DataLayerOperationResult<List<MedicalRecordEntity>>.SuccessOperation(medicalRecords);
+
+            }
+
+            catch (Exception ex)
+            {
+                Log.Error("DataBase Exception in  DataLayer/GetAllMedicalRecordOfPatient ", ex);
+
+                return DataLayerOperationResult<List<MedicalRecordEntity>>.InternalError();
+
+            }
+
+
         }
 
-        public Task<List<MedicalRecordEntity>> GetMedicalRecordsForPatientByUserID(int userid)
+       
+
+        Task<DataLayerOperationResult<List<MedicalRecordEntity>>> IMedicalRecordRepository.GetMedicalRecordsForPatientByUserID(int userId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<MedicalRecordEntity> GetLastMedcalRecordForPatientByuserId(int mrnId)
+        Task<DataLayerOperationResult<MedicalRecordEntity>> IMedicalRecordRepository.GetLastMedcalRecordForPatientByUserId(int mrnId)
         {
             throw new NotImplementedException();
         }

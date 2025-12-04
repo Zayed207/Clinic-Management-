@@ -2,26 +2,24 @@
 
 namespace DataLayer.Contract
 {
+    using DataLayer.Data;
     using System.Collections.Generic;
     using System.Numerics;
 
     public interface IDoctorRepository
     {
-        Task< int >AddDoctor(DoctorEntity entity);
-        Task< bool >UpdateDoctor(DoctorEntity entity);
-        Task<bool> DeleteDoctor(int id);
-         Task<DoctorEntity?> GetDoctorById(int id);
-       Task<List<DoctorEntity> >GetAllDoctors();
-         Task<bool> IsDoctorExist(int employeeid);
+       public  Task<DataLayerOperationResult< int >>AddDoctor(DoctorEntity doctor);
+       public  Task<DataLayerOperationResult<bool >>UpdateDoctor(DoctorEntity doctor);
+       public  Task<DataLayerOperationResult<bool>> DeleteDoctorByEmployeeID(int doctorid);
+       public   Task<DataLayerOperationResult<DoctorEntity>> GetDoctorById(int doctorid);
+       public  Task<DataLayerOperationResult<List<DoctorEntity> >>GetAllDoctors();
+       public   Task<DataLayerOperationResult<bool>> IsDoctorExistByEmployeeID(int employeeid);
+        
+       public   Task<DataLayerOperationResult<DoctorEntity>> GetDoctorByUserId(int userId);
          
-         Task<DoctorEntity> GetDoctorByUserId(int employeeId);
-         
-         Task<DoctorEntity> GetDoctorByClinicId(int employeeId);
-          Task<List<DoctorEntity>> GetAllDoctorsInClinc(int clinicid);
-
-
-
-         Task<List<DoctorEntity>> GetAllDoctorsInClinc(string clinicname);
+       public   Task<DataLayerOperationResult<DoctorEntity>> GetDoctorByClinicId(int clinicId);
+       public  Task<DataLayerOperationResult<List<DoctorEntity>>> GetAllDoctorsInClinc(int clinicid);
+       public   Task<DataLayerOperationResult<List<DoctorEntity>>> GetAllDoctorsInClinc(string clinicname);
     }
 
     //public interface IPayPalRepository

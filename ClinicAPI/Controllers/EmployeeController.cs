@@ -24,11 +24,7 @@ namespace ClinicAPI.Controllers
             
         }
 
-        /// <summary>
-        /// Add a new employee.
-        /// </summary>
-        /// <param name="employee">Employee request DTO.</param>
-        /// <returns>Created employee ID if successful.</returns>
+       
         [HttpPost("add")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
@@ -36,7 +32,7 @@ namespace ClinicAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<int>> AddEmployee([FromBody] EmployeeRequestDTO employee)
         {
-            if (employee.PersonID_FK <= 0)
+            if (employee.PersonID<= 0)
             {
                 var creationUrl = Url.Action("AddPerson", "Person", null, Request.Scheme);
 
@@ -62,11 +58,7 @@ namespace ClinicAPI.Controllers
             }
         }
 
-            /// <summary>
-            /// Update an existing employee.
-            /// </summary>
-            /// <param name="employee">Employee request DTO.</param>
-            /// <returns>Status of update.</returns>
+          
             [HttpPut("update")]
             [ProducesResponseType(StatusCodes.Status200OK)]
             [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -85,11 +77,7 @@ namespace ClinicAPI.Controllers
                 };
             }
 
-            /// <summary>
-            /// Delete an employee by ID.
-            /// </summary>
-            /// <param name="employeeId">Employee ID.</param>
-            /// <returns>Status of deletion.</returns>
+         
             [HttpDelete("by{employeeId}")]
             [ProducesResponseType(StatusCodes.Status200OK)]
             [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -108,11 +96,7 @@ namespace ClinicAPI.Controllers
                 };
             }
 
-            /// <summary>
-            /// Get employee by ID.
-            /// </summary>
-            /// <param name="employeeId">Employee ID.</param>
-            /// <returns>Employee details.</returns>
+         
             [HttpGet("by{employeeId}")]
             [ProducesResponseType(StatusCodes.Status200OK)]
             [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -131,10 +115,7 @@ namespace ClinicAPI.Controllers
                 };
             }
 
-            /// <summary>
-            /// Get all employees.
-            /// </summary>
-            /// <returns>List of employees.</returns>
+           
             [HttpGet("all/by{clinicname}")]
             [ProducesResponseType(StatusCodes.Status200OK)]
             [ProducesResponseType(StatusCodes.Status204NoContent)]

@@ -2,19 +2,20 @@
 
 namespace DataLayer.Contract
 {
+    using DataLayer.Data;
     using System.Collections.Generic;
 
     public interface IPatientRepository
     {
-       Task <int> AddPatient(PatientEntity entity);
-       Task <bool> UpdatePatient(PatientEntity entity);
-       Task <bool >DeletePatient(int id);
-       
-       Task< PatientEntity >FindPatientUserID(int userid);
-       
-       Task <PatientEntity >FindByPatientID(int Patientid);
-       
-       Task<  PatientEntity >FindPatientUserName(string patientname);
+        public Task <DataLayerOperationResult<int> >AddPatient(PatientEntity entity);
+       public Task <DataLayerOperationResult<bool> >UpdatePatient(PatientEntity entity);
+       public Task <DataLayerOperationResult<bool >>DeletePatient(int id);
+
+        public Task<DataLayerOperationResult<PatientEntity>>FindPatientUserID(int userid);
+
+        public Task<DataLayerOperationResult<PatientEntity>>FindByPatientID(int Patientid);
+
+        public Task< DataLayerOperationResult< PatientEntity >>FindPatientUserName(string patientname);
       
 
     }

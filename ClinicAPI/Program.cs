@@ -1,10 +1,13 @@
-using BusinessLayer;
-using BusinessLayer.Configurations;
+using BusinessLayer.Authentication;
+using BusinessLayer.Authentication_;
+using BusinessLayer.IntegrationsConfigurations.PayPal;
 using BusinessLayer.Profiles;
 using ClinicAPI.Global;
+using ClinicAPI.Middlewares;
 using DataLayer.Data;
 using Microsoft.AspNetCore.Authentication.BearerToken;
 using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -24,6 +27,13 @@ builder.Services.AddSwaggerGen();
 builder.Services.Configure<PayPalSettings>(
     builder.Configuration.GetSection("PayPal"));
 builder.Services.AddScoped<clsPayPal>();
+
+
+
+
+
+
+
 //builder.Services.AddAuthentication()
 //    .AddGoogle(options =>
 //    {
@@ -45,12 +55,24 @@ var configuration = builder.Configuration;
     
     builder.Services.AddAutoMapper(typeof(Profiles));
 
-    
+    builder.Services.AddSingleton<JWTAuthentication>(sp =>
+    {
+        var jwtSection = builder.Configuration.GetSection("Jwt");
+        var key = jwtSection["singinkey"];
+        var audience = jwtSection["Audience"];
+        var issuer = jwtSection["Issuer"];
+
+        return new JWTAuthentication(key, audience, issuer);
+    });
+
     builder.Services.AddProjectDependencies();
+
+    var jwtSection = builder.Configuration.GetSection("Jwt");
+
     builder.Services.AddAuthentication("Bearer")
       .AddJwtBearer(options =>
       {
-          var jwtSection = builder.Configuration.GetSection("Jwt");
+         
 
           options.TokenValidationParameters = new TokenValidationParameters
           {
@@ -62,10 +84,13 @@ var configuration = builder.Configuration;
               ValidIssuer = jwtSection["Issuer"],
               ValidAudience = jwtSection["Audience"],
               IssuerSigningKey = new SymmetricSecurityKey(
-                  Encoding.UTF8.GetBytes(jwtSection["Key"])
+                  Encoding.UTF8.GetBytes(jwtSection["singinkey"])
               )
           };
       });
+
+    builder.Services.AddAuthorization();
+    
     var app = builder.Build();
 
 
@@ -76,8 +101,10 @@ var configuration = builder.Configuration;
         app.UseSwagger();
         app.UseSwaggerUI();
     }
-
+    app.UseMiddleware<RateTime_MW>();
     app.UseHttpsRedirection();
+
+    app.UseAuthentication();
 
     app.UseAuthorization();
 
@@ -87,5 +114,5 @@ var configuration = builder.Configuration;
 }
 catch (Exception ex)
 {
-    Console.WriteLine($"Unhandled exception: {ex}");
+    Console.WriteLine($"Unhandled exception: {ex.Message}");
 }

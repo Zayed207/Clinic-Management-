@@ -20,15 +20,17 @@ namespace DataLayer.Configrations
             builder.Property(x=>x.PersonID).ValueGeneratedOnAdd();
 
             builder.Property(x => x.FirstName). HasColumnType("nvarchar(50)").IsRequired();
+            builder.Property(x => x.SecondName).HasColumnType("nvarchar(50)").IsRequired();
+            builder.Property(x => x.ThirdName).HasColumnType("nvarchar(50)").IsRequired();
             builder.Property(x => x.LastName).HasColumnType("nvarchar(50)").IsRequired();
 
-            builder.Property(x => x.DateOfBirth).HasColumnType("datetime").IsRequired();
+            builder.Property(x => x.Gender).HasColumnType("char(1)").IsRequired();
+            builder.Property(x => x.DateOfBirth).HasColumnType("date").IsRequired();
             builder.Property(x => x.Phone).HasColumnType("nvarchar(50)").IsRequired();
             builder.Property(x => x.Address).HasColumnType("nvarchar(50)").IsRequired();
             builder.Property(x => x.Country).HasColumnType("nvarchar(50)").IsRequired();
             
 
-             builder.HasOne(x => x.user).WithOne(e => e.Person).HasForeignKey<PersonEntity>(x => x.UserID_FK);
 
            
 

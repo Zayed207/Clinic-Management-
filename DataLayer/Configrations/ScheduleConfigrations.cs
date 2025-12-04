@@ -10,13 +10,16 @@ namespace DataLayer.Configrations
         {
             builder.HasKey(x => x.ScheduleID);
             builder.Property(x => x.ScheduleID).ValueGeneratedOnAdd();
-            builder.Property(x => x.ScheduleDate).HasColumnType("datetime");
-            builder.Property(x => x.ActualStartTime).HasColumnType("datetime").IsRequired();
-            builder.Property(x => x.ActualEndTime).HasColumnType("datetime").IsRequired();
-            builder.HasOne(x => x.Employee).WithOne(x => x.schedule).HasForeignKey<ScheduleEntity>(x => x.EmployeeID_FK);
+            builder.Property(x => x.ScheduleDate).HasColumnType("date");
+            builder.Property(x => x.ActualStartTime).HasColumnType("time").IsRequired();
+            builder.Property(x => x.ActualEndTime).HasColumnType("time").IsRequired();
+
+
         }
     }
-
 }
+    
+
+
 
 

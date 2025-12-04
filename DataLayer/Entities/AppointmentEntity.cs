@@ -1,33 +1,62 @@
-﻿using System.Numerics;
+﻿using Microsoft.VisualBasic;
+using System;
+using System.Collections.Generic;
 
-namespace DataLayer.Entities
+namespace DataLayer.Entities;
+
+public class AppointmentsDetails
 {
-    public class AppointmentEntity
-    {
-        public int Appointment_ID { get; set; }
-        public int Patient_ID_FK { get; set; }
-        public int Doctor_ID_FK { get; set; }
-        public int Clinic_ID_FK { get; set; }
-        public DateTime Appointment_Date_Time { get; set; }
-        public int ?Appointment_Duration_Minutes  { get; set; }
-        public int ?Status_ID_FK { get; set; }
-        public int Appointment_Type_ID_FK { get; set; }
-        public int ?Consultation_Mode_ID_FK { get; set; }
-      
-        public string? Notes { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public string Phone { get; set; }
+    public short? Age { get; set; }
 
-        // Relations
-        public PatientEntity Patient { get; set; }
-        public DoctorEntity Doctor { get; set; }
-        public ClinicEntity Clinic { get; set; }
-        public AppointmentStatusEntity Status{ get; set; }
-        public AppointmentTypeEntity AppointmentType { get; set; }
-        public ConsultationModeEntity ConsultationMode { get; set; }
 
-        public PaymentEntity Payment { get; set; }
+    public string BloodType { get; set; }
+    public string ChronicDiseases { get; set; }
+    public DateOnly IssueDate { get; set; }
 
-    }
+
+    public DateTime AppointmentHour { get; set; }
+    public string AppointmentTypeName { get; set; }
+    public string AppointmentStatusName { get; set; }
+    public string? Notes { get; set; }
 
 }
+public partial class AppointmentEntity
+{
+    public int Appointment_ID { get; set; }
 
+    public int PatientID_FK { get; set; }
 
+    public int DoctorID_FK { get; set; }
+
+    public int ClinicID_FK { get; set; }
+
+    public DateTime AppointmentDateTime{ get; set; }
+
+   
+    public short AppointmentDurationMinutes { get; set; }
+
+    public int StatusID_FK { get; set; }
+
+    public int AppointmentTypeID_FK { get; set; }
+
+    public int ConsultationModeID_FK { get; set; }
+
+    public string? Notes { get; set; }
+
+    public virtual AppointmentTypeEntity AppointmentType{ get; set; } = null!;
+
+    public virtual ClinicEntity Clinic{ get; set; } = null!;
+
+    public virtual ConsultationModeEntity ConsultationMode{ get; set; } = null!;
+
+    public virtual DoctorEntity Doctor{ get; set; } = null!;
+
+    public virtual PatientEntity Patient{ get; set; } = null!;
+
+    public virtual PaymentEntity? Payment { get; set; }
+
+    public virtual AppointmentStatusEntity Status{ get; set; } = null!;
+}

@@ -1,5 +1,8 @@
 ﻿using DataLayer.Contract;
 using DataLayer.Entities;
+using Microsoft.EntityFrameworkCore;
+using Serilog;
+using System.Numerics;
 
 namespace DataLayer.Data
 {
@@ -11,38 +14,173 @@ namespace DataLayer.Data
         {
             _context = context;
         }
-        public int DoctorTypeID { get; set; }
-        public string TypeName { get; set; }
-        public string Description { get; set; }
-
-        public int AddDoctorType(DoctorTypeEntity entity)
+    
+        public async Task<DataLayerOperationResult<int> >AddDoctorType(DoctorTypeEntity entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+
+
+
+
+
+                _context.DoctorTypes.Add(entity);
+                if (await _context.SaveChangesAsync() > 0)
+
+                    return DataLayerOperationResult<int>.SuccessOperation(entity.DoctorTypeID);
+
+
+                return DataLayerOperationResult<int>.Fail("Adding is not successfuly");
+
+
+
+
+            }
+
+            catch (Exception ex)
+            {
+                Log.Error("DataBase Exception in  DataLayer/AddDoctorType ", ex);
+
+                return DataLayerOperationResult<int>.InternalError();
+
+            }
+
         }
 
-        public bool DeleteDoctorType(int id)
+        public async Task<DataLayerOperationResult<bool> >DeleteDoctorType(int id)
         {
-            throw new NotImplementedException();
+            try
+
+            {
+
+                var exsit =await _context.DoctorTypes.FindAsync(id);
+                if (exsit == null)
+                {
+                    return DataLayerOperationResult<bool>.Fail("this doctor is not exist");
+
+                }
+
+
+
+                _context.DoctorTypes.Remove(exsit);
+                if (await _context.SaveChangesAsync() > 0)
+
+                    return DataLayerOperationResult<bool>.SuccessOperation(true);
+
+
+                return DataLayerOperationResult<bool>.Fail("deleting is not successfuly");
+
+
+
+
+            }
+
+            catch (Exception ex)
+            {
+                Log.Error("DataBase Exception in  DataLayer/DeleteDoctorType ", ex);
+
+                return DataLayerOperationResult<bool>.InternalError();
+
+            }
         }
 
-        public List<DoctorTypeEntity> GetAllDoctorTypes()
+        public async Task<DataLayerOperationResult<List<DoctorTypeEntity>>> GetAllDoctorTypes()
         {
-            throw new NotImplementedException();
+            try
+
+            {
+                var doctors = await _context.DoctorTypes.AsNoTracking().ToListAsync();
+                if (doctors == null || doctors.Count == 0) return DataLayerOperationResult<List<DoctorTypeEntity>>.Fail("No doctors avaliable");
+
+
+
+                return DataLayerOperationResult<List<DoctorTypeEntity>>.SuccessOperation(doctors);
+
+            }
+
+            catch (Exception ex)
+            {
+                Log.Error("DataBase Exception in  DataLayer/GetAllDoctorTypes ", ex);
+
+
+                return DataLayerOperationResult<List<DoctorTypeEntity>>.InternalError();
+
+            }
         }
 
-        public DoctorTypeEntity? GetDoctorTypeById(int id)
+        public async Task<DataLayerOperationResult<DoctorTypeEntity>> GetDoctorTypeById(int id)
         {
-            throw new NotImplementedException();
+            try
+
+            {
+
+                var exsit = await _context.DoctorTypes.SingleOrDefaultAsync(x=>x.DoctorTypeID ==id);
+                if (exsit != null)
+                {
+
+                    return DataLayerOperationResult<DoctorTypeEntity>.SuccessOperation(exsit);
+                }
+
+                return DataLayerOperationResult<DoctorTypeEntity>.Fail("this clinic is not exist");
+
+
+
+
+
+
+
+
+
+
+            }
+
+            catch (Exception ex)
+            {
+                Log.Error("DataBase Exception in  DataLayer/GetDoctorTypeById ", ex);
+
+                return DataLayerOperationResult<DoctorTypeEntity>.InternalError();
+
+            }
         }
 
-        public int? GetPaymentProviderIDByName(string name)
-        {
-            throw new NotImplementedException();
-        }
 
-        public bool UpdateDoctorType(DoctorTypeEntity entity)
+
+        public async Task<DataLayerOperationResult< bool >>UpdateDoctorType(DoctorTypeEntity entity)
         {
-            throw new NotImplementedException();
+            try
+
+            {
+
+                var exsit = await _context.DoctorTypes.FindAsync(entity.DoctorTypeID);
+                if (exsit == null)
+                {
+                    return DataLayerOperationResult<bool>.Fail("this clinic is not exist");
+
+                }
+
+
+
+                _context.DoctorTypes.Update(entity);
+                if (await _context.SaveChangesAsync() > 0)
+
+                    return DataLayerOperationResult<bool>.SuccessOperation(true);
+
+
+                return DataLayerOperationResult<bool>.Fail("woring!!");
+
+
+
+
+            }
+
+            catch (Exception ex)
+            {
+                Log.Error("DataBase Exception in  DataLayer/UpdateDoctorType ", ex);
+
+
+                return DataLayerOperationResult<bool>.InternalError();
+
+            }
         }
     }
 

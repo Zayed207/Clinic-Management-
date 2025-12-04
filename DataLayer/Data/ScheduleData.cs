@@ -12,51 +12,129 @@ namespace DataLayer.Data
 		{
 			_context = context;
 		}
-		public  int AddSchedule(ScheduleEntity schedule)
+		public  async Task<DataLayerOperationResult<int>> AddScheduleAsync(ScheduleEntity schedule)
         {
-            using (_context)
-            {
-                _context.Schedule.Add(schedule);
-                _context.SaveChanges();
-                return schedule.ScheduleID;
-            }
-        }
+           
+             
+               
+                try
+                {
 
-        public  bool UpdateSchedule(ScheduleEntity schedule)
+
+
+
+
+                    _context.Schedule.Add(schedule);
+                    if (await _context.SaveChangesAsync() > 0)
+
+                        return DataLayerOperationResult<int>.SuccessOperation(schedule.ScheduleID);
+
+
+                    return DataLayerOperationResult<int>.Fail("adding not successfuly");
+
+
+
+
+                }
+
+                catch (Exception ex)
+                {
+
+                    return DataLayerOperationResult<int>.InternalError();
+
+                }
+            }
+
+        public async Task<DataLayerOperationResult<bool>> UpdateSchedule(ScheduleEntity schedule)
         {
-            using (_context)
+         
+            try
+
             {
+
+                var exsit = await _context.Schedule.FindAsync(schedule.ScheduleID);
+                if (exsit == null)
+                {
+                    return DataLayerOperationResult<bool>.Fail("this schedule is not exist");
+
+                }
+
+
+
                 _context.Schedule.Update(schedule);
-                return _context.SaveChanges() > 0;
+                if (await _context.SaveChangesAsync() > 0)
+
+                    return DataLayerOperationResult<bool>.SuccessOperation(true);
+
+
+                return DataLayerOperationResult<bool>.Fail("woring!!");
+
+
+
+
+            }
+
+            catch (Exception ex)
+            {
+
+                return DataLayerOperationResult<bool>.InternalError();
+
             }
         }
 
-        public  bool DeleteSchedule(int scheduleId)
+        public async Task<DataLayerOperationResult<bool>> DeleteSchedule(int scheduleId)
         {
-            using (_context)
+        
+            
+            try
+
             {
-                var schedule = _context.Schedule.Find(scheduleId);
-                if (schedule == null) return false;
+
+                var schedule =await _context.Schedule.FindAsync(scheduleId);
+                if (schedule == null)
+                {
+                    return DataLayerOperationResult<bool>.Fail("this schedule is not exist");
+
+                }
+
+
+
                 _context.Schedule.Remove(schedule);
-                return _context.SaveChanges() > 0;
+                if (await _context.SaveChangesAsync() > 0)
+
+                    return DataLayerOperationResult<bool>.SuccessOperation(true);
+
+
+                return DataLayerOperationResult<bool>.Fail("deleting is not successfuly");
+
+
+
+
+            }
+
+            catch (Exception ex)
+            {
+
+                return DataLayerOperationResult<bool>.InternalError();
+
             }
         }
 
-        public  ScheduleEntity GetScheduleByEmployeeId(int employeeid)
-        {
-            using (_context )
-            {
-                return _context.Schedule.FirstOrDefault(x => x.EmployeeID_FK == employeeid);
-            }
-        }
+        //public  ScheduleEntity GetScheduleByEmployeeId(int employeeid)
+        //{
+        //    //using (_context )
+        //    //{
+        //    //    return _context.Schedule.FirstOrDefault(x => x.DoctorID_FK == employeeid);
+        //    //}
+        //}
 
-        public  List<ScheduleEntity> GetAllSchedule()
-        {
-            using (_context)
-            {
-                return _context.Schedule.AsNoTracking().ToList();
-            }
-        }
+        //public async Task<DataLayerOperationResult<List<ScheduleEntity>>> GetAllSchedule()
+        //{
+        //    using (_context)
+        //    {
+        //        return _context.Schedule.AsNoTracking().ToList();
+        //    }
+        //}
 
     }
 }

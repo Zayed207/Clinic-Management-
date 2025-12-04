@@ -4,6 +4,7 @@ using DataLayer.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ClinicAPI.Controllers
 {
@@ -18,10 +19,9 @@ namespace ClinicAPI.Controllers
             _service = service;
         }
 
-        /// <summary>
-        /// Add a new user.
-        /// </summary>
+       
         [HttpPost("Add")]
+       
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(int))]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -41,9 +41,7 @@ namespace ClinicAPI.Controllers
             };
         }
 
-        /// <summary>
-        /// Authenticate user (Login).
-        /// </summary>
+       
         [HttpPost("Authenticate")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(User))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -62,32 +60,27 @@ namespace ClinicAPI.Controllers
             };
         }
 
-        /// <summary>
-        /// Change user password.
-        /// </summary>
         [HttpPut("ChangePassword")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> ChangePassword([FromBody] ChangePasswordDTO dto)
-        {
-            var result =await _service.ChangePassword(dto.UserId, dto.OldPassword, dto.NewPassword);
+        //public async Task<ActionResult> ChangePassword([FromBody] ChangePasswordDTO dto)
+        //{
+        //    var result =await _service.ChangePassword(dto.UserId, dto.OldPassword, dto.NewPassword);
 
-            return result.Status switch
-            {
-                ResultStatus.Updated => Ok(result.Message),
-                ResultStatus.NotFound => NotFound(result.Message),
-                ResultStatus.Conflict => Conflict(result.Message),
-                ResultStatus.InternalError => StatusCode(500, result.Message),
-                _ => BadRequest(result.Message)
-            };
-        }
+        //    return result.Status switch
+        //    {
+        //        ResultStatus.Updated => Ok(result.Message),
+        //        ResultStatus.NotFound => NotFound(result.Message),
+        //        ResultStatus.Conflict => Conflict(result.Message),
+        //        ResultStatus.InternalError => StatusCode(500, result.Message),
+        //        _ => BadRequest(result.Message)
+        //    };
+        //}
 
-        ///// <summary>
-        ///// Reset password by Admin.
-        ///// </summary>
+        
         //[HttpPut("ResetPassword/{userId}")]
         //[ProducesResponseType(StatusCodes.Status200OK)]
         //[ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -127,9 +120,7 @@ namespace ClinicAPI.Controllers
             };
         }
 
-        /// <summary>
-        /// Get user by ID.
-        /// </summary>
+      
         [HttpGet("by-{userId}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(User))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -137,6 +128,24 @@ namespace ClinicAPI.Controllers
         public async Task<ActionResult<User>> GetUserById(int userId)
         {
             var result =await _service.GetUserByID(userId);
+
+            return result.Status switch
+            {
+                ResultStatus.Success => Ok(result.Data),
+                ResultStatus.NotFound => NotFound(result.Message),
+                ResultStatus.InternalError => StatusCode(500, result.Message),
+                _ => BadRequest(result.Message)
+            };
+        }
+
+
+        [HttpGet("by{username}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(User))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<User>> GetUserByUserName(string username)
+        {
+            var result = await _service.GetUserByUserName(username);
 
             return result.Status switch
             {

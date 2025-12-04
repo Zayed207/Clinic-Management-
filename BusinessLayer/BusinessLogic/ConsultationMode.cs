@@ -11,16 +11,7 @@ namespace BusinessLayer
         public ConsultationMode()
         {
         }
-        public enum enConsultationType
-        {
-            General = 1,              
-            Specialist = 2,           
-            SecondOpinion = 3,      
-            Preventive = 4,           
-            Diagnostic = 5,           
-            PostTreatment = 6,        
-            Counseling = 7            
-        }
+        
         public int ModeID { get; set; }
         public string Mode_Name { get; set; }
         public string Description { get; set; }
@@ -28,7 +19,7 @@ namespace BusinessLayer
         public ConsultationMode(ConsultationModeEntity c)
         {
             ModeID = c.ModeID;
-            Mode_Name =c. Mode_Name;
+            Mode_Name =c. ModeName;
             Description =c. Description;
         }
 

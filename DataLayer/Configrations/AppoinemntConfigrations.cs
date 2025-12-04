@@ -21,7 +21,7 @@ namespace DataLayer.Configrations
         //public DateTime Appointment_Date_Time { get; set; }
         //public int Appointment_Duration_Minutes { get; set; }
         //public int Status_ID_FK { get; set; }
-        //public int Appointment_Type_ID_FK { get; set; }
+        //public int AppointmentTypeID_FK { get; set; }
         //public int Consultation_Mode_ID_FK { get; set; }
 
             //public string Notes { get; set; }
@@ -34,37 +34,37 @@ namespace DataLayer.Configrations
 
             builder.HasOne(x => x.Doctor)
       .WithMany(d => d.Appointments)
-      .HasForeignKey(x => x.Doctor_ID_FK)
+      .HasForeignKey(x => x.DoctorID_FK)
       .IsRequired()
       .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(x => x.Clinic)
                 .WithMany(c => c.Appointments)
-                .HasForeignKey(x => x.Clinic_ID_FK)
+                .HasForeignKey(x => x.ClinicID_FK)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(x => x.Patient)
                 .WithMany(p => p.Appointments)
-                .HasForeignKey(x => x.Patient_ID_FK)
+                .HasForeignKey(x => x.PatientID_FK)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(x => x.Status)
                 .WithMany(s => s.Appointments)
-                .HasForeignKey(x => x.Status_ID_FK)
+                .HasForeignKey(x => x.StatusID_FK)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(x => x.AppointmentType)
                 .WithMany(t => t.Appointments)
-                .HasForeignKey(x => x.Appointment_Type_ID_FK)
+                .HasForeignKey(x => x.AppointmentTypeID_FK)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(x => x.ConsultationMode)
-                .WithMany(m => m.Appointmentsnt)
-                .HasForeignKey(x => x.Consultation_Mode_ID_FK)
+                .WithMany(m => m.Appointments)
+                .HasForeignKey(x => x.ConsultationModeID_FK)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
 
@@ -72,7 +72,8 @@ namespace DataLayer.Configrations
                 .WithOne(p => p.Appointment)
                 .HasForeignKey<PaymentEntity>(p => p.AppointmentID_FK)
                 .OnDelete(DeleteBehavior.Restrict);
-
+            builder.Property(x=>x.AppointmentDateTime).HasColumnType("datetime").IsRequired();
+            builder.Property(x => x.Notes).HasColumnType("nvarchar(255)");
 
         }
     }

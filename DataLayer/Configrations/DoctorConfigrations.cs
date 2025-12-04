@@ -18,22 +18,21 @@ namespace DataLayer.Configrations
             builder.Property(x=>x.DoctorID).ValueGeneratedOnAdd();
             builder.
                 HasOne(x => x.Employee)
-                .WithOne(a=>a.doctor)
-                .HasForeignKey<DoctorEntity>(x=>x.Employee_ID_FK);
+                .WithOne(a=>a.Doctor)
+                .HasForeignKey<DoctorEntity>(x=>x.EmployeeID_FK).OnDelete(DeleteBehavior.Restrict). IsRequired();
 
+           
             builder.
-                HasOne(x => x.doctorType)
-                .WithMany(a => a.Doctor)
+                HasOne(x => x.DoctorType)
+                .WithMany(a => a.Doctors)
                 .HasForeignKey(x => x.DoctorTypeID_FK);
 
-            // builder.HasOne(x => x.AppointmentType).WithOne(e => e.Appointment).HasForeignKey<AppointmentEntity>(x => x.pa);
 
-            builder.Property(x => x.MedicalLicenseNumber).IsRequired();
-            builder.Property(x => x.Years_of_Experience).HasColumnType("smallint");
-            builder.Property(x => x.Is_On_Call);
-            builder.Property(x => x.Specialization).HasColumnType("nvarchar");
+            builder.Property(x => x.MedicalLicenseNumber).HasColumnType("nvarchar(200)").IsRequired();
+            builder.Property(x => x.YearsOfExperience).HasColumnType("smallint");
+            builder.Property(x => x.IsOnCall).HasColumnType("bit").IsRequired();
+            builder.Property(x => x.Specialization).HasColumnType("nvarchar(200)");
             builder.Property(x => x.Price).HasColumnType("decimal(10,2)").IsRequired();
-
 
 
         }

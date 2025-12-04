@@ -20,72 +20,314 @@ namespace DataLayer.Data
 
 
 
-		public async Task <int >AddUser(UserEntity user)
+		public async Task <DataLayerOperationResult<int >>AddUser(UserEntity user)
         {
-            
-            
-                 _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-                return  user.UserID;
-            
-        }
 
-        public async Task  <bool >UpdateUser(UserEntity user)
-        {
-            using (_context)
-            {
-                _context.Users.Update(user);
-                return await _context.SaveChangesAsync() > 0;
-            }
-        }
-
-        public async Task <bool >DeleteUser(int userId)
-        {
-            using (_context)
-            {
-                var user = _context.Users.Find(userId);
-                if (user == null) return false;
-                _context.Users.Remove(user);
-                return await _context.SaveChangesAsync() > 0;
-            }
-        }
-
-        public async Task <UserEntity >GetUserById(int userId)
-        {
-            
-                return await _context.Users.FirstOrDefaultAsync(x => x.UserID == userId);
-            
-        }
-
-        public async Task< List<UserEntity> >GetAllUser()
-        {
-            
-                return await _context.Users.AsNoTracking().ToListAsync();
-            
-        }
-
-        public async Task<bool> IsUserNameExists(string userName)
-        {
             try
             {
-                
-                    return await _context.Users.AnyAsync(x => x.UserName == userName);
-                
+
+
+
+
+
+                _context.Users.Add(user);
+                if (await _context.SaveChangesAsync() > 0)
+
+                    return DataLayerOperationResult<int>.SuccessOperation(user.UserID);
+
+
+                return DataLayerOperationResult<int>.Fail("adding not successfuly");
+
+
+
+
             }
-            catch (Exception ex) {  throw ;}
-		}
+
+            catch (Exception ex)
+            {
+
+                return DataLayerOperationResult<int>.InternalError();
+
+            }
+        }
+
+        public async Task<DataLayerOperationResult<bool>> UpdateUser(UserEntity user)
+        {
+           
+            try
+
+            {
+
+                var exsit = await _context.Employees.FindAsync(user.UserID);
+                if (exsit == null)
+                {
+                    return DataLayerOperationResult<bool>.Fail("this employee is not exist");
+
+                }
 
 
-        public async Task< UserEntity >GetUserByUserName(string userName, string password)
+
+                _context.Users.Update(user);
+
+                if (await _context.SaveChangesAsync() > 0)
+
+                    return DataLayerOperationResult<bool>.SuccessOperation(true);
+
+
+                return DataLayerOperationResult<bool>.Fail("woring!!");
+
+
+
+
+            }
+
+            catch (Exception ex)
+            {
+
+                return DataLayerOperationResult<bool>.InternalError();
+
+            }
+        }
+
+        public async Task<DataLayerOperationResult<bool>> DeleteUser(int userId)
+        {
+           
+            try
+
+            {
+                var user = await _context.Users.FindAsync(userId);
+                if (user == null)
+                {
+                    return DataLayerOperationResult<bool>.Fail("this doctor is not exist");
+
+                }
+
+
+
+                _context.Users.Remove(user);
+                if (await _context.SaveChangesAsync() > 0)
+
+                    return DataLayerOperationResult<bool>.SuccessOperation(true);
+
+
+                return DataLayerOperationResult<bool>.Fail("deleting is not successfuly");
+
+
+
+
+            }
+
+            catch (Exception ex)
+            {
+
+                return DataLayerOperationResult<bool>.InternalError();
+
+            }
+        }
+
+        public async Task<DataLayerOperationResult<UserEntity>> GetUserById(int userId)
+        {
+            
+                
+            try
+
+            {
+
+                var user = await _context.Users.FirstOrDefaultAsync(x => x.UserID == userId);
+                if (user != null)
+                {
+
+                    return DataLayerOperationResult<UserEntity>.SuccessOperation(user);
+                }
+
+                return DataLayerOperationResult<UserEntity>.Fail("this employee is not exist");
+
+
+
+
+
+
+
+
+
+
+            }
+
+            catch (Exception ex)
+            {
+
+                return DataLayerOperationResult<UserEntity>.InternalError();
+
+            }
+        }
+
+        public async Task<DataLayerOperationResult< List<UserEntity>> >GetAllUser()
+        {
+            
+                
+            try
+
+            {
+                var Users = await _context.Users.AsNoTracking().ToListAsync();
+                if (Users == null || Users.Count == 0) return DataLayerOperationResult<List<UserEntity>>.Fail("No employees avaliable");
+
+
+
+                return DataLayerOperationResult<List<UserEntity>>.SuccessOperation(Users);
+
+            }
+
+            catch (Exception ex)
+            {
+
+                return DataLayerOperationResult<List<UserEntity>>.InternalError();
+
+            }
+        }
+
+        public async Task<DataLayerOperationResult<bool>> IsUserNameExists(string userName)
+        {
+            
+
+                try
+
+                {
+
+                    var employee = await _context.Users.AnyAsync(x => x.UserName == userName);
+                    if (!employee )
+                    {
+                        return DataLayerOperationResult<bool>.Fail("this username is not exist");
+
+                    }
+
+
+
+
+                        return DataLayerOperationResult<bool>.SuccessOperation(true);
+
+
+
+
+
+
+                }
+
+                catch (Exception ex)
+                {
+
+                    return DataLayerOperationResult<bool>.InternalError();
+
+                }
+            }
+
+            
+        public async Task<DataLayerOperationResult<UserEntity>> GetUserByUserName(string userName, string password)
         {
 			
 ;
-				return await _context.Users.FirstOrDefaultAsync(x => x.UserName == userName && x.Password == password);
-			
+            try
 
-		}
+            {
 
-        public async Task< UserEntity >GetUserByID(int userID)
+                var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == userName && x.Password == password);
+                if (user == null)
+                {
+                    return DataLayerOperationResult<UserEntity>.Fail("this doctor is not exist");
+
+                }
+
+
+
+                
+
+                    return DataLayerOperationResult<UserEntity>.SuccessOperation(user);
+
+
+
+
+
+
+            }
+
+            catch (Exception ex)
+            {
+
+                return DataLayerOperationResult<UserEntity>.InternalError();
+
+            }
+
+
+        }
+        public async Task<DataLayerOperationResult<UserEntity>> GetUserByUserName(string userName)
+        {
+
+            
+            
+            try
+
+            {
+
+                var user = await _context.Users.FirstOrDefaultAsync(x => x.UserName == userName);
+                if (user == null)
+                {
+                    return DataLayerOperationResult<UserEntity>.Fail("this doctor is not exist");
+
+                }
+
+
+
+               
+                    return DataLayerOperationResult<UserEntity>.SuccessOperation(user);
+
+
+
+
+
+
+            }
+
+            catch (Exception ex)
+            {
+
+                return DataLayerOperationResult<UserEntity>.InternalError();
+
+            }
+
+        }
+
+        public async Task<DataLayerOperationResult<UserEntity>> GetUserByID(int userID)
+        {
+            
+            try
+
+            {
+
+                var user = await _context.Users.FindAsync(userID);
+                if (user == null)
+                {
+                    return DataLayerOperationResult<UserEntity>.Fail("this doctor is not exist");
+
+                }
+
+
+
+              
+                    return DataLayerOperationResult<UserEntity>.SuccessOperation(user);
+
+
+
+
+            }
+
+            catch (Exception ex)
+            {
+
+                return DataLayerOperationResult<UserEntity>.InternalError();
+
+            }
+        }
+
+        public Task<DataLayerOperationResult<List<UserEntity>>> GetAllUsers()
         {
             throw new NotImplementedException();
         }

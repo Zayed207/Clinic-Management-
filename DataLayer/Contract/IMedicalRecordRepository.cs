@@ -2,24 +2,18 @@
 
 namespace DataLayer.Contract
 {
+    using DataLayer.Data;
     using System.Collections.Generic;
 
     public interface IMedicalRecordRepository
     {
-       Task <int> AddMedicalRecord(MedicalRecordEntity entity);
-       Task <bool> UpdateMedicalRecord(MedicalRecordEntity entity);
-       Task <bool> DeleteMedicalRecord(int id);
-       Task < List<MedicalRecordEntity> >GetMedicalRecordsForPatientByUserID(int userid);
-       
-    Task   < MedicalRecordEntity >GetLastMedcalRecordForPatientByuserId(int mrnId);
+        public Task<DataLayerOperationResult<int>> AddMedicalRecord(MedicalRecordEntity record);
+        public Task<DataLayerOperationResult<bool>> UpdateMedicalRecord(MedicalRecordEntity record);
+        public Task<DataLayerOperationResult<bool>> DeleteMedicalRecord(int recordId);
+        public Task<DataLayerOperationResult<MedicalRecordEntity>> GetMedicalRecordById(int recordId);
+        public Task<DataLayerOperationResult<List<MedicalRecordEntity>>> GetAllMedicalRecordOfPatient(int patientId);
+        public Task<DataLayerOperationResult<List<MedicalRecordEntity>>> GetMedicalRecordsForPatientByUserID(int userId);
+        public  Task<DataLayerOperationResult<MedicalRecordEntity>> GetLastMedcalRecordForPatientByUserId(int mrnId);
     }
-
-    //public interface IPayPalRepository
-    //{
-    //    int AddPayPal(PayPalEntity entity);
-    //    bool UpdatePayPal(PayPalEntity entity);
-    //    bool DeletePayPal(int id);
-    //    PayPalEntity? GetPayPalById(int id);
-    //    List<PayPalEntity> GetAllPayPals();
-    //}
 }
+

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BusinessLayer.BusinessLogic;
 using BusinessLayer.DTOsForPresentationLayer;
+using BusinessLayer.Validations;
 using DataLayer.Contract;
 using DataLayer.Data;
 using DataLayer.Entities;
@@ -9,26 +10,41 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace BusinessLayer
 {
     public class Clinic
     {
         public int ClinicID { get; set; }
-        public string ClinicName { get; set; }
-        public string LocationDescription { get; set; }
-        public DateTime Start { get; set; }
-        public DateTime End { get; set; }
-        public string City { get; set; }
 
-        
+        public string ClinicName { get; set; } = null!;
+
+        public string LocationDescription { get; set; } = null!;
+
+        public TimeOnly Start { get; set; }
+
+        public TimeOnly End { get; set; }
+
+        public string Country { get; set; } = null!;
+        public string City { get; set; } = null!;
+
+        public bool Available { get; set; }
+
+        public string? Notes { get; set; }
+        public  List<string> doctorsnames { get; set; }
         public Clinic(ClinicEntity clinic)
         {
             ClinicID = clinic.ClinicID;
             ClinicName = clinic.ClinicName;
             LocationDescription = clinic.LocationDescription;
-
-            City = clinic.City;
+            Start= clinic.Start;
+            End= clinic.End;
+            Country = clinic.Country;
+            City= clinic.City;
+            Available = clinic.Available;
+            Notes = clinic.Notes;
+            
 
         }
 
@@ -39,9 +55,23 @@ namespace BusinessLayer
             LocationDescription = clinic.LocationDescription;
             Start = clinic.Start;
             End = clinic.End;
+            Country = clinic.Country;
             City = clinic.City;
+            Available = clinic.Available;
+            Notes = clinic.Notes;
         }
      
+        internal  static List<Clinic> ClinicEntityListToClinic(List<ClinicEntity> clinicEntities)
+        {
+            var clinics= new List<Clinic>();
+
+            foreach (var entity in clinicEntities)
+            {
+                clinics.Add(new Clinic(entity));
+                
+            }
+            return clinics;
+        }
     }
 
     public class ClinicServices
@@ -60,85 +90,113 @@ namespace BusinessLayer
 
         public async Task<OperationResult<int>> AddNewClinic(ClinicRequestDTO clinicDto)
         {
-            try
-            {
+            var check = Clinic_V.ClinicObjectCheck(clinicDto);
+            if (check.Status == ResultStatus.ValidationError)return OperationResult<int>.ValidationError($"{check.Message}");
+
+        
+
+
                 var entity = _mapper.Map<ClinicEntity>(new Clinic(clinicDto));
                 // if you want to ensure id initial value like original code:
                 // entity.ClinicID = -1;
-                int id =await _repo.AddClinic(entity);
-                if (id > 0)
-                    return OperationResult<int>.Success(id, "Clinic created successfully.");
-                return OperationResult<int>.InternalError("Failed to create clinic.");
-            }
-            catch (Exception ex)
+                var id =await _repo.AddClinic(entity);
+
+            switch (id.ResultType)
             {
-                return OperationResult<int>.InternalError($"Unexpected error: {ex.Message}");
+                case DataLayerResult.Success:
+                    return OperationResult<int>.Success(id.Data, "Clinic created successfully.");
+
+                case DataLayerResult.Conflict:
+                    return OperationResult<int>.NotFound("Failed to create clinic.");
+
+                default:
+                    return OperationResult<int>.InternalError($"Unexpected error: {id.Message}");
             }
+
+
+       
+            
         }
 
         public async Task<OperationResult<bool>> UpdateClinic(ClinicRequestDTO clinicDto)
         {
-            try
+            var check = Clinic_V.ClinicObjectCheck(clinicDto);
+            if (check.Status == ResultStatus.ValidationError)return OperationResult<bool>.ValidationError($"{check.Message}");
+
+
+            var entity = _mapper.Map<ClinicEntity>(new Clinic(clinicDto));
+            var updated = await _repo.UpdateClinic(entity);
+
+            switch (updated.ResultType)
             {
-                var entity = _mapper.Map<ClinicEntity>(new Clinic(clinicDto));
-                bool updated =await _repo.UpdateClinic(entity);
-                if (updated)
-                    return OperationResult<bool>.Updated("Clinic updated successfully.");
-                return OperationResult<bool>.NotFound("Clinic not found or nothing to update.");
+                case DataLayerResult.Success:
+                    return OperationResult<bool>.Success(updated.Data, "Clinic updated successfully.");
+
+                case DataLayerResult.Conflict:
+                    return OperationResult<bool>.NotFound("Clinic not found or nothing to update.");
+
+                default:
+                    return OperationResult<bool>.InternalError($"Unexpected error: {updated.Message}");
             }
-            catch (Exception ex)
-            {
-                return OperationResult<bool>.InternalError($"Unexpected error: {ex.Message}");
-            }
+          
         }
 
         public async Task<OperationResult<bool>> DeleteClinic(int clinicId)
         {
-            try
+            if (clinicId <= 0) return OperationResult<bool>.ValidationError("Clinicid notvalid.");
+            var deleted = await _repo.DeleteClinic(clinicId);
+
+            switch (deleted.ResultType)
             {
-                bool deleted =await _repo.DeleteClinic(clinicId);
-                if (deleted)
-                    return OperationResult<bool>.Success(true, "Clinic deleted successfully.");
-                return OperationResult<bool>.NotFound("Clinic not found or nothing to delete.");
+                case DataLayerResult.Success:
+                    return OperationResult<bool>.Success(deleted.Data, "Clinic updated successfully.");
+
+                case DataLayerResult.Conflict:
+                    return OperationResult<bool>.NotFound("Clinic not found or nothing to update.");
+
+                default:
+                    return OperationResult<bool>.InternalError($"Unexpected error: {deleted.Message}");
             }
-            catch (Exception ex)
-            {
-                return OperationResult<bool>.InternalError($"Unexpected error: {ex.Message}");
-            }
+            
+            
         }
 
         public async Task<OperationResult<Clinic>> GetClinicById(int clinicId)
-        {
-            try
-            {
-                var entity =await _repo.GetClinicById(clinicId);
-                if (entity == null)
-                    return OperationResult<Clinic>.NotFound("Clinic not found.");
+        {if(clinicId<=0) return OperationResult<Clinic>.ValidationError($"id not valid");
 
-                var model = new Clinic(entity);
-                return OperationResult<Clinic>.Success(model);
-            }
-            catch (Exception ex)
+
+            var clinic = await _repo.GetClinicById(clinicId);
+            switch (clinic.ResultType)
             {
-                return OperationResult<Clinic>.InternalError($"Unexpected error: {ex.Message}");
+                case DataLayerResult.Success:
+                    return OperationResult<Clinic>.Success(new Clinic(clinic.Data), "operation is  successfully.");
+
+                case DataLayerResult.Conflict:
+                    return OperationResult<Clinic>.NotFound("Clinic not found or nothing to update.");
+
+                default:
+                    return OperationResult<Clinic>.InternalError($"Unexpected error: {clinic.Message}");
             }
+           
+              
         }
 
         public async Task<OperationResult<List<Clinic>>> GetAllClinics()
         {
-            try
+            var clinics = await _repo.GetAllClinics();
+            switch (clinics.ResultType)
             {
-                var entities =await _repo.GetAllClinics();
-                if (entities == null || entities.Count == 0)
-                    return OperationResult<List<Clinic>>.NotFound("No clinics found.");
+                case DataLayerResult.Success:
+                    return OperationResult<List<Clinic>>.Success(Clinic.ClinicEntityListToClinic(clinics.Data), "Clinic updated successfully.");
 
-                var mapped = entities.Select(e => new Clinic(e)).ToList();
-                return OperationResult<List<Clinic>>.Success(mapped);
+                case DataLayerResult.Conflict:
+                    return OperationResult<List<Clinic>>.NotFound("Clinic not found or nothing to update.");
+
+                default:
+                    return OperationResult<List<Clinic>>.InternalError($"Unexpected error: {clinics.Message}");
             }
-            catch (Exception ex)
-            {
-                return OperationResult<List<Clinic>>.InternalError($"Unexpected error: {ex.Message}");
-            }
+           
+             
         }
     }
 } 

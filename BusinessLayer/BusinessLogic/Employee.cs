@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BusinessLayer;
 using BusinessLayer.BusinessLogic;
 using ClinicAPI.temp.DTOs___Validations;
 using DataLayer.Contract;
@@ -9,38 +10,63 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace BusinessLayer
 {
     public class Employee
     {
-        
+
         public int EmployeeID { get; set; }
-        public int TypeEmpployeeID_FK { get; set; }
-        public int PersonID_FK { get; set; }
-        public string Titel { get; set; }
-        public string NationalID { get; set; }
-        public decimal? Salary { get; set; }
+
+        public short EmpployeeTypeID{ get; set; }
+
+        public int ClinicID { get; set; }
+        public string Title { get; set; } = null!;
+
+        public int PersonID{ get; set; }
+
+        public string NationalID { get; set; } = null!;
+
+        public int UserID{ get; set; }
+
 
         private readonly IMapper _mapper;
 
         public Employee(EmployeeEntity Entity)
         {
             EmployeeID = Entity.EmployeeID;
-            TypeEmpployeeID_FK = Entity.EmpployeeTypeID_FK;
-            PersonID_FK = Entity.PersonID_FK;
+            EmpployeeTypeID = Entity.EmpployeeTypeID_FK;
+            ClinicID = Entity.ClinicID_FK;
+            Title = Entity.Title;   
+            PersonID= Entity.PersonID_FK;
             NationalID = Entity.NationalID;
-            Salary = Entity.Salary;
+       
+            UserID = Entity.UserID_FK;
            
         }
         public Employee(EmployeeRequestDTO  Entity)
         {
             EmployeeID = Entity.EmployeeID;
-            TypeEmpployeeID_FK = Entity.TypeEmpployeeID_FK;
-            PersonID_FK = Entity.PersonID_FK;
+            EmpployeeTypeID = Entity.EmpployeeTypeID;
+            ClinicID = Entity.ClinicID;
+            Title = Entity.Title;
+            PersonID = Entity.PersonID;
             NationalID = Entity.NationalID;
-            Salary = Entity.Salary;
 
+            UserID = Entity.UserID;
+
+        }
+        internal static List<Employee> EmployeeEntityListToEmployee(List<EmployeeEntity> clinicEntities)
+        {
+            var clinics = new List<Employee>();
+
+            foreach (var entity in clinicEntities)
+            {
+                clinics.Add(new Employee(entity));
+
+            }
+            return clinics;
         }
     }
     public class EmployeeServices
@@ -56,100 +82,118 @@ namespace BusinessLayer
 
         public async Task<OperationResult<int>> AddNewEmployee(EmployeeRequestDTO employeeDto)
         {
-            try
+            
+            var result = await _repo.AddEmployee(_mapper.Map<EmployeeEntity>(new Employee(employeeDto)));
+            switch (result.ResultType)
             {
-                var entity = _mapper.Map<EmployeeEntity>(new Employee(employeeDto));
-                int id =await _repo.AddEmployee(entity);
-                if (id > 0)
-                    return OperationResult<int>.Success(id, "Employee created successfully.");
-                return OperationResult<int>.InternalError("Failed to create employee.");
-            }
-            catch (Exception ex)
-            {
-                return OperationResult<int>.InternalError($"Unexpected error: {ex.Message}");
+                case DataLayerResult.Success:
+                    return OperationResult<int>.Success(result.Data, " created successfully");
+
+                case DataLayerResult.Conflict:
+                    return OperationResult<int>.NotFound("Failed to create employee.");
+
+                default:
+                    return OperationResult<int>.InternalError($"Unexpected error: {result.Message}");
+
             }
         }
 
         public async Task<OperationResult<bool>> UpdateEmployee(EmployeeRequestDTO employeeDto)
         {
-            try
+            var updated = await _repo.UpdateEmployee(_mapper.Map<EmployeeEntity>(new Employee(employeeDto)));
+            switch (updated.ResultType)
             {
-                var entity = _mapper.Map<EmployeeEntity>(new Employee(employeeDto));
-                bool updated =await _repo.UpdateEmployee(entity);
-                if (updated)
-                    return OperationResult<bool>.Updated("Employee updated successfully.");
-                return OperationResult<bool>.NotFound("Employee not found or nothing to update.");
+                case DataLayerResult.Success:
+                    return OperationResult<bool>.Success(updated.Data, "Employee updated successfully.");
+
+                case DataLayerResult.Conflict:
+                    return OperationResult<bool>.NotFound("Employee not found or nothing to update..");
+
+                default:
+                    return OperationResult<bool>.InternalError($"Unexpected error: {updated.Message}");
             }
-            catch (Exception ex)
-            {
-                return OperationResult<bool>.InternalError($"Unexpected error: {ex.Message}");
-            }
+          
         }
 
         public async Task<OperationResult<bool>> DeleteEmployee(int employeeId)
         {
-            try
+            if (employeeId <= 0) return OperationResult<bool>.ValidationError("this id is not valid");
+            var deleted = await _repo.DeleteEmployee(employeeId);
+            switch (deleted.ResultType)
             {
-                bool deleted =await _repo.DeleteEmployee(employeeId);
-                if (deleted)
-                    return OperationResult<bool>.Success(true, "Employee deleted successfully.");
-                return OperationResult<bool>.NotFound("Employee not found or nothing to delete.");
+                case DataLayerResult.Success:
+                    return OperationResult<bool>.Success(deleted.Data, "Employee deleted successfully");
+
+                case DataLayerResult.Conflict:
+                    return OperationResult<bool>.NotFound("Employee not found or nothing to update..");
+
+                default:
+                    return OperationResult<bool>.InternalError($"Unexpected error: {deleted.Message}");
             }
-            catch (Exception ex)
-            {
-                return OperationResult<bool>.InternalError($"Unexpected error: {ex.Message}");
-            }
+          
+              
         }
 
         public async Task<OperationResult<Employee>> GetEmployeeByUserId(int userId)
         {
-            try
-            {
-                var entity =await _repo.GetEmployeeByUserId(userId);
-                if (entity == null)
-                    return OperationResult<Employee>.NotFound("Employee not found.");
+            if (userId <= 0) return OperationResult<Employee>.ValidationError("this id is not valid");
 
-                var model = new Employee(entity);
-                return OperationResult<Employee>.Success(model);
-            }
-            catch (Exception ex)
-            {
-                return OperationResult<Employee>.InternalError($"Unexpected error: {ex.Message}");
-            }
+            var entity = await _repo.GetEmployeeByUserId(userId);
+
+
+
+            switch (entity.ResultType)
+    {
+        case DataLayerResult.Success:
+            return OperationResult<Employee>.Success(new Employee(entity.Data), "Employee updated successfully.");
+
+        case DataLayerResult.Conflict:
+            return OperationResult<Employee>.NotFound("Employee not found or nothing to update..");
+
+        default:
+            return OperationResult<Employee>.InternalError($"Unexpected error: {entity.Message}");
+    }
+   
         }
 
         public async Task<OperationResult<List<Employee>>> GetAllEmployeesInClinicByClinicID(int clinicId)
         {
-            try
-            {
-                var entities =await _repo.GetAllEmployyesInClinicByClinicID(clinicId);
-                if (entities == null || entities.Count == 0)
-                    return OperationResult<List<Employee>>.NotFound("No employees found in this clinic.");
+            if (clinicId <= 0) return OperationResult<List<Employee>>.ValidationError("this id is not valid");
 
-                var mapped = entities.Select(e => new Employee(e)).ToList();
-                return OperationResult<List<Employee>>.Success(mapped);
-            }
-            catch (Exception ex)
-            {
-                return OperationResult<List<Employee>>.InternalError($"Unexpected error: {ex.Message}");
-            }
+            var entities = await _repo.GetAllEmployyesInClinicByClinicID(clinicId);
+
+
+            switch (entities.ResultType)
+    {
+        case DataLayerResult.Success:
+            return OperationResult<List<Employee>>.Success(Employee.EmployeeEntityListToEmployee(entities.Data),
+                "employees loaded successfully.");
+
+        case DataLayerResult.Conflict:
+            return OperationResult<List<Employee>>.NotFound("No employees found in this clinic.");
+
+        default:
+            return OperationResult<List<Employee>>.InternalError($"Unexpected error: {entities.Message}");
+    }
+    
+             
         }
 
         public async Task<OperationResult<List<Employee>>> GetAllEmployeesInClinicByClinicName(string clinicName)
         {
-            try
-            {
-                var entities =await _repo.GetAllEmployyesInClinicByClinicName(clinicName);
-                if (entities == null || entities.Count == 0)
-                    return OperationResult<List<Employee>>.NotFound("No employees found in this clinic.");
+            var entities = await _repo.GetAllEmployyesInClinicByClinicName(clinicName);
+            switch (entities.ResultType)
+    {
+        case DataLayerResult.Success:
+            return OperationResult<List<Employee>>.Success(Employee.EmployeeEntityListToEmployee(entities.Data), "Employee updated successfully.");
 
-                var mapped = entities.Select(e => new Employee(e)).ToList();
-                return OperationResult<List<Employee>>.Success(mapped);
-            }
-            catch (Exception ex)
-            {
-                return OperationResult<List<Employee>>.InternalError($"Unexpected error: {ex.Message}");
-            }
+        case DataLayerResult.Conflict:
+            return OperationResult<List<Employee>>.NotFound("Employee not found or nothing to update..");
+
+        default:
+            return OperationResult<List<Employee>>.InternalError($"Unexpected error: {entities.Message}");
+    }
+    
         }
     }
 }

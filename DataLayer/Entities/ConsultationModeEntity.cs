@@ -1,14 +1,15 @@
-﻿namespace DataLayer.Entities
+﻿using System;
+using System.Collections.Generic;
+
+namespace DataLayer.Entities;
+
+public partial class ConsultationModeEntity
 {
-    public class ConsultationModeEntity
-    {
-        public int ModeID { get; set; }
-        public string Mode_Name { get; set; }
-        public string Description { get; set; }
+    public int ModeID { get; set; }
 
+    public string ModeName { get; set; } = null!;
 
-        public ICollection<AppointmentEntity> Appointmentsnt { get; set; }
-    }
+    public string Description { get; set; } = null!;
+
+    public virtual ICollection<AppointmentEntity> Appointments { get; set; } = new List<AppointmentEntity>();
 }
-
-
