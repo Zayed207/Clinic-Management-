@@ -7,6 +7,8 @@ using System.Runtime.ConstrainedExecution;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Serilog;
+using Microsoft.Data.SqlClient;
+using DataLayer.ReadModel.Appointment;
 namespace DataLayer.Data
 {
     public class AppointmentData : IAppointmentRepository
@@ -207,37 +209,16 @@ namespace DataLayer.Data
 
 
 
-        public async Task<DataLayerOperationResult<List<AppointmentsDetails>>> GetAllAppointmentsToDayByDoctorID(int DoctorID)
+        public async Task<DataLayerOperationResult<List<AppointmentCalendar>>> GetAllAppointmentsToDayByDoctorID(int DoctorID)
         {
-            try { 
+            try {
 
-            var appointmentstoday = await (from a in _context.Appointment
-                                join p in _context.Patient on a.PatientID_FK equals p.PatientID
-                                join per in _context.Person on p.PatientPersonID_FK equals per.PersonID
-                                join at in _context.AppointmentType on a.AppointmentTypeID_FK equals at.TypeID
-                                join ats in _context.AppointmentStatus on a.StatusID_FK equals ats.StatusID
-                                join mr in _context.MedicalRecord on p.PatientID equals mr.PatientID_FK
-                                //join d in _context.Doctor on a.Doctor_ID_FK equals d.DoctorID
-                                where a.DoctorID_FK == DoctorID
-                                select new AppointmentsDetails
-                                {
-                                    FirstName = per.FirstName,
-                                    LastName = per.LastName,
-                                    Phone = per.Phone,
-                                    Age = per.Age,
-                                    BloodType = mr.BloodType,
-                                    ChronicDiseases = mr.ChronicDiseases,
-                                    IssueDate = mr.IssueDate,
-                                    AppointmentHour = a.AppointmentDateTime,
-                                    AppointmentTypeName = at.TypeName,
-                                    AppointmentStatusName = ats.StatusName,
-                                    Notes = a.Notes
-                                }).AsNoTracking().ToListAsync(); ;
-            if (appointmentstoday == null || appointmentstoday.Count==0) return DataLayerOperationResult<List<AppointmentsDetails>>.Fail("No appointments avaliable today"); ;
+                var appointmentstoday = await GetDoctorAppointmentsByDate(DoctorID,DateTime.Now.Date);
+            if (appointmentstoday.Data == null || appointmentstoday.Data.Count==0) return DataLayerOperationResult<List<AppointmentCalendar>>.Fail("No appointments avaliable today"); ;
 
 
 
-            return DataLayerOperationResult<List<AppointmentsDetails>>.SuccessOperation(appointmentstoday);
+            return DataLayerOperationResult<List<AppointmentCalendar>>.SuccessOperation(appointmentstoday.Data);
 
         }
 
@@ -245,7 +226,7 @@ namespace DataLayer.Data
             {
                 Log.Error("DataBase Exception in  DataLayer/GetAllAppointmentsToDayByDoctorID ", ex);
 
-                return DataLayerOperationResult<List<AppointmentsDetails>>.InternalError();
+                return DataLayerOperationResult<List<AppointmentCalendar>>.InternalError();
 
             }
 
@@ -303,7 +284,61 @@ namespace DataLayer.Data
 
     }
 
-        
+        public async Task<DataLayerOperationResult<AppointmentEntity>> GetAppointmentByID(int id)
+        {
+            try
+
+            {
+                var AT = await _context.Appointment.Where(x => x.Appointment_ID == id).FirstOrDefaultAsync();
+                if (AT != null)
+
+                    return DataLayerOperationResult<AppointmentEntity>.SuccessOperation(AT);
+
+
+                return DataLayerOperationResult<AppointmentEntity>.Fail("not exist"); ;
+
+
+
+
+            }
+
+            catch (Exception ex)
+            {
+                Log.Error("DataBase Exception in  DataLayer/GetAppointmentById ", ex);
+
+                return DataLayerOperationResult<AppointmentEntity>.InternalError();
+
+            }
+        }
+
+        async Task<DataLayerOperationResult<List<AppointmentCalendar>>> GetDoctorAppointmentsByDate(int doctorId, DateTime date)
+        {
+            try
+            {
+                var result = await _context.AppointmentCalendar
+              .FromSqlRaw(
+              "EXEC dbo.GetAppointmentsForDoctorByDate @DoctorID, @Date",
+              new SqlParameter("@DoctorID", doctorId),
+              new SqlParameter("@Date", date)
+                 )
+                 .AsNoTracking()
+                 .ToListAsync();
+
+                if (result == null || result.Count == 0)
+                    return DataLayerOperationResult<List<AppointmentCalendar>>
+                        .NotFound("No appointments found for this doctor and date.");
+
+                return DataLayerOperationResult<List<AppointmentCalendar>>
+                    .SuccessOperation(result);
+            }
+            catch (Exception ex)
+
+            {
+                Log.Error("DataBase Exception in  DataLayer/GetAllAppointmentsToDayByDoctorID ", ex);
+
+                return DataLayerOperationResult<List<AppointmentCalendar>>.InternalError();
+            }
+        }        
     }
 
 }

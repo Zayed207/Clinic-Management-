@@ -2,7 +2,7 @@
 using Microsoft.IdentityModel.Tokens;
 using System.ComponentModel.DataAnnotations;
 
-namespace BusinessLayer. DTOsForPresentationLayer
+namespace BusinessLayer.DTOsPresentation
 {
     public class PersonResponseDTO
     {

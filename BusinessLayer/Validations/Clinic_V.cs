@@ -1,5 +1,5 @@
 ﻿using BusinessLayer.BusinessLogic;
-using BusinessLayer.DTOsForPresentationLayer;
+using BusinessLayer.DTOsPresentation.ClinicDTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;

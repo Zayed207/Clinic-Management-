@@ -23,6 +23,29 @@ public class AppointmentsDetails
     public string? Notes { get; set; }
 
 }
+public class AppointmentResposeEntity
+{
+    public int AppointmentID { get; set; }
+
+    public string PatientName { get; set; }
+
+
+    public string DoctorName { get; set; }
+
+    public string ClinicName { get; set; }
+    public DateTime AppointmentDateTime { get; set; }
+    public short AppointmentDurationMinutes { get; set; }
+    public string AppoinmentStatus { get; set; }
+    public string AppointmentTypeName { get; set; }
+
+
+    public string? Notes { get; set; }
+
+
+
+
+}
+
 public partial class AppointmentEntity
 {
     public int Appointment_ID { get; set; }

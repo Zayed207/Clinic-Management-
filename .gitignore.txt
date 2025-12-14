@@ -1,0 +1,21 @@
+# Visual Studio
+.vs/
+
+# Build output
+bin/
+obj/
+Debug/
+Release/
+
+# .NET
+*.dll
+*.pdb
+*.cache
+*.deps.json
+*.runtimeconfig.json
+project.assets.json
+project.nuget.cache
+
+# User-specific
+*.user
+*.suo

@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using BusinessLayer.DTOsPresentation;
+using Microsoft.AspNetCore.SignalR;
 
 namespace ClinicAPI.Controllers
 {
@@ -20,7 +22,8 @@ namespace ClinicAPI.Controllers
         }
 
        
-        [HttpPost("Add")]
+        [HttpPost]
+
        
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(int))]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
@@ -103,7 +106,7 @@ namespace ClinicAPI.Controllers
         /// Check if username exists.
         /// </summary>
 
-        [HttpGet("Exist/by-{username}")]
+        [HttpGet("exist/{username}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -114,6 +117,7 @@ namespace ClinicAPI.Controllers
             return result.Status switch
             {
                 ResultStatus.Conflict => Conflict(result.Message),
+                ResultStatus.NotFound=>NotFound(result.Message),
                 ResultStatus.Success => Ok(result.Message),
                 ResultStatus.InternalError => StatusCode(500, result.Message),
                 _ => BadRequest(result.Message)
@@ -121,13 +125,13 @@ namespace ClinicAPI.Controllers
         }
 
       
-        [HttpGet("by-{userId}")]
+        [HttpGet("{userid:int}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(User))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<User>> GetUserById(int userId)
+        public async Task<ActionResult<User>> GetUserById(int userid)
         {
-            var result =await _service.GetUserByID(userId);
+            var result =await _service.GetUserByID(userid);
 
             return result.Status switch
             {
@@ -139,8 +143,8 @@ namespace ClinicAPI.Controllers
         }
 
 
-        [HttpGet("by{username}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(User))]
+        [HttpGet("{username}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<User>> GetUserByUserName(string username)
@@ -156,11 +160,11 @@ namespace ClinicAPI.Controllers
             };
         }
 
-        [HttpPut("Update")]
+        [HttpPut("{userid:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> UpdateUser([FromBody] UpdateUserRequestDTO user)
+        public async Task<ActionResult> UpdateUser(int userid, [FromBody] UpdateUserRequestDTO user)
         {
             var result =await _service.UpdateUser(user);
 
@@ -174,7 +178,7 @@ namespace ClinicAPI.Controllers
         }
 
         // 
-        [HttpDelete("by-{id}")]
+        [HttpDelete("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

@@ -23,7 +23,7 @@ namespace BusinessLayer
             Description =c. Description;
         }
 
-        public ConsultationMode(ConsultationModeDTOs c)
+        public ConsultationMode(DTOsPresentation.ConsultationModeDTOs c)
         {
             ModeID = c.ModeID;
             Mode_Name = c.Mode_Name;

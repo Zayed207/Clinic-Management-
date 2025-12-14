@@ -11,7 +11,8 @@ using System.Text;
 using static AppointmentStatus;
 using static AppointmentType;
 using static BusinessLayer.ConsultationMode;
-using  BusinessLayer.Validations;
+using BusinessLayer.Validations;
+using BusinessLayer.DTOsPresentation.AppoinntmentsDTOs;
 
 namespace BusinessLayer
 {
@@ -114,7 +115,7 @@ namespace BusinessLayer
 
 
             //create the Appointment
-            var id = await _repo.AddAppointment(_mapper.Map<AppointmentEntity>(newappointment));
+            var id = await _repo.AddNewAppointment(_mapper.Map<AppointmentEntity>(newappointment));
             switch (id.ResultType)
             {
                 case DataLayerResult.Success:
@@ -200,59 +201,27 @@ namespace BusinessLayer
             
         }
 
-        public async Task< OperationResult<List<Appointment>> >GetAllAppointmentsToDay()
+        public async Task<OperationResult<List<Appointment>>> GetAllAppointmentsToDay()
         {
-            
-                var list =await _repo.GetAllAppointmentsToDay();
 
-                if (list .ResultType== DataLayerResult.Conflict)
-                    return OperationResult<List<Appointment>>.NotFound("No appointments found for today.");
+            var list = await _repo.GetAllAppointmentsToDay();
 
-            if (list.ResultType == DataLayerResult.InternalError) 
+            if (list.ResultType == DataLayerResult.Conflict)
+                return OperationResult<List<Appointment>>.NotFound("No appointments found for today.");
+
+            if (list.ResultType == DataLayerResult.InternalError)
                 return OperationResult<List<Appointment>>.InternalError($"Unexpected error: {list.Message}");
 
-            var mapped = list. Data.Select(a => new Appointment(a)).ToList();
-                return OperationResult<List<Appointment>>.Success(mapped);
-            
+            var mapped = list.Data.Select(a => new Appointment(a)).ToList();
+            return OperationResult<List<Appointment>>.Success(mapped);
 
 
-            
-            
+
+
+
         }
 
-        //public async Task <OperationResult<List<Appointment>> >GetAllAppointmentsToDayByDoctorID(int doctorId)
-        //{
-        //    try
-        //    {
-        //        var list =await _repo.GetAllAppointmentsToDayByDoctorID(doctorId);
-        //        if (list == null || list.Count == 0)
-        //            return OperationResult<List<Appointment>>.NotFound("No appointments found for this doctor today.");
 
-        //        var mapped = list.Select(a => new Appointment(a)).ToList();
-        //        return OperationResult<List<Appointment>>.Success(mapped);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return OperationResult<List<Appointment>>.InternalError($"Unexpected error: {ex.Message}");
-        //    }
-        //}
-
-        //public async Task<OperationResult<List<Appointment>> >GetAllAppointmentsToDayByClinicName(string clinicName)
-        //{
-        //    try
-        //    {
-        //        var list =await _repo.GetAllAppointmentsToDayByClinicName(clinicName);
-        //        if (list == null || list.Count == 0)
-        //            return OperationResult<List<Appointment>>.NotFound("No appointments found for this clinic today.");
-
-        //        var mapped = list.Select(a => new Appointment(a)).ToList();
-        //        return OperationResult<List<Appointment>>.Success(mapped);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return OperationResult<List<Appointment>>.InternalError($"Unexpected error: {ex.Message}");
-        //    }
-        //}
 
         public List<Appointment> GetAllAppointment()
         {
@@ -266,6 +235,63 @@ namespace BusinessLayer
             return appointment ;
 
         }
+
+        public  async Task<OperationResult<Appointment>> GetAppointmentByID(int id)
+        {
+            if (id <= 0) return OperationResult<Appointment>.ValidationError("id is not vaild");
+
+            var appointment =await _repo.GetAppointmentByID( id);
+            switch (appointment.ResultType)
+            {
+                case DataLayerResult.Success:
+                    return OperationResult<Appointment>.Success(new Appointment(appointment.Data));
+                case DataLayerResult.Conflict:
+                    return OperationResult<Appointment>.NotFound("Appointmentid  not found.");
+                    default:
+                    return OperationResult<Appointment>.InternalError($"Unexpected error: {appointment.Message}");
+
+            }
+
+
+            
+
+
+        }
+        public async Task<OperationResult<List<AppointmentCalendarDTO>>> GetTodayAppointmentsByDoctorID(int doctorId)
+        {
+            var appointment = await _repo
+                .GetAllAppointmentsToDayByDoctorID(doctorId);
+
+            switch (appointment.ResultType)
+            {
+                case DataLayerResult.Success:
+                    {
+                        var dtoList =
+                            AppointmentCalendarDTO.FromEntities(appointment.Data);
+
+                        return OperationResult<List<AppointmentCalendarDTO>>
+                            .Success(dtoList);
+                    }
+
+                case DataLayerResult.NotFound:
+                    return OperationResult<List<AppointmentCalendarDTO>>
+                        .NotFound("No appointments found today.");
+
+                case DataLayerResult.Conflict:
+                    return OperationResult<List<AppointmentCalendarDTO>>
+                        .Conflict("Conflict occurred while fetching appointments.");
+
+                default:
+                    return OperationResult<List<AppointmentCalendarDTO>>
+                        .InternalError(
+                            $"Unexpected error: {appointment.Message}");
+            }
+        }
+
+
+
+
     }
-}
+    }
+
 

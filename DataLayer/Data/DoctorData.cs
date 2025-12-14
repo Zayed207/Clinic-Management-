@@ -1,5 +1,7 @@
 ﻿using DataLayer.Contract;
 using DataLayer.Entities;
+using DataLayer.ReadModel.Doctor;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using System;
@@ -135,45 +137,35 @@ namespace DataLayer.Data
             
         }
 
-        public  async Task <DataLayerOperationResult<DoctorEntity>> GetDoctorById(int doctorID)
+        public async Task<DataLayerOperationResult<DoctorInfo>> GetDoctorInfoByUserId(int userId)
         {
             try
-
             {
+                var row = await _context.DoctorInfo
+                    .FromSqlRaw(
+                        "EXEC sp_GetDoctorInfoByUserId @UserId",
+                        new SqlParameter("@UserId", userId))
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync();
 
-                var exsit = await _context.Doctor.SingleOrDefaultAsync(x=>x.DoctorID==doctorID);
-                if (exsit != null)
-                {
-                   
-                    return DataLayerOperationResult<DoctorEntity>.SuccessOperation(exsit);
-                }
+                if (row == null)
+                    return DataLayerOperationResult<DoctorInfo>
+                        .NotFound("Doctor not found");
 
-                 return DataLayerOperationResult<DoctorEntity>.Fail("this clinic is not exist");
-
-
-                    
-
-
-            
-
-
-
-
+                return DataLayerOperationResult<DoctorInfo>.SuccessOperation(row);
             }
-
             catch (Exception ex)
             {
-                Log.Error("DataBase Exception in  DataLayer/GetDoctorById ", ex);
+                Log.Error(ex,
+                    "DB Error in GetDoctorInfoByUserId | UserId: {UserId}",
+                    userId);
 
-                return DataLayerOperationResult<DoctorEntity>.InternalError();
-
+                return DataLayerOperationResult<DoctorInfo>.InternalError();
             }
-
-           
-            
         }
 
-        public  async Task<DataLayerOperationResult<List<DoctorEntity>>> GetAllDoctors()
+
+        public async Task<DataLayerOperationResult<List<DoctorEntity>>> GetAllDoctors()
         {
 
             try
@@ -205,12 +197,9 @@ namespace DataLayer.Data
             throw new NotImplementedException();
         }
 
-        public DataLayerOperationResult<Task<DoctorEntity>> GetDoctorByUserId(int employeeId)
-        {
-            throw new NotImplementedException();
-        }
+     
 
-        public DataLayerOperationResult<Task<DoctorEntity>> GetDoctorByClinicId(int clinicid)
+        public Task<DataLayerOperationResult<DoctorEntity>> GetDoctorByClinicId(int clinicid)
         {
             throw new NotImplementedException();
 
@@ -225,81 +214,17 @@ namespace DataLayer.Data
             throw new NotImplementedException();
         }
 
-        Task<DataLayerOperationResult<DoctorEntity>> IDoctorRepository.GetDoctorByUserId(int userId)
+        public Task<DataLayerOperationResult<DoctorEntity>> GetDoctorByEmployeeID(int employeeid)
         {
             throw new NotImplementedException();
-        }
 
-        Task<DataLayerOperationResult<DoctorEntity>> IDoctorRepository.GetDoctorByClinicId(int clinicId)
-        {
-            throw new NotImplementedException();
         }
 
 
-        //public async Task<List<DoctorEntity>> GetAllPatientByDoctorID(int doctorid)
-        //{
-
-        //    var data =await(from a in _context.Appointment
-        //               join p in _context.Patient on a.Patient_ID_FK equals p.PatientID
-        //               join at in _context.AppointmentType on a.AppointmentTypeID_FK equals at.Type_ID
-        //               join per in _context.Person on p.PatientPersonID_FK equals per.PersonID
-        //               join mr in _context.MedicalRecord on p.PatientID equals mr.PatientID_FK
-        //                     where a.Doctor_ID_FK == doctorid
-        //                     select new
-        //               {
-        //                         p.PatientID,
-        //                   FullName= per.FirstName+""+ per.LastName,
-
-        //                   per.Gender,
-        //                   per.Age,
-        //                   a.Appointment_Date_Time,
-        //                   at.Type_Name,
-        //                   mr.BloodType,
-        //                   mr.ChronicDiseases,
-        //                   mr.Notes
 
 
 
 
-        //               }).AsNoTracking().ToListAsync();
-
-
-        //                        var grouped = data
-        //                .GroupBy(x => new { x.PatientID, x.FullName, x.Gender, x.Age, x.Type_Name, x.Appointment_Date_Time })
-        //                .Select(g => new PatientSummary
-        //                {
-        //                    PatientID = g.Key.PatientID,
-        //                    FullName = g.Key.FullName,
-        //                    Gender = g.Key.Gender,
-        //                    Age = g.Key.Age,
-        //                    LastAppointmentDate = g.Key.Appointment_Date_Time,
-        //                    AppointmentTypeName = g.Key.Type_Name,
-        //                    MedicalRecords = g.Select(r => new MedicalRecordSummary
-        //                                       {
-        //                                            BloodType = r.BloodType,
-        //                                            ChronicDiseases = r.ChronicDiseases,
-        //                                            Notes = r.Notes
-        //                                                                 }).ToList()
-        //                                                                     }).ToList();
-
-
-        //}
-
-
-
-
-
-        //public async Task<List<Tuple<string,int>>> GetTopDoctorsAppointment( short number ,DateOnly date1, DateOnly date2)
-        //{
-
-        //    var result = await _context.Doctor.FromSql($"SELECT TOP {number} \r\n    d.DoctorID,\r\n    COUNT(a.Appointment_ID) AS AppointmentCount,a.Appointment_Date_Time\r\nFROM Doctor d\r\nINNER JOIN Appointment a ON d.DoctorID = a.Doctor_ID_FK\r\nwhere a.Appointment_Date_Time between {date1}and {date1}\r\nGROUP BY d.DoctorID,a.Appointment_Date_Time\r\nORDER BY AppointmentCount DESC;").AsNoTracking().ToListAsync();
-
-
-
-
-        //    List<DoctorEntity> doctors = await _context.Doctor.AsNoTracking().ToListAsync();
-        //    return doctors;
-        //}
 
 
 

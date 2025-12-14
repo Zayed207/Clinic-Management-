@@ -1,8 +1,7 @@
-﻿using DataLayer.Entities;
-
-public class AppointmentStatusDTOs
+﻿
+public class AppointmentStatusRequestDTOs
 {
-    public int Status_ID { get; set; }
+    public int Status_ID { get;private set; }
     public string Status_Name { get; set; }
     public string Description { get; set; }
 
@@ -10,3 +9,4 @@ public class AppointmentStatusDTOs
 
 
 }
+

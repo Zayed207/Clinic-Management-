@@ -1,7 +1,6 @@
-﻿using APILayer.DTOs___Validations;
-using BusinessLayer;
+﻿using BusinessLayer;
 using BusinessLayer.BusinessLogic;
-using BusinessLayer.DTOsForPresentationLayer;
+using BusinessLayer.DTOsPresentation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -25,7 +24,7 @@ namespace ClinicAPI.Controllers
         }
 
        
-        [HttpPost("add")]
+        [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -34,15 +33,7 @@ namespace ClinicAPI.Controllers
         {
 
             
-                var creationUrl = Url.Action("AddPerson", "Person", null, Request.Scheme);
-
-
-                return BadRequest(new
-                {
-                    Message = "PersonID is missing. Please create an Person.",
-                    CreateTypeUrl = creationUrl
-                });
-
+              
             var result =await _service.AddNewPatient(patient);
 
                 return result.Status switch
@@ -56,12 +47,12 @@ namespace ClinicAPI.Controllers
            
         
 
-        [HttpPut("update")]
+        [HttpPut("{patientid:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> UpdatePatient([FromBody] PatientRequestDTO patient)
+        public async Task<ActionResult> UpdatePatient( int patientid,[FromBody] PatientRequestDTO patient)
         {
             var result =await _service.UpdatePatient(patient);
 
@@ -69,13 +60,14 @@ namespace ClinicAPI.Controllers
             {
                 ResultStatus.Updated => Ok(result.Message),
                 ResultStatus.NotFound => NotFound(result.Message),
+                ResultStatus.Conflict=> Conflict(result.Message),
                 ResultStatus.InternalError => StatusCode(500, result.Message),
                 _ => BadRequest(result.Message)
             };
         }
 
      
-        [HttpDelete("by{patientId}")]
+        [HttpDelete("{patientId:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -93,7 +85,7 @@ namespace ClinicAPI.Controllers
             };
         }
 
-        [HttpGet("{patientId}")]
+        [HttpGet("{patientId:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -112,14 +104,14 @@ namespace ClinicAPI.Controllers
         }
 
       
-        [HttpGet("by{userId}")]
+        [HttpGet("users/{userid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Patient>> GetPatientByUserId(int userId)
+        public async Task<ActionResult<Patient>> GetPatientByUserId(int userid)
         {
-            var result = await _service.FindPatientByUserID(userId);
+            var result = await _service.FindPatientByUserID(userid);
 
             return result.Status switch
             {
@@ -130,10 +122,8 @@ namespace ClinicAPI.Controllers
             };
         }
 
-        /// <summary>
-        /// Get patient by UserName.
-        /// </summary>
-        [HttpGet("by{username}")]
+        
+        [HttpGet("{username}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

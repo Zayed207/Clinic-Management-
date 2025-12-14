@@ -20,24 +20,26 @@ namespace ClinicAPI.Controllers
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<  ActionResult<int> > AddAppointmentStatus([FromBody] AppointmentStatusDTOs dto)
+        public async Task<  ActionResult<int> > AddAppointmentStatus([FromBody] AppointmentStatusRequestDTOs dto)
         {
             var result =await _service.AddAppointmentStatus(dto);
 
             return result.Status switch
             {
-                ResultStatus.Success => CreatedAtAction(nameof(GetAppointmentstatusByID), new { id = result.Data }, result.Data),
+                ResultStatus.Success => Created(nameof(GetAppointmentstatusByID), result.Data),
                 ResultStatus.InternalError => StatusCode(500, result.Message),
+                ResultStatus.Conflict => Conflict(result.Message),
                 _ => BadRequest(result.Message)
             };
         }
 
-        [HttpPut("Update")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [HttpPut]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult > UpdateAppointmentStatus([FromBody] AppointmentStatusDTOs dto)
+        public async Task<ActionResult > UpdateAppointmentStatus([FromBody] AppointmentStatusRequestDTOs dto)
         {
             var result =await _service.UpdateAppointmentStatus(dto);
 
@@ -46,11 +48,17 @@ namespace ClinicAPI.Controllers
                 ResultStatus.Updated => Ok(result.Message),
                 ResultStatus.NotFound => NotFound(result.Message),
                 ResultStatus.InternalError => StatusCode(500, result.Message),
+                ResultStatus.Conflict => Conflict(result.Message),
                 _ => BadRequest(result.Message)
             };
         }
 
-        [HttpDelete("Delete/{id}")]
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task< ActionResult > DeleteAppointmentStatus(int id)
         {
             var result =await _service.DeleteAppointmentStatus(id);
@@ -60,11 +68,17 @@ namespace ClinicAPI.Controllers
                 ResultStatus.Success => Ok(result.Message),
                 ResultStatus.NotFound => NotFound(result.Message),
                 ResultStatus.InternalError => StatusCode(500, result.Message),
+                ResultStatus.Conflict => Conflict( result.Message),
                 _ => BadRequest(result.Message)
             };
         }
 
-        [HttpGet("GetById/{id}")]
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<AppointmentStatus>> GetAppointmentstatusByID(int id)
         {
             var result =await _service.GetAppointmentStatusById(id);
@@ -74,11 +88,17 @@ namespace ClinicAPI.Controllers
                 ResultStatus.Success => Ok(result.Data),
                 ResultStatus.NotFound => NotFound(result.Message),
                 ResultStatus.InternalError => StatusCode(500, result.Message),
+                ResultStatus.Conflict => Conflict(result.Message),
                 _ => BadRequest(result.Message)
             };
         }
 
-        [HttpGet("GetAll")]
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<List<AppointmentStatus>> >GetAllStatuses()
         {
             var result =await _service.GetAllAppointmentStatuses();
@@ -87,6 +107,7 @@ namespace ClinicAPI.Controllers
             {
                 ResultStatus.Success => Ok(result.Data),
                 ResultStatus.NotFound => NotFound(result.Message),
+                ResultStatus.Conflict => Conflict(result.Message),
                 ResultStatus.InternalError => StatusCode(500, result.Message),
                 _ => BadRequest(result.Message)
             };

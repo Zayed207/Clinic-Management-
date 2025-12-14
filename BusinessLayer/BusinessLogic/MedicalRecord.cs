@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using APILayer.DTOs___Validations;
+using BusinessLayer.DTOsPresentation;
 using AutoMapper;
 using BusinessLayer.BusinessLogic;
 using DataLayer.Contract;

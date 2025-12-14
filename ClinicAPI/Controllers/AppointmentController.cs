@@ -1,9 +1,9 @@
 ﻿using BusinessLayer.BusinessLogic;
 using BusinessLayer;
-using DataLayer.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using BusinessLayer.DTOsPresentation.AppoinntmentsDTOs;
 
 namespace ClinicAPI.Controllers
 {
@@ -19,26 +19,27 @@ namespace ClinicAPI.Controllers
         }
 
 
-        [HttpPost("add")]
+        [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<int>> AddAppointment([FromBody] AppointmentRequestDTO appointment)
+        public async Task<ActionResult<int>> CreateAppointment([FromBody] AppointmentRequestDTO appointment)
         {
 
             var result = await _service.CreateAppointment(appointment);
             return result.Status switch
             {
-                ResultStatus.Success => CreatedAtAction(nameof(GetAppointmentsToday), new { id = result.Data }, result.Data),
+                ResultStatus.Success => Created(nameof(GetByID) ,result.Data),
                 ResultStatus.InternalError => StatusCode(500, result.Message),
+                ResultStatus.Conflict => Conflict(result.Message),
                 _ => BadRequest(result.Message)
             };
         }
 
 
-        [HttpPut("update")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [HttpPut]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -48,7 +49,7 @@ namespace ClinicAPI.Controllers
             return result.Status switch
             {
                 ResultStatus.Updated => Ok(result.Message),
-                ResultStatus.NotFound => NotFound(result.Message),
+                ResultStatus.Conflict => Conflict(result.Message),
                 ResultStatus.InternalError => StatusCode(500, result.Message),
                 _ => BadRequest(result.Message)
             };
@@ -56,7 +57,7 @@ namespace ClinicAPI.Controllers
 
 
         [HttpDelete("{id}")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -66,15 +67,15 @@ namespace ClinicAPI.Controllers
             return result.Status switch
             {
                 ResultStatus.Success => Ok(result.Message),
-                ResultStatus.NotFound => NotFound(result.Message),
+                ResultStatus.Conflict => Conflict(result.Message),
                 ResultStatus.InternalError => StatusCode(500, result.Message),
                 _ => BadRequest(result.Message)
             };
         }
 
 
-        [HttpDelete("By-patientId/{patientId}")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [HttpDelete("{patientId:int}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -84,14 +85,14 @@ namespace ClinicAPI.Controllers
             return result.Status switch
             {
                 ResultStatus.Success => Ok(result.Message),
-                ResultStatus.NotFound => NotFound(result.Message),
+                ResultStatus.Conflict => Conflict(result.Message),
                 ResultStatus.InternalError => StatusCode(500, result.Message),
                 _ => BadRequest(result.Message)
             };
         }
 
         [HttpGet("today")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -100,7 +101,7 @@ namespace ClinicAPI.Controllers
             var result = await _service.GetAllAppointmentsToDay();
             return result.Status switch
             {
-                ResultStatus.Success => Ok(result.Data),
+                ResultStatus.Success => Ok( result.Data),
                 ResultStatus.NotFound => NotFound(result.Message),
                 ResultStatus.InternalError => StatusCode(500, result.Message),
                 _ => BadRequest(result.Message)
@@ -143,6 +144,52 @@ namespace ClinicAPI.Controllers
             //};
             return NoContent();
         }
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<List<Appointment>>> GetByID(int id)
+        {
+            var result = await _service.GetAppointmentByID(id);
+            return result.Status switch
+            {
+                ResultStatus.Success => Ok(result.Data),
+                ResultStatus.NotFound => NotFound(result.Message),
+                ResultStatus.ValidationError=> BadRequest(result.Message),
+                ResultStatus.InternalError => StatusCode(500, result.Message),
+                _ => BadRequest(result.Message)
+            };
+            
+        }
+        [HttpGet("today/doctor/{doctorId:int}")]
+        public async Task<ActionResult<IEnumerable<AppointmentCalendarDTO>>> GetTodayAppointmentsByDoctor(int doctorId)
+        {
+            var result =
+                await _service
+                    .GetTodayAppointmentsByDoctorID(doctorId);
+
+            switch (result.Status)
+            {
+                case ResultStatus.Success:
+                    return Ok(result.Data); 
+
+                case ResultStatus.NotFound:
+                    return NotFound(result.Message);
+
+                case ResultStatus.Conflict:
+                    return Conflict(result.Message);
+
+                case ResultStatus.ValidationError:
+                    return BadRequest(result.Message);
+
+                default:
+                    return StatusCode(
+                        StatusCodes.Status500InternalServerError,
+                        "Unexpected server error");
+            }
+        }
+
 
     }
 }

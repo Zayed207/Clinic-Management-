@@ -13,7 +13,9 @@ namespace DataLayer.Data
         Success,
         Conflict,
         InternalError,
-        
+        NotFound,
+        NoContent
+
     }
     public class DataLayerOperationResult<T> 
     {
@@ -42,7 +44,10 @@ namespace DataLayer.Data
         //
         public static DataLayerOperationResult<T> Fail(string message = "Database operation failed")
             => new DataLayerOperationResult<T>(DataLayerResult.Conflict, message);
-
+        public static DataLayerOperationResult<T> NotFound(string message = "Not exist ")
+          => new DataLayerOperationResult<T>(DataLayerResult.NotFound, message);
+        public static DataLayerOperationResult<T> NoContent(string message = "Database operation failed")
+  => new DataLayerOperationResult<T>(DataLayerResult.NoContent, message);
         public static DataLayerOperationResult<T> InternalError(string message = "Unexpected server error")
                 => new DataLayerOperationResult<T>(DataLayerResult.InternalError, message);
 

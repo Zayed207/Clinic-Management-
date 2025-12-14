@@ -4,7 +4,11 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataLayer.Contract;
 using DataLayer.Entities;
+using DataLayer.ReadModel.Appointment;
+using DataLayer.ReadModel.Clinic;
+using DataLayer.ReadModel.Doctor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 namespace DataLayer.Data
@@ -40,28 +44,17 @@ namespace DataLayer.Data
         public DbSet<PaymentProviderEntity> PaymentProviders { get; set; } = null;
 
         public DbSet<UserEntity> Users{ get; set; } = null;
-        // public DbSet<ConsultationModeData> ConsultationMode{ get; set; } = null!;
-        //public DbSet<PaymentEntity> Payment { get; set; } = null!;
-        //public DbSet<ClincEntity> Clinic { get; set; } = null!;
-        //public DbSet<ClincEntity> Clinic { get; set; } = null!;
-        //public DbSet<ClincEntity> Clinic { get; set; } = null!;
+        public DbSet<AppointmentCalendar> AppointmentCalendar { get; set; }
+        public DbSet<ClinicInfo> ClinicInfo{ get; set; }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    base.OnConfiguring(optionsBuilder);
+        public DbSet<DoctorInfo> DoctorInfo { get; set; }
 
-        //    var s=new ConfigurationBuilder().AddJsonFile("appsetting.json").Build();
-
-        //    var connection = s.GetSection("constr").Value;
-
-        //    optionsBuilder.UseSqlServer(connection);
-
-        //}
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(Clinicdbcontext).Assembly);
+         
 
         }
     }

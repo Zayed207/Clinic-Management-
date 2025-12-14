@@ -1,4 +1,4 @@
-﻿namespace APILayer.DTOs___Validations
+﻿namespace BusinessLayer.DTOsPresentation
 {
     public class MedicalRecordRequestDTO
     {

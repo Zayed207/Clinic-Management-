@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using BusinessLayer;
 using BusinessLayer.BusinessLogic;
-using BusinessLayer.DTOsForPresentationLayer;
+using BusinessLayer.DTOsPresentation;
+using BusinessLayer.DTOsPresentation;
 using DataLayer.Contract;
 using DataLayer.Data;
 using DataLayer.Entities;

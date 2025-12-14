@@ -1,5 +1,7 @@
 ﻿using DataLayer.Contract;
 using DataLayer.Entities;
+using DataLayer.ReadModel.Clinic;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using System;
@@ -186,55 +188,33 @@ namespace DataLayer.Data
             }
 
         }
-//         try
+        public async Task<DataLayerOperationResult<ClinicInfo>>GetClinicInfo(int clinicId)
+        {
+            try
+            {
+                var row = await _context.ClinicInfo
+                    .FromSqlRaw(
+                        "EXEC sp_GetClinicInfo @ClinicID",
+                        new SqlParameter("@ClinicID", clinicId))
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync();
 
-//            {
-//                var list = await _context.Clinic.AsNoTracking().ToListAsync();
-//                if (list == null || list.Count == 0) return DataLayerOperationResult<List<ClinicEntity>>.Fail("No Clinics avaliable"); 
+                if (row == null)
+                    return DataLayerOperationResult<ClinicInfo>
+                        .NotFound("Clinic not found");
 
+                return DataLayerOperationResult<ClinicInfo>
+                    .SuccessOperation(row);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex,
+                    "DB Error in GetClinicInfo | ClinicID: {ClinicID}", clinicId);
 
+                return DataLayerOperationResult<ClinicInfo>
+                    .InternalError();
+            }
+        }
 
-//                return DataLayerOperationResult<List<ClinicEntity>>.SuccessOperation(list);
-
-//            }
-
-//            catch (Exception ex)
-//            {
-
-//                return DataLayerOperationResult<List<ClinicEntity>>.InternalError();
-
-//            }
-//try
-
-//            {
-
-//                var exsit = _context.Clinic.Find(clinic);
-//                if (exsit == null)
-//                {
-//                    return DataLayerOperationResult<bool>.Fail("this clinic is not exist");
-
-//                }
-
-
-
-//    _context.Clinic.Update(clinic);
-//                if (await _context.SaveChangesAsync() > 0)
-
-//                    return DataLayerOperationResult<bool>.SuccessOperation(true);
-
-
-//                return DataLayerOperationResult<bool>.Fail("No appointments avaliable"); 
-
-
-
-
-//            }
-
-//            catch (Exception ex)
-//            {
-
-//                return DataLayerOperationResult<bool>.InternalError();
-
-//            }
     }
 }

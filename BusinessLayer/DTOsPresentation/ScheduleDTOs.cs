@@ -1,9 +1,9 @@
-﻿namespace DataLayer.Entities
+﻿namespace BusinessLayer.DTOsPresentation
 {
     public class ScheduleRequestDTOs
     {
         
-        public int EmployeeID_FK { get; set; }
+       
 
     
         public DateOnly ScheduleDate { get; set; }

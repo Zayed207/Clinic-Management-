@@ -1,6 +1,6 @@
 ﻿using BusinessLayer;
 
-namespace ClinicAPI.temp.DTOs___Validations
+namespace BusinessLayer.DTOsPresentation
 {
     public class EmployeeRequestDTO
     {
@@ -42,11 +42,10 @@ namespace ClinicAPI.temp.DTOs___Validations
 
 
         public int EmployeeID { get; set; }
-        public int TypeEmpployeeName { get; set; }
+        public string TypeEmpployeeName { get; set; }
         public string Titel { get; set; }
         public int PersonID_FK { get; set; }
-        public string LastName { get; set; }
-        public string FirstName { get; set; }
+        public string FullName { get; set; }
         public string NationalID { get; set; }
         public decimal? Salary { get; set; }
 

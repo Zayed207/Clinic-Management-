@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
 using BusinessLayer.BusinessLogic;
-using ClinicAPI.temp.DTOs___Validations;
+using BusinessLayer.DTOsPresentation.DoctorDTO;
 using DataLayer.Contract;
 using DataLayer.Data;
 using DataLayer.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Update.Internal;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
@@ -59,7 +60,7 @@ namespace BusinessLayer
             
             IsOnCall = doctor.IsOnCall;
             Specialization = doctor.Specialization;
-            DoctorTypeID= doctor.DoctorTypeID;
+            DoctorTypeID= (short)doctor.DoctorTypeID;
             Price = doctor.Price;
 
 
@@ -124,28 +125,31 @@ namespace BusinessLayer
 
       
         }
-        public async Task<OperationResult<bool>> UpdateDoctor(DoctorRequestDTO doctor)
+        public async Task<OperationResult<bool>> UpdateDoctor(DoctorRequestDTO doctor,int employeeid)
         {
            
-            var d = await _repo.IsDoctorExistByEmployeeID(doctor.EmployeeID);
+            var d = await _repo.IsDoctorExistByEmployeeID(employeeid);
             if (d.ResultType == DataLayerResult.Conflict)
             {
-                return OperationResult<bool>.Conflict("This Doctor is not exist");
+                return OperationResult<bool>.NotFound("This Doctor is not exist");
             }
 
             if (d.ResultType == DataLayerResult.InternalError)
                 return OperationResult<bool>.InternalError($"Unexpected error: {d.Message}");
 
+            var Preparerentity = new Doctor(doctor);
+            Preparerentity.EmployeeID = employeeid; 
 
-
-            var result = await _repo.UpdateDoctor(_mapper.Map<DoctorEntity>(new Doctor(doctor)));
+            
+            
+            var result = await _repo.UpdateDoctor(_mapper.Map<DoctorEntity>(Preparerentity));
             switch (result.ResultType)
             {
                 case DataLayerResult.Success:
                     return OperationResult<bool>.Success(result.Data, " created successfully.");
 
                 case DataLayerResult.Conflict:
-                    return OperationResult<bool>.NotFound("This Doctor is already exist");
+                    return OperationResult<bool>.Conflict("This Doctor is already exist");
 
                 default:
                     return OperationResult<bool>.InternalError($"Unexpected error: {result.Message}");
@@ -176,10 +180,10 @@ namespace BusinessLayer
 
 
         
-        public async Task<OperationResult<Doctor>> GetDoctorById(int employeeId)
+        public async Task<OperationResult<Doctor>> GetDoctorByEmployeeID(int employeeId)
         {
             if (employeeId <= 0) return OperationResult<Doctor>.ValidationError("this id is not valid");
-            var result = await _repo.GetDoctorById(employeeId);
+            var result = await _repo.GetDoctorByEmployeeID(employeeId);
 
             switch (result.ResultType)
             {
@@ -198,44 +202,26 @@ namespace BusinessLayer
         
         
         }
-        public async Task<OperationResult<Doctor>> GetDoctorByUserId(int userId)
+        public async Task<OperationResult<DoctorInfoDTO>>GetDoctorInfoByUserId(int userId)
         {
-            if (userId <= 0) return OperationResult<Doctor>.ValidationError("this id is not valid");
-            var doctor=await _repo.GetDoctorById(userId);
+            var result = await _repo.GetDoctorInfoByUserId(userId);
 
-            switch (doctor.ResultType)
+            switch (result.ResultType)
             {
                 case DataLayerResult.Success:
-                    return OperationResult<Doctor>.Success(new Doctor(doctor.Data), "founded");
+                    return OperationResult<DoctorInfoDTO>
+                        .Success(DoctorInfoDTO.FromDoctorInfo(result.Data));
 
-                case DataLayerResult.Conflict:
-                    return OperationResult<Doctor>.NotFound("this id not exist in database.");
-
-                default:
-                    return OperationResult<Doctor>.InternalError($"Unexpected error: {doctor.Message}");
-            }
-        }
-        public async Task<OperationResult<Doctor>> GetDoctorByClinicId(int clinicId) {
-
-            if (clinicId <= 0) return OperationResult<Doctor>.ValidationError("this id is not valid");
-           
-            
-            var doctor = await _repo.GetDoctorById(clinicId);
-
-           
-            switch (doctor.ResultType)
-            {
-                case DataLayerResult.Success:
-                    return OperationResult<Doctor>.Success(new Doctor(doctor.Data), "founded");
-
-                case DataLayerResult.Conflict:
-                    return OperationResult<Doctor>.NotFound("this id not exist in database.");
+                case DataLayerResult.NotFound:
+                    return OperationResult<DoctorInfoDTO>
+                        .NotFound(result.Message);
 
                 default:
-                    return OperationResult<Doctor>.InternalError($"Unexpected error: {doctor.Message}");
+                    return OperationResult<DoctorInfoDTO>
+                        .InternalError($"Unexpected error: {result.Message}");
             }
-
         }
+
 
         public async Task<OperationResult<List<Doctor>>> GetAllDoctorsInClinc(int clinicid)
         {

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "DataLayer\Data
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClinicAPI", "ClinicAPI\ClinicAPI.csproj", "{3615710B-6452-4AE8-9AE6-3E619A58651F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clinic_Test", "Clinic_Test\Clinic_Test.csproj", "{055078B7-DE5C-45CB-97B8-928F4B23FFED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,18 @@ Global
 		{3615710B-6452-4AE8-9AE6-3E619A58651F}.Release|x64.Build.0 = Release|Any CPU
 		{3615710B-6452-4AE8-9AE6-3E619A58651F}.Release|x86.ActiveCfg = Release|Any CPU
 		{3615710B-6452-4AE8-9AE6-3E619A58651F}.Release|x86.Build.0 = Release|Any CPU
+		{055078B7-DE5C-45CB-97B8-928F4B23FFED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{055078B7-DE5C-45CB-97B8-928F4B23FFED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{055078B7-DE5C-45CB-97B8-928F4B23FFED}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{055078B7-DE5C-45CB-97B8-928F4B23FFED}.Debug|x64.Build.0 = Debug|Any CPU
+		{055078B7-DE5C-45CB-97B8-928F4B23FFED}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{055078B7-DE5C-45CB-97B8-928F4B23FFED}.Debug|x86.Build.0 = Debug|Any CPU
+		{055078B7-DE5C-45CB-97B8-928F4B23FFED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{055078B7-DE5C-45CB-97B8-928F4B23FFED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{055078B7-DE5C-45CB-97B8-928F4B23FFED}.Release|x64.ActiveCfg = Release|Any CPU
+		{055078B7-DE5C-45CB-97B8-928F4B23FFED}.Release|x64.Build.0 = Release|Any CPU
+		{055078B7-DE5C-45CB-97B8-928F4B23FFED}.Release|x86.ActiveCfg = Release|Any CPU
+		{055078B7-DE5C-45CB-97B8-928F4B23FFED}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

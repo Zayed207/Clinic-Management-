@@ -2,18 +2,17 @@
 using DataLayer.Entities;
 using System.ComponentModel.DataAnnotations;
 
-namespace APILayer.DTOs___Validations
+namespace BusinessLayer.DTOsPresentation
 {
     public class PatientResponseDTO
     {
         public int PatientID { get; set; }
         public int UserID { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string FullName { get; set; }
 
         public int PatientPersonID { get; set; }
         
-        public int Patient_MR_ID { get; set; }
+       
 
         public string EmergencyContactName { get; set; }
        
@@ -57,7 +56,7 @@ namespace APILayer.DTOs___Validations
     }
     public class UpdatePatientRequestDTO
     {
-        public int UserID { get; set; }
+        
         public int PatientPersonID { get; set; }
        
         public string EmergencyContactName { get; set; }

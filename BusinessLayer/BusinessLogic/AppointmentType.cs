@@ -2,8 +2,11 @@
 using BusinessLayer;
 using BusinessLayer.BusinessLogic;
 using DataLayer.Contract;
+using DataLayer.Data;
 using DataLayer.Entities;
+using System.Linq;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 public class AppointmentType
 {
@@ -33,88 +36,89 @@ public class AppointmentTypeServices
 
     public async Task<OperationResult<int>> AddAppointmentType(AppointmentTypeDTO dto)
     {
-        try
-        {
-            var a = _mapper.Map<AppointmentTypeEntity>(dto);
-            int id =await _repo.AddAppointmentType(a);
 
-            if (id > 0)
-                return OperationResult<int>.Success(id, "Appointment type created successfully.");
+        var id = await _repo.AddAppointmentType(_mapper.Map<AppointmentTypeEntity>(dto));
 
-            return OperationResult<int>.InternalError("Failed to create appointment type.");
-        }
-        catch (Exception ex)
+        switch (id.ResultType)
         {
-            return OperationResult<int>.InternalError($"Unexpected error: {ex.Message}");
+            case DataLayerResult.Success:
+                return OperationResult<int>.Success(id.Data, " new Appointmenttype  created successfully.");
+
+            case DataLayerResult.Conflict:
+                return OperationResult<int>.Conflict("unsuccessfully added");
+
+            default:
+                return OperationResult<int>.InternalError($"Unexpected error: {id.Message}");
         }
+
     }
-
     public async Task<OperationResult<bool>> UpdateAppointmentType(AppointmentTypeDTO dto)
     {
-        try
-        {
-            bool updated =await _repo.UpdateAppointmentType(_mapper.Map<AppointmentTypeEntity>(dto));
+        
+            var updated =await _repo.UpdateAppointmentType(_mapper.Map<AppointmentTypeEntity>(dto));
 
-            if (updated)
-                return OperationResult<bool>.Updated("Appointment type updated successfully.");
+            switch (updated.ResultType)
+            {
+                case DataLayerResult.Success:
+                    return OperationResult<bool>.Success(updated.Data, " Appointment type updated successfully.");
 
-            return OperationResult<bool>.NotFound("Appointment type not found.");
-        }
-        catch (Exception ex)
-        {
-            return OperationResult<bool>.InternalError($"Unexpected error: {ex.Message}");
-        }
+                case DataLayerResult.Conflict:
+                    return OperationResult<bool>.Conflict("Appointment type not found");
+
+                default:
+                    return OperationResult<bool>.InternalError($"Unexpected error: {updated.Message}");
+            }
+           
     }
 
     public async Task<OperationResult<bool>> DeleteAppointmentType(int id)
     {
-        try
-        {
-            bool deleted =await _repo.DeleteAppointmentType(id);
+       
+            var deleted = await _repo.DeleteAppointmentType(id);
+            switch (deleted.ResultType)
+            {
+                case DataLayerResult.Success:
+                    return OperationResult<bool>.Success(deleted.Data, " Appointment type deleted successfully.");
 
-            if (deleted)
-                return OperationResult<bool>.Success(true, "Appointment type deleted successfully.");
+                case DataLayerResult.Conflict:
+                    return OperationResult<bool>.Conflict("Appointment type not found");
 
-            return OperationResult<bool>.NotFound("Appointment type not found.");
+                default:
+                    return OperationResult<bool>.InternalError($"Unexpected error: {deleted.Message}");
+            }
+
         }
-        catch (Exception ex)
-        {
-            return OperationResult<bool>.InternalError($"Unexpected error: {ex.Message}");
-        }
-    }
-
+        
     public async Task<OperationResult<AppointmentType>> GetAppointmentTypeById(int id)
     {
-        try
-        {
+        
             var entity =await _repo.GetAppointmentTypeById(id);
+            switch (entity.ResultType)
+            {
+                case DataLayerResult.Success:
+                    return OperationResult<AppointmentType>.Success(new AppointmentType(entity.Data));
 
-            if (entity == null)
-                return OperationResult<AppointmentType>.NotFound("Appointment type not found.");
+                case DataLayerResult.Conflict:
+                    return OperationResult<AppointmentType>.Conflict("Appointment type not found");
 
-            return OperationResult<AppointmentType>.Success(new AppointmentType(entity));
-        }
-        catch (Exception ex)
-        {
-            return OperationResult<AppointmentType>.InternalError($"Unexpected error: {ex.Message}");
-        }
+                default:
+                    return OperationResult<AppointmentType>.InternalError($"Unexpected error: {entity.Message}");
+            }
+
     }
 
     public async Task<OperationResult<List<AppointmentType>>> GetAllAppointmentTypes()
     {
-        try
-        {
+       
             var list =await _repo.GetAllAppointmentTypes();
+        if (list.ResultType == DataLayerResult.Conflict)
+            return OperationResult<List<AppointmentType>>.NotFound("No appointmenttypes found ");
 
-            if (list == null || list.Count == 0)
-                return OperationResult<List<AppointmentType>>.NotFound("No appointment types found.");
+        if (list.ResultType == DataLayerResult.InternalError)
+            return OperationResult<List<AppointmentType>>.InternalError($"Unexpected error: {list.Message}");
 
-            var types = list.Select(s => new AppointmentType(s)).ToList();
-            return OperationResult<List<AppointmentType>>.Success(types);
-        }
-        catch (Exception ex)
-        {
-            return OperationResult<List<AppointmentType>>.InternalError($"Unexpected error: {ex.Message}");
-        }
+        var mapped = list.Data.Select(a => new AppointmentType(a)).ToList();
+        return OperationResult<List<AppointmentType>>.Success(mapped);
+      
     }
 }

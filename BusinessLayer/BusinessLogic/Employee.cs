@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using BusinessLayer;
 using BusinessLayer.BusinessLogic;
-using ClinicAPI.temp.DTOs___Validations;
+using BusinessLayer.DTOsPresentation;
+using BusinessLayer.DTOsPresentation;
 using DataLayer.Contract;
 using DataLayer.Data;
 using DataLayer.Entities;
@@ -98,9 +99,11 @@ namespace BusinessLayer
             }
         }
 
-        public async Task<OperationResult<bool>> UpdateEmployee(EmployeeRequestDTO employeeDto)
+        public async Task<OperationResult<bool>> UpdateEmployee(EmployeeRequestDTO employeeDto,int employee)
         {
-            var updated = await _repo.UpdateEmployee(_mapper.Map<EmployeeEntity>(new Employee(employeeDto)));
+            var prepareing = new Employee(employeeDto);
+            prepareing.EmployeeID = employee;
+            var updated = await _repo.UpdateEmployee(_mapper.Map<EmployeeEntity>(prepareing));
             switch (updated.ResultType)
             {
                 case DataLayerResult.Success:

@@ -5,7 +5,7 @@
     "version": "1.0"
   },
   "paths": {
-    "/api/Appointment/add": {
+    "/api/Appointment": {
       "post": {
         "tags": [
           "Appointment"
@@ -97,9 +97,7 @@
             }
           }
         }
-      }
-    },
-    "/api/Appointment/update": {
+      },
       "put": {
         "tags": [
           "Appointment"
@@ -124,8 +122,8 @@
           }
         },
         "responses": {
-          "201": {
-            "description": "Created"
+          "200": {
+            "description": "OK"
           },
           "409": {
             "description": "Conflict",
@@ -190,8 +188,98 @@
           }
         ],
         "responses": {
-          "201": {
-            "description": "Created"
+          "200": {
+            "description": "OK"
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Appointment"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Appointment"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Appointment"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Appointment"
+                  }
+                }
+              }
+            }
           },
           "409": {
             "description": "Conflict",
@@ -239,7 +327,7 @@
         }
       }
     },
-    "/api/Appointment/By-patientId/{patientId}": {
+    "/api/Appointment/{patientId}": {
       "delete": {
         "tags": [
           "Appointment"
@@ -256,8 +344,8 @@
           }
         ],
         "responses": {
-          "201": {
-            "description": "Created"
+          "200": {
+            "description": "OK"
           },
           "409": {
             "description": "Conflict",
@@ -311,8 +399,8 @@
           "Appointment"
         ],
         "responses": {
-          "201": {
-            "description": "Created",
+          "200": {
+            "description": "OK",
             "content": {
               "text/plain": {
                 "schema": {
@@ -397,8 +485,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string"
             }
           }
         ],
@@ -578,17 +665,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AppointmentStatusDTOs"
+                "$ref": "#/components/schemas/AppointmentStatusRequestDTOs"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/AppointmentStatusDTOs"
+                "$ref": "#/components/schemas/AppointmentStatusRequestDTOs"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/AppointmentStatusDTOs"
+                "$ref": "#/components/schemas/AppointmentStatusRequestDTOs"
               }
             }
           }
@@ -663,7 +750,7 @@
         }
       }
     },
-    "/api/AppointmentStatus/Update": {
+    "/api/AppointmentStatus": {
       "put": {
         "tags": [
           "AppointmentStatus"
@@ -672,24 +759,64 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/AppointmentStatusDTOs"
+                "$ref": "#/components/schemas/AppointmentStatusRequestDTOs"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/AppointmentStatusDTOs"
+                "$ref": "#/components/schemas/AppointmentStatusRequestDTOs"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/AppointmentStatusDTOs"
+                "$ref": "#/components/schemas/AppointmentStatusRequestDTOs"
               }
             }
           }
         },
         "responses": {
-          "201": {
-            "description": "Created"
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           },
           "409": {
             "description": "Conflict",
@@ -713,6 +840,42 @@
           },
           "500": {
             "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "AppointmentStatus"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AppointmentStatus"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AppointmentStatus"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AppointmentStatus"
+                  }
+                }
+              }
+            }
           },
           "400": {
             "description": "Bad Request",
@@ -733,11 +896,54 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
     },
-    "/api/AppointmentStatus/Delete/{id}": {
+    "/api/AppointmentStatus/{id}": {
       "delete": {
         "tags": [
           "AppointmentStatus"
@@ -756,11 +962,72 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
-      }
-    },
-    "/api/AppointmentStatus/GetById/{id}": {
+      },
       "get": {
         "tags": [
           "AppointmentStatus"
@@ -796,49 +1063,74 @@
                 }
               }
             }
-          }
-        }
-      }
-    },
-    "/api/AppointmentStatus/GetAll": {
-      "get": {
-        "tags": [
-          "AppointmentStatus"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
+          },
+          "400": {
+            "description": "Bad Request",
             "content": {
               "text/plain": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/AppointmentStatus"
-                  }
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               },
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/AppointmentStatus"
-                  }
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               },
               "text/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/AppointmentStatus"
-                  }
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
     },
-    "/api/AppointmentType/Add": {
+    "/api/AppointmentType": {
       "post": {
         "tags": [
           "AppointmentType"
@@ -863,33 +1155,74 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "OK",
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request",
             "content": {
               "text/plain": {
                 "schema": {
-                  "type": "integer",
-                  "format": "int32"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               },
               "application/json": {
                 "schema": {
-                  "type": "integer",
-                  "format": "int32"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               },
               "text/json": {
                 "schema": {
-                  "type": "integer",
-                  "format": "int32"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
-      }
-    },
-    "/api/AppointmentType/Update": {
+      },
       "put": {
         "tags": [
           "AppointmentType"
@@ -916,11 +1249,147 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "AppointmentType"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
     },
-    "/api/AppointmentType/Delete/{id}": {
+    "/api/AppointmentType/{id}": {
       "delete": {
         "tags": [
           "AppointmentType"
@@ -939,11 +1408,72 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
-      }
-    },
-    "/api/AppointmentType/GetById/{id}": {
+      },
       "get": {
         "tags": [
           "AppointmentType"
@@ -961,67 +1491,75 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/AppointmentType"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AppointmentType"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AppointmentType"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
-          }
-        }
-      }
-    },
-    "/api/AppointmentType/GetAll": {
-      "get": {
-        "tags": [
-          "AppointmentType"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
+          },
+          "404": {
+            "description": "Not Found",
             "content": {
               "text/plain": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/AppointmentType"
-                  }
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               },
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/AppointmentType"
-                  }
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               },
               "text/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/AppointmentType"
-                  }
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
     },
-    "/api/Clinic/Add": {
+    "/api/Clinic": {
       "post": {
         "tags": [
           "Clinic"
@@ -1046,8 +1584,8 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "OK",
+          "201": {
+            "description": "Created",
             "content": {
               "text/plain": {
                 "schema": {
@@ -1068,11 +1606,72 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
-      }
-    },
-    "/api/Clinic/Update": {
+      },
       "put": {
         "tags": [
           "Clinic"
@@ -1099,6 +1698,168 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Clinic"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Clinic"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Clinic"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Clinic"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -1122,6 +1883,69 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },
@@ -1160,49 +1984,74 @@
                 }
               }
             }
-          }
-        }
-      }
-    },
-    "/api/Clinic/all": {
-      "get": {
-        "tags": [
-          "Clinic"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
+          },
+          "400": {
+            "description": "Bad Request",
             "content": {
               "text/plain": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Clinic"
-                  }
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               },
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Clinic"
-                  }
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               },
               "text/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Clinic"
-                  }
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
     },
-    "/api/Doctor/add": {
+    "/api/Doctor": {
       "post": {
         "tags": [
           "Doctor"
@@ -1227,8 +2076,8 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "OK",
+          "201": {
+            "description": "Created",
             "content": {
               "text/plain": {
                 "schema": {
@@ -1249,14 +2098,88 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
     },
-    "/api/Doctor/update": {
+    "/api/Doctor/{id}": {
       "put": {
         "tags": [
           "Doctor"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         ],
         "requestBody": {
           "content": {
@@ -1280,11 +2203,74 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
     },
-    "/api/Doctor/{userID}": {
+    "/api/Doctor/user/{userid}": {
       "delete": {
         "tags": [
           "Doctor"
@@ -1303,11 +2289,74 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
     },
-    "/api/Doctor/by{employeeId}": {
+    "/api/Doctor/employee/{employeeId}": {
       "get": {
         "tags": [
           "Doctor"
@@ -1343,11 +2392,74 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
     },
-    "/api/Doctor/by{userId}": {
+    "/api/Doctor/user/{userId}": {
       "get": {
         "tags": [
           "Doctor"
@@ -1383,11 +2495,74 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
     },
-    "/api/Doctor/by{clinicId}": {
+    "/api/Doctor/clinic/{clinicId}": {
       "get": {
         "tags": [
           "Doctor"
@@ -1423,6 +2598,69 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -1472,11 +2710,74 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
     },
-    "/api/Doctor/all/by{clinicName}": {
+    "/api/Doctor/all/{clinicName}": {
       "get": {
         "tags": [
           "Doctor"
@@ -1520,11 +2821,74 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
     },
-    "/api/Employee/add": {
+    "/api/Employee": {
       "post": {
         "tags": [
           "Employee"
@@ -1584,10 +2948,21 @@
         }
       }
     },
-    "/api/Employee/update": {
+    "/api/Employee/{employeeid}": {
       "put": {
         "tags": [
           "Employee"
+        ],
+        "parameters": [
+          {
+            "name": "employeeid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         ],
         "requestBody": {
           "content": {
@@ -1612,19 +2987,22 @@
           "200": {
             "description": "OK"
           },
+          "400": {
+            "description": "Bad Request"
+          },
           "404": {
             "description": "Not Found"
           },
+          "409": {
+            "description": "Conflict"
+          },
           "500": {
             "description": "Internal Server Error"
-          },
-          "400": {
-            "description": "Bad Request"
           }
         }
       }
     },
-    "/api/Employee/by{employeeId}": {
+    "/api/Employee/{employeeId}": {
       "delete": {
         "tags": [
           "Employee"
@@ -1649,6 +3027,9 @@
           },
           "500": {
             "description": "Internal Server Error"
+          },
+          "409": {
+            "description": "Conflict"
           },
           "400": {
             "description": "Bad Request"
@@ -1710,7 +3091,7 @@
         }
       }
     },
-    "/api/Employee/all/by{clinicname}": {
+    "/api/Employee/in/{clinicname}": {
       "get": {
         "tags": [
           "Employee"
@@ -1838,7 +3219,95 @@
         }
       }
     },
-    "/api/MedicalRecord/Add": {
+    "/api/MedicalRecord/{MedicalRecord}": {
+      "put": {
+        "tags": [
+          "MedicalRecord"
+        ],
+        "parameters": [
+          {
+            "name": "MedicalRecord",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MedicalRecord"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MedicalRecord"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/MedicalRecord"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/MedicalRecord": {
       "post": {
         "tags": [
           "MedicalRecord"
@@ -1863,25 +3332,51 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "OK",
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
             "content": {
               "text/plain": {
                 "schema": {
-                  "type": "integer",
-                  "format": "int32"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               },
               "application/json": {
                 "schema": {
-                  "type": "integer",
-                  "format": "int32"
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               },
               "text/json": {
                 "schema": {
-                  "type": "integer",
-                  "format": "int32"
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -1889,75 +3384,80 @@
         }
       }
     },
-    "/api/MedicalRecord/Update": {
-      "put": {
-        "tags": [
-          "MedicalRecord"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MedicalRecord"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MedicalRecord"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/MedicalRecord"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/MedicalRecord/by{medicalrecordid}": {
+    "/api/MedicalRecord/{medicalrecordid}": {
       "delete": {
         "tags": [
           "MedicalRecord"
         ],
         "parameters": [
           {
-            "name": "mrnId",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
             "name": "medicalrecordid",
             "in": "path",
             "required": true,
             "schema": {
-              "type": "string"
+              "type": "integer",
+              "format": "int32"
             }
           }
         ],
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           }
         }
       }
     },
-    "/api/MedicalRecord/Last/{userId}": {
+    "/api/MedicalRecord/{userid}": {
       "get": {
         "tags": [
           "MedicalRecord"
         ],
         "parameters": [
           {
-            "name": "userId",
+            "name": "userid",
             "in": "path",
             "required": true,
             "schema": {
@@ -1986,11 +3486,34 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           }
         }
       }
     },
-    "/api/MedicalRecord/all/by{userId}": {
+    "/api/MedicalRecord/all/{userId}": {
       "get": {
         "tags": [
           "MedicalRecord"
@@ -2035,30 +3558,56 @@
                 }
               }
             }
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           }
         }
       }
     },
-    "/api/Nurse/Add": {
+    "/api/Patient": {
       "post": {
         "tags": [
-          "Nurse"
+          "Patient"
         ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NurseRequestDTO"
+                "$ref": "#/components/schemas/PatientRequestDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/NurseRequestDTO"
+                "$ref": "#/components/schemas/PatientRequestDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/NurseRequestDTO"
+                "$ref": "#/components/schemas/PatientRequestDTO"
               }
             }
           }
@@ -2133,26 +3682,37 @@
         }
       }
     },
-    "/api/Nurse/Update": {
+    "/api/Patient/{patientid}": {
       "put": {
         "tags": [
-          "Nurse"
+          "Patient"
+        ],
+        "parameters": [
+          {
+            "name": "patientid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NurseRequestDTO"
+                "$ref": "#/components/schemas/PatientRequestDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/NurseRequestDTO"
+                "$ref": "#/components/schemas/PatientRequestDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/NurseRequestDTO"
+                "$ref": "#/components/schemas/PatientRequestDTO"
               }
             }
           }
@@ -2207,14 +3767,14 @@
         }
       }
     },
-    "/api/Nurse/by{nurseId}": {
+    "/api/Patient/{patientId}": {
       "delete": {
         "tags": [
-          "Nurse"
+          "Patient"
         ],
         "parameters": [
           {
-            "name": "nurseId",
+            "name": "patientId",
             "in": "path",
             "required": true,
             "schema": {
@@ -2274,323 +3834,6 @@
       },
       "get": {
         "tags": [
-          "Nurse"
-        ],
-        "parameters": [
-          {
-            "name": "nurseId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Nurse"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Nurse"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Nurse"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error"
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Patient/add": {
-      "post": {
-        "tags": [
-          "Patient"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PatientRequestDTO"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PatientRequestDTO"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/PatientRequestDTO"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Created",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "integer",
-                  "format": "int32"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "integer",
-                  "format": "int32"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "integer",
-                  "format": "int32"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "Conflict",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error"
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Patient/update": {
-      "put": {
-        "tags": [
-          "Patient"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PatientRequestDTO"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PatientRequestDTO"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/PatientRequestDTO"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error"
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Patient/by{patientId}": {
-      "delete": {
-        "tags": [
-          "Patient"
-        ],
-        "parameters": [
-          {
-            "name": "patientId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error"
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Patient/{patientId}": {
-      "get": {
-        "tags": [
           "Patient"
         ],
         "parameters": [
@@ -2671,14 +3914,14 @@
         }
       }
     },
-    "/api/Patient/by{userId}": {
+    "/api/Patient/users/{userid}": {
       "get": {
         "tags": [
           "Patient"
         ],
         "parameters": [
           {
-            "name": "userId",
+            "name": "userid",
             "in": "path",
             "required": true,
             "schema": {
@@ -2754,7 +3997,7 @@
         }
       }
     },
-    "/api/Patient/by{username}": {
+    "/api/Patient/{username}": {
       "get": {
         "tags": [
           "Patient"
@@ -2882,7 +4125,7 @@
         }
       }
     },
-    "/api/Person/Add": {
+    "/api/Person": {
       "post": {
         "tags": [
           "Person"
@@ -2976,10 +4219,21 @@
         }
       }
     },
-    "/api/Person/Update": {
+    "/api/Person/{perosnid}": {
       "put": {
         "tags": [
           "Person"
+        ],
+        "parameters": [
+          {
+            "name": "perosnid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         ],
         "requestBody": {
           "content": {
@@ -3050,14 +4304,14 @@
         }
       }
     },
-    "/api/Person/by{personId}": {
+    "/api/Person/{personid}": {
       "delete": {
         "tags": [
           "Person"
         ],
         "parameters": [
           {
-            "name": "personId",
+            "name": "personid",
             "in": "path",
             "required": true,
             "schema": {
@@ -3121,7 +4375,7 @@
         ],
         "parameters": [
           {
-            "name": "personId",
+            "name": "personid",
             "in": "path",
             "required": true,
             "schema": {
@@ -3197,172 +4451,7 @@
         }
       }
     },
-    "/api/Person/by-{userId}": {
-      "get": {
-        "tags": [
-          "Person"
-        ],
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Person"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Person"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Person"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error"
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Person/by_{Email}": {
-      "get": {
-        "tags": [
-          "Person"
-        ],
-        "parameters": [
-          {
-            "name": "email",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Person"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Person"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Person"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error"
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/User/Add": {
+    "/api/User": {
       "post": {
         "tags": [
           "User"
@@ -3552,25 +4641,6 @@
         "tags": [
           "User"
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ChangePasswordDTO"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ChangePasswordDTO"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ChangePasswordDTO"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "OK"
@@ -3641,7 +4711,7 @@
         }
       }
     },
-    "/api/User/Exist/by-{username}": {
+    "/api/User/exist/{username}": {
       "get": {
         "tags": [
           "User"
@@ -3659,6 +4729,26 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           },
           "409": {
             "description": "Conflict",
@@ -3682,18 +4772,38 @@
           },
           "500": {
             "description": "Internal Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           }
         }
       }
     },
-    "/api/User/by-{userId}": {
+    "/api/User/{userid}": {
       "get": {
         "tags": [
           "User"
         ],
         "parameters": [
           {
-            "name": "userId",
+            "name": "userid",
             "in": "path",
             "required": true,
             "schema": {
@@ -3747,12 +4857,21 @@
             "description": "Internal Server Error"
           }
         }
-      }
-    },
-    "/api/User/Update": {
+      },
       "put": {
         "tags": [
           "User"
+        ],
+        "parameters": [
+          {
+            "name": "userid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
         ],
         "requestBody": {
           "content": {
@@ -3803,7 +4922,69 @@
         }
       }
     },
-    "/api/User/by-{id}": {
+    "/api/User/{username}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/User/{id}": {
       "delete": {
         "tags": [
           "User"
@@ -3853,29 +5034,25 @@
   "components": {
     "schemas": {
       "AddUserRequestDTO": {
-        "required": [
-          "email",
-          "password",
-          "userName"
-        ],
         "type": "object",
         "properties": {
           "userName": {
-            "minLength": 1,
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "password": {
-            "minLength": 1,
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "email": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "permissions": {
-            "type": "integer",
-            "format": "int32",
+            "type": "string",
             "nullable": true
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "permissionType": {
+            "$ref": "#/components/schemas/enPermissionType"
           }
         },
         "additionalProperties": false
@@ -3883,39 +5060,42 @@
       "Appointment": {
         "type": "object",
         "properties": {
-          "appointment_ID": {
+          "appointmentID": {
             "type": "integer",
             "format": "int32"
           },
-          "patient_ID_FK": {
+          "patientID": {
             "type": "integer",
             "format": "int32"
           },
-          "doctor_ID_FK": {
+          "doctorID": {
             "type": "integer",
             "format": "int32"
           },
-          "clinic_ID_FK": {
+          "clinicID": {
             "type": "integer",
             "format": "int32"
           },
-          "appointment_Date_Time": {
+          "appointmentDateTime": {
             "type": "string",
             "format": "date-time"
           },
-          "appointment_Duration_Minutes": {
+          "appointmentDurationMinutes": {
             "type": "integer",
             "format": "int32",
             "nullable": true
           },
-          "status_ID_FK": {
-            "$ref": "#/components/schemas/enAppointmentStatus"
+          "statusID": {
+            "type": "integer",
+            "format": "int32"
           },
-          "appointment_Type_ID_FK": {
-            "$ref": "#/components/schemas/enAppointmentType"
+          "appointmentTypeID": {
+            "type": "integer",
+            "format": "int32"
           },
-          "consultation_Mode_ID_FK": {
-            "$ref": "#/components/schemas/enConsultationType"
+          "consultationModeID": {
+            "type": "integer",
+            "format": "int32"
           },
           "notes": {
             "type": "string",
@@ -3925,43 +5105,39 @@
         "additionalProperties": false
       },
       "AppointmentRequestDTO": {
-        "required": [
-          "appointment_Date_Time",
-          "clinic_ID_FK",
-          "doctor_ID_FK",
-          "patient_ID_FK",
-          "status_ID_FK"
-        ],
         "type": "object",
         "properties": {
-          "patient_ID_FK": {
+          "appointmentID": {
             "type": "integer",
             "format": "int32"
           },
-          "doctor_ID_FK": {
+          "patientID": {
             "type": "integer",
             "format": "int32"
           },
-          "clinic_ID_FK": {
+          "doctorID": {
             "type": "integer",
             "format": "int32"
           },
-          "appointment_Date_Time": {
+          "clinicID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "appointmentDateTime": {
             "type": "string",
             "format": "date-time"
           },
-          "appointment_Duration_Minutes": {
+          "appointmentDurationMinutes": {
             "type": "integer",
-            "format": "int32",
-            "nullable": true
+            "format": "int32"
           },
-          "status_ID_FK": {
+          "statusID": {
             "$ref": "#/components/schemas/enAppointmentStatus"
           },
-          "appointment_Type_ID_FK": {
+          "appointmentTypeID": {
             "$ref": "#/components/schemas/enAppointmentType"
           },
-          "consultation_Mode_ID_FK": {
+          "consultationModeID": {
             "$ref": "#/components/schemas/enConsultationType"
           },
           "notes": {
@@ -3989,32 +5165,15 @@
         },
         "additionalProperties": false
       },
-      "AppointmentStatusDTOs": {
+      "AppointmentStatusRequestDTOs": {
         "type": "object",
         "properties": {
           "status_ID": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "readOnly": true
           },
           "status_Name": {
-            "type": "string",
-            "nullable": true
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "AppointmentType": {
-        "type": "object",
-        "properties": {
-          "type_ID": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "type_Name": {
             "type": "string",
             "nullable": true
           },
@@ -4030,31 +5189,14 @@
         "properties": {
           "type_ID": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "readOnly": true
           },
           "type_Name": {
             "type": "string",
             "nullable": true
           },
           "description": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "ChangePasswordDTO": {
-        "type": "object",
-        "properties": {
-          "userId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "oldPassword": {
-            "type": "string",
-            "nullable": true
-          },
-          "newPassword": {
             "type": "string",
             "nullable": true
           }
@@ -4078,14 +5220,32 @@
           },
           "start": {
             "type": "string",
-            "format": "date-time"
+            "format": "time"
           },
           "end": {
             "type": "string",
-            "format": "date-time"
+            "format": "time"
+          },
+          "country": {
+            "type": "string",
+            "nullable": true
           },
           "city": {
             "type": "string",
+            "nullable": true
+          },
+          "available": {
+            "type": "boolean"
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          },
+          "doctorsnames": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
             "nullable": true
           }
         },
@@ -4094,10 +5254,6 @@
       "ClinicRequestDTO": {
         "type": "object",
         "properties": {
-          "clinicID": {
-            "type": "integer",
-            "format": "int32"
-          },
           "clinicName": {
             "type": "string",
             "nullable": true
@@ -4108,13 +5264,24 @@
           },
           "start": {
             "type": "string",
-            "format": "date-time"
+            "format": "time"
           },
           "end": {
             "type": "string",
-            "format": "date-time"
+            "format": "time"
+          },
+          "country": {
+            "type": "string",
+            "nullable": true
           },
           "city": {
+            "type": "string",
+            "nullable": true
+          },
+          "available": {
+            "type": "boolean"
+          },
+          "notes": {
             "type": "string",
             "nullable": true
           }
@@ -4128,7 +5295,7 @@
             "type": "integer",
             "format": "int32"
           },
-          "employeeID_FK": {
+          "employeeID": {
             "type": "integer",
             "format": "int32"
           },
@@ -4136,18 +5303,22 @@
             "type": "string",
             "nullable": true
           },
-          "years_of_Experience": {
+          "yearsOfExperience": {
             "type": "integer",
             "format": "int32",
             "nullable": true
           },
-          "is_On_Call": {
+          "isOnCall": {
             "type": "boolean",
             "nullable": true
           },
           "specialization": {
             "type": "string",
             "nullable": true
+          },
+          "doctorTypeID": {
+            "type": "integer",
+            "format": "int32"
           },
           "price": {
             "type": "number",
@@ -4157,40 +5328,31 @@
         "additionalProperties": false
       },
       "DoctorRequestDTO": {
-        "required": [
-          "clinicID_FK",
-          "doctorTypeID_FK",
-          "employee_ID_FK",
-          "medicalLicenseNumber"
-        ],
         "type": "object",
         "properties": {
-          "employee_ID_FK": {
+          "employeeID": {
             "type": "integer",
             "format": "int32"
           },
           "medicalLicenseNumber": {
-            "minLength": 1,
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
-          "years_of_Experience": {
+          "yearsOfExperience": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
-          "clinicID_FK": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "is_On_Call": {
-            "type": "boolean"
+          "isOnCall": {
+            "type": "boolean",
+            "nullable": true
           },
           "specialization": {
             "type": "string",
             "nullable": true
           },
-          "doctorTypeID_FK": {
-            "type": "integer",
-            "format": "int32"
+          "doctorTypeID": {
+            "$ref": "#/components/schemas/enDoctorType"
           },
           "price": {
             "type": "number",
@@ -4206,26 +5368,29 @@
             "type": "integer",
             "format": "int32"
           },
-          "typeEmpployeeID_FK": {
+          "empployeeTypeID": {
             "type": "integer",
             "format": "int32"
           },
-          "personID_FK": {
+          "clinicID": {
             "type": "integer",
             "format": "int32"
           },
-          "titel": {
+          "title": {
             "type": "string",
             "nullable": true
+          },
+          "personID": {
+            "type": "integer",
+            "format": "int32"
           },
           "nationalID": {
             "type": "string",
             "nullable": true
           },
-          "salary": {
-            "type": "number",
-            "format": "double",
-            "nullable": true
+          "userID": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false
@@ -4237,15 +5402,19 @@
             "type": "integer",
             "format": "int32"
           },
-          "typeEmpployeeID_FK": {
+          "empployeeTypeID": {
             "type": "integer",
             "format": "int32"
           },
-          "titel": {
+          "clinicID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "title": {
             "type": "string",
             "nullable": true
           },
-          "personID_FK": {
+          "personID": {
             "type": "integer",
             "format": "int32"
           },
@@ -4253,10 +5422,9 @@
             "type": "string",
             "nullable": true
           },
-          "salary": {
-            "type": "number",
-            "format": "double",
-            "nullable": true
+          "userID": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false
@@ -4278,7 +5446,7 @@
       "MedicalRecord": {
         "type": "object",
         "properties": {
-          "mrN_ID": {
+          "mrid": {
             "type": "integer",
             "format": "int32"
           },
@@ -4296,47 +5464,11 @@
           },
           "issueDate": {
             "type": "string",
-            "format": "date-time"
+            "format": "date"
           },
           "notes": {
             "type": "string",
             "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "Nurse": {
-        "type": "object",
-        "properties": {
-          "nurseID": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "employee_ID_FK": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "clinicID_FK": {
-            "type": "integer",
-            "format": "int32"
-          }
-        },
-        "additionalProperties": false
-      },
-      "NurseRequestDTO": {
-        "type": "object",
-        "properties": {
-          "nurseID": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "employee_ID_FK": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "clinicID_FK": {
-            "type": "integer",
-            "format": "int32"
           }
         },
         "additionalProperties": false
@@ -4362,7 +5494,7 @@
           },
           "registerDatew": {
             "type": "string",
-            "format": "date-time"
+            "format": "date"
           }
         },
         "additionalProperties": false
@@ -4370,7 +5502,7 @@
       "PatientRequestDTO": {
         "type": "object",
         "properties": {
-          "patientPersonID": {
+          "userID": {
             "type": "integer",
             "format": "int32"
           },
@@ -4384,7 +5516,7 @@
           },
           "registerDatew": {
             "type": "string",
-            "format": "date-time"
+            "format": "date"
           }
         },
         "additionalProperties": false
@@ -4404,9 +5536,17 @@
             "type": "string",
             "nullable": true
           },
+          "thirdName": {
+            "type": "string",
+            "nullable": true
+          },
+          "secondName": {
+            "type": "string",
+            "nullable": true
+          },
           "dateOfBirth": {
             "type": "string",
-            "format": "date-time"
+            "format": "date"
           },
           "phone": {
             "type": "string",
@@ -4425,10 +5565,12 @@
             "format": "int32",
             "nullable": true
           },
-          "userID_FK": {
-            "type": "integer",
-            "format": "int32",
+          "fullName": {
+            "type": "string",
             "nullable": true
+          },
+          "gender": {
+            "type": "string"
           },
           "full_Name": {
             "type": "string",
@@ -4441,10 +5583,10 @@
       "PersonRequestDTO": {
         "required": [
           "address",
+          "country",
           "firstName",
           "lastName",
-          "phone",
-          "userID_FK"
+          "phone"
         ],
         "type": "object",
         "properties": {
@@ -4458,7 +5600,7 @@
           },
           "dateOfBirth": {
             "type": "string",
-            "format": "date-time"
+            "format": "date"
           },
           "phone": {
             "minLength": 1,
@@ -4469,12 +5611,8 @@
             "type": "string"
           },
           "country": {
-            "type": "string",
-            "nullable": true
-          },
-          "userID_FK": {
-            "type": "integer",
-            "format": "int32"
+            "minLength": 1,
+            "type": "string"
           }
         },
         "additionalProperties": false
@@ -4525,13 +5663,11 @@
             "type": "string",
             "nullable": true
           },
-          "permissions": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
           "isActive": {
             "type": "boolean"
+          },
+          "permissionType": {
+            "$ref": "#/components/schemas/enPermissionType"
           }
         },
         "additionalProperties": false
@@ -4555,16 +5691,15 @@
             "type": "string",
             "nullable": true
           },
-          "permissions": {
+          "roleID": {
             "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "permissionType": {
-            "$ref": "#/components/schemas/enPermissionType"
+            "format": "int32"
           },
           "isActive": {
             "type": "boolean"
+          },
+          "permissionType": {
+            "$ref": "#/components/schemas/enPermissionType"
           }
         },
         "additionalProperties": false
@@ -4573,7 +5708,8 @@
         "enum": [
           1,
           2,
-          3
+          3,
+          4
         ],
         "type": "integer",
         "format": "int32"
@@ -4598,6 +5734,17 @@
           5,
           6,
           7
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "enDoctorType": {
+        "enum": [
+          2,
+          3,
+          4,
+          5,
+          6
         ],
         "type": "integer",
         "format": "int32"

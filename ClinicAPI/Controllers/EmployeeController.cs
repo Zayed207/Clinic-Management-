@@ -1,8 +1,6 @@
-﻿using APILayer.DTOs___Validations;
-using BusinessLayer;
+﻿using BusinessLayer;
 using BusinessLayer.BusinessLogic;
-using BusinessLayer.DTOsForPresentationLayer;
-using ClinicAPI.temp.DTOs___Validations;
+using BusinessLayer.DTOsPresentation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Numerics;
@@ -10,9 +8,7 @@ using System.Threading.Tasks;
 
 namespace ClinicAPI.Controllers
 {
-    [Route("api/[controller]")]
-
-   
+        [Route("api/[controller]")]
         public class EmployeeController : ControllerBase
         {
             readonly EmployeeServices _service;
@@ -25,24 +21,14 @@ namespace ClinicAPI.Controllers
         }
 
        
-        [HttpPost("add")]
+        [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<int>> AddEmployee([FromBody] EmployeeRequestDTO employee)
         {
-            if (employee.PersonID<= 0)
-            {
-                var creationUrl = Url.Action("AddPerson", "Person", null, Request.Scheme);
-
-
-                return BadRequest(new
-                {
-                    Message = "Personid is missing. Please create a Person.",
-                    CreateTypeUrl = creationUrl
-                });
-            }
+           
 
             {
                 var result = await _service.AddNewEmployee(employee);
@@ -51,6 +37,7 @@ namespace ClinicAPI.Controllers
                 {
                     ResultStatus.Success => CreatedAtAction(nameof(GetEmployeeById), new { employeeId = result.Data }, result.Data),
                     ResultStatus.Conflict => Conflict(result.Message),
+                    ResultStatus.NotFound=> NotFound(result.Message),       
                     ResultStatus.InternalError => StatusCode(500, result.Message),
                     _ => BadRequest(result.Message)
                 };
@@ -59,29 +46,32 @@ namespace ClinicAPI.Controllers
         }
 
           
-            [HttpPut("update")]
-            [ProducesResponseType(StatusCodes.Status200OK)]
-            [ProducesResponseType(StatusCodes.Status404NotFound)]
-            [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-            [ProducesResponseType(StatusCodes.Status400BadRequest)]
-            public async Task<ActionResult> UpdateEmployee([FromBody] EmployeeRequestDTO employee)
+        [HttpPut("{employeeid:int}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> UpdateEmployee(int employeeid,[FromBody] EmployeeRequestDTO employee)
             {
-                var result =await _service.UpdateEmployee(employee);
+                var result =await _service.UpdateEmployee(employee, employeeid);
 
                 return result.Status switch
                 {
                     ResultStatus.Updated => Ok(result.Message),
                     ResultStatus.NotFound => NotFound(result.Message),
+                    ResultStatus.Conflict=>Conflict(result.Message),
                     ResultStatus.InternalError => StatusCode(500, result.Message),
                     _ => BadRequest(result.Message)
                 };
             }
 
          
-            [HttpDelete("by{employeeId}")]
+            [HttpDelete("{employeeId:int}")]
             [ProducesResponseType(StatusCodes.Status200OK)]
             [ProducesResponseType(StatusCodes.Status404NotFound)]
             [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+            [ProducesResponseType(StatusCodes.Status409Conflict)]
             [ProducesResponseType(StatusCodes.Status400BadRequest)]
             public async Task<ActionResult> DeleteEmployee(int employeeId)
             {
@@ -97,7 +87,7 @@ namespace ClinicAPI.Controllers
             }
 
          
-            [HttpGet("by{employeeId}")]
+            [HttpGet("{employeeId:int}")]
             [ProducesResponseType(StatusCodes.Status200OK)]
             [ProducesResponseType(StatusCodes.Status404NotFound)]
             [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -116,7 +106,7 @@ namespace ClinicAPI.Controllers
             }
 
            
-            [HttpGet("all/by{clinicname}")]
+            [HttpGet("in/{clinicname}")]
             [ProducesResponseType(StatusCodes.Status200OK)]
             [ProducesResponseType(StatusCodes.Status204NoContent)]
             [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -129,6 +119,7 @@ namespace ClinicAPI.Controllers
                 {
                     ResultStatus.Success => Ok(result.Data),
                     ResultStatus.NotFound => NoContent(),
+
                     ResultStatus.InternalError => StatusCode(500, result.Message),
                     _ => BadRequest(result.Message)
                 };

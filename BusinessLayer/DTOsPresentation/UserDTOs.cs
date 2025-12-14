@@ -1,4 +1,5 @@
 ﻿using BusinessLayer;
+using DataLayer.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -7,44 +8,20 @@ using System.Text;
 using System.Threading.Tasks;
 using static BusinessLayer.User;
 
-namespace DataLayer.Entities
+namespace BusinessLayer.DTOsPresentation
 {
-    public class UpdateUserRequestDTO
+    public class UserRequestDTO
     {
 
-
-        public int UserID { get; set; }
-
-        public string UserName { get; set; } = null!;
-
-        public string Password { get; set; } = null!;
-
-        public string Email { get; set; } = null!;
-
-
-
-        public bool IsActive { get; set; }
-
-        public enPermissionType PermissionType { get; set; }
-
-
-
-
-
-
-    }
-    public class AddUserRequestDTO
-    {
-
-
-
-        public string UserName { get; set; } = null!;
-
-        public string Password { get; set; } = null!;
-
-        public string Email { get; set; } = null!;
 
      
+        public string UserName { get; set; } = null!;
+
+        public string Password { get; set; } = null!;
+
+        public string Email { get; set; } = null!;
+
+
 
         public bool IsActive { get; set; }
 
@@ -53,7 +30,10 @@ namespace DataLayer.Entities
 
 
 
+
+
     }
+   
 
     public class UserResponseDTO
     {

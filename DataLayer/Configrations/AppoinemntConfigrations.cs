@@ -15,17 +15,7 @@ namespace DataLayer.Configrations
     {
         public void Configure(EntityTypeBuilder<AppointmentEntity> builder)
         {
-        //      public int Patient_ID_FK { get; set; }
-        //public int Doctor_ID_FK { get; set; }
-        //public int Clinic_ID_FK { get; set; }
-        //public DateTime Appointment_Date_Time { get; set; }
-        //public int Appointment_Duration_Minutes { get; set; }
-        //public int Status_ID_FK { get; set; }
-        //public int AppointmentTypeID_FK { get; set; }
-        //public int Consultation_Mode_ID_FK { get; set; }
-
-            //public string Notes { get; set; }
-   
+      
 
         
 
@@ -76,5 +66,7 @@ namespace DataLayer.Configrations
             builder.Property(x => x.Notes).HasColumnType("nvarchar(255)");
 
         }
+
     }
+
 }

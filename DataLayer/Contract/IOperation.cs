@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,8 +13,6 @@ namespace DataLayer.Contract
        
 
 
-        public ResultStatus ResultType { get; }
-      public  string Message { get; }
-      public  T Data { get; }
+      
     }
 }
