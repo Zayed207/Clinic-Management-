@@ -3,6 +3,7 @@
 namespace DataLayer.Contract
 {
     using DataLayer.Data;
+    using DataLayer.ReadModel.MedicalRecord;
     using System.Collections.Generic;
 
     public interface IMedicalRecordRepository
@@ -13,7 +14,7 @@ namespace DataLayer.Contract
         public Task<DataLayerOperationResult<MedicalRecordEntity>> GetMedicalRecordById(int recordId);
         public Task<DataLayerOperationResult<List<MedicalRecordEntity>>> GetAllMedicalRecordOfPatient(int patientId);
         public Task<DataLayerOperationResult<List<MedicalRecordEntity>>> GetMedicalRecordsForPatientByUserID(int userId);
-        public  Task<DataLayerOperationResult<MedicalRecordEntity>> GetLastMedcalRecordForPatientByUserId(int mrnId);
+        public  Task<DataLayerOperationResult<MedicalRecordInfo>> GetLastMedcalRecordForPatientByUserID(int userid);
     }
 }
 

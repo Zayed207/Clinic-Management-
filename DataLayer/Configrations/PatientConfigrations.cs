@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DataLayer.Configrations
 {
-    public class PatientConfigrations : IEntityTypeConfiguration<PatientEntity>
+    public partial class PatientConfigrations : IEntityTypeConfiguration<PatientEntity>
     {
        
         public void Configure(EntityTypeBuilder<PatientEntity> builder)
@@ -36,5 +36,6 @@ namespace DataLayer.Configrations
             
 
         }
+
     }
 }

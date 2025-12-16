@@ -92,7 +92,7 @@ namespace ClinicAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Patient>> GetPatientById(int patientId)
         {
-            var result =await _service.FindByPatientID(patientId);
+            var result =await _service.GetPatientByUserID(patientId);
 
             return result.Status switch
             {
@@ -109,9 +109,9 @@ namespace ClinicAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Patient>> GetPatientByUserId(int userid)
+        public async Task<ActionResult<Patient>> GetPatientByUserID(int userid)
         {
-            var result = await _service.FindPatientByUserID(userid);
+            var result = await _service.GetPatientByUserID(userid);
 
             return result.Status switch
             {
@@ -130,7 +130,7 @@ namespace ClinicAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Patient>> GetPatientByUserName(string username)
         {
-            var result =await _service.FindPatientByUserName(username);
+            var result =await _service.GetPatientByUserID(1);
 
             return result.Status switch
             {
@@ -141,7 +141,8 @@ namespace ClinicAPI.Controllers
             };
         }
 
-       
+
+
         //[HttpGet("all")]
         //[ProducesResponseType(StatusCodes.Status200OK)]
         //[ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -159,5 +160,5 @@ namespace ClinicAPI.Controllers
         //        _ => BadRequest(result.Message)
         //    };
         //}
-    } 
+    }
 }

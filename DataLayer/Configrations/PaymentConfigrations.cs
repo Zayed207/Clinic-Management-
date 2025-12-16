@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DataLayer.Configrations
 {
-    public class PaymentConfiguration : IEntityTypeConfiguration<PaymentEntity>
+    public partial class PaymentConfiguration : IEntityTypeConfiguration<PaymentEntity>
     {
         public void Configure(EntityTypeBuilder<PaymentEntity> builder)
         {
@@ -49,5 +49,6 @@ namespace DataLayer.Configrations
                    .HasForeignKey(p => p.ProviderID_FK);
 
         }
+
     }
 }

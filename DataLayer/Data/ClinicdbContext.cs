@@ -9,6 +9,10 @@ using DataLayer.Entities;
 using DataLayer.ReadModel.Appointment;
 using DataLayer.ReadModel.Clinic;
 using DataLayer.ReadModel.Doctor;
+using DataLayer.ReadModel.Employee;
+using DataLayer.ReadModel.MedicalRecord;
+using DataLayer.ReadModel.Patient;
+using DataLayer.ReadModel.Payments;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 namespace DataLayer.Data
@@ -44,10 +48,18 @@ namespace DataLayer.Data
         public DbSet<PaymentProviderEntity> PaymentProviders { get; set; } = null;
 
         public DbSet<UserEntity> Users{ get; set; } = null;
+
+        // StoreProcedtuers
         public DbSet<AppointmentCalendar> AppointmentCalendar { get; set; }
         public DbSet<ClinicInfo> ClinicInfo{ get; set; }
 
         public DbSet<DoctorInfo> DoctorInfo { get; set; }
+        public DbSet<EmployeeInfo> EmployeeInfo { get; set; }
+        public DbSet<MedicalRecordInfo> MedicalRecordInfo { get; set; }
+
+        public DbSet<PatientInfo> PatientInfo { get; set; }
+        public DbSet<PaymentInfo> PaymentInfo { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

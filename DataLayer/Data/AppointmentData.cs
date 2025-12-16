@@ -25,13 +25,13 @@ namespace DataLayer.Data
                 var newStart = date;
                 var newEnd = date.AddMinutes(60);
 
-                var iss= await _context.Appointment.AnyAsync(a =>
+                var hasConflict = await _context.Appointment.AnyAsync(a =>
                     a.AppointmentDateTime < newEnd &&
                     newStart < a.AppointmentDateTime.AddMinutes(a.AppointmentDurationMinutes)
                 );
-                if (!iss)
+                if (!hasConflict)
                 {
-                    return DataLayerOperationResult<bool>.SuccessOperation(iss);
+                    return DataLayerOperationResult<bool>.SuccessOperation(hasConflict);
                 }
                 return DataLayerOperationResult<bool>.Fail();
             }

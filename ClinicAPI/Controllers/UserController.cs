@@ -31,7 +31,7 @@ namespace ClinicAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
 
         //done
-        public async Task<ActionResult<int>> AddNewUser([FromBody] AddUserRequestDTO user)
+        public async Task<ActionResult<int>> AddNewUser([FromBody] UserRequestDTO user)
         {
             var result =await  _service.AddNewUser(user);
 
@@ -164,7 +164,7 @@ namespace ClinicAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> UpdateUser(int userid, [FromBody] UpdateUserRequestDTO user)
+        public async Task<ActionResult> UpdateUser(int userid, [FromBody] UserRequestDTO user)
         {
             var result =await _service.UpdateUser(user);
 

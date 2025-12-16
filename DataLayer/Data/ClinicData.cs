@@ -132,6 +132,42 @@ namespace DataLayer.Data
           
             
         }
+        public async Task<DataLayerOperationResult<bool>> IsClinicExiset(string clinicname)
+        {
+            try
+
+            {
+
+                var clinic = await _context.Clinic.AnyAsync(x=>x.ClinicName==clinicname);
+                if (clinic )
+                {
+                    return DataLayerOperationResult<bool>.SuccessOperation(true,"clinicName is exist");
+
+                }
+
+
+
+
+
+                return DataLayerOperationResult<bool>.NotFound("the clinic is not remove");
+
+
+
+
+            }
+
+            catch (Exception ex)
+            {
+                Log.Error("DataBase Exception in  DataLayer/DeleteClinic ", ex);
+
+
+                return DataLayerOperationResult<bool>.InternalError();
+
+            }
+
+
+
+        }
 
         public  async Task<DataLayerOperationResult<ClinicEntity>> GetClinicById(int clinicId)
         {

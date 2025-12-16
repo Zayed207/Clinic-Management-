@@ -7,8 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataLayer.Configrations
+namespace DataLayer.Configrations.EmpolyeeConfigration
 {
+
     public class EmployeeConfigrations : IEntityTypeConfiguration<EmployeeEntity>
     {
        

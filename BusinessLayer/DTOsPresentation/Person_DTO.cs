@@ -7,24 +7,32 @@ namespace BusinessLayer.DTOsPresentation
     public class PersonResponseDTO
     {
         public int PersonID { get; set; }
-        public string FullName { get; set; }
-       
-       
 
-       
+        public string FirstName { get; set; } = null!;
+
+        public string LastName { get; set; } = null!;
+        public string ThirdName { get; set; } = null!;
+        public string SecondName { get; set; } = null!;
+
         public DateOnly DateOfBirth { get; set; }
 
-        public string Phone { get; set; }
-        public string? Address { get; set; }
-        public string? Country { get; set; }
+        public string Phone { get; set; } = null!;
 
-        public int? Age { get; set; }
-     
+        public string Address { get; set; } = null!;
+
+        public string Country { get; set; } = null!;
+
+        public short? Age { get; set; }
+
+        
+
+        public char Gender { get; set; }
+
 
         public PersonResponseDTO(Person Person)
         {
             PersonID = Person.PersonID;
-            FullName = Person.Full_Name;
+          //  FullName = Person.Full_Name;
            
            
             DateOfBirth = Person.DateOfBirth;
@@ -42,23 +50,27 @@ namespace BusinessLayer.DTOsPresentation
 
     public class PersonRequestDTO
     {
-        
-
-        [Required]
-        public string FirstName { get; set; }
 
 
-        [Required]
-        public string LastName { get; set; }
+        public string FirstName { get; set; } = null!;
+
+        public string LastName { get; set; } = null!;
+        public string ThirdName { get; set; } = null!;
+        public string SecondName { get; set; } = null!;
 
         public DateOnly DateOfBirth { get; set; }
 
-        [Required]
-        public string Phone { get; set; }
-        [Required]
-        public string? Address { get; set; }
-        [Required]
-        public string? Country { get; set; }
+        public string Phone { get; set; } = null!;
+
+        public string Address { get; set; } = null!;
+
+        public string Country { get; set; } = null!;
+
+        public short? Age { get; set; }
+
+
+
+        public char Gender { get; set; }
 
 
 

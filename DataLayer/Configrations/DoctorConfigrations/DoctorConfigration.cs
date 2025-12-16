@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataLayer.Configrations
+namespace DataLayer.Configrations.DoctorConfigrations
 {
-    public class DoctorConfigrations : IEntityTypeConfiguration<DoctorEntity>
+    public class DoctorConfigration : IEntityTypeConfiguration<DoctorEntity>
     {
       
         public void Configure(EntityTypeBuilder<DoctorEntity> builder)

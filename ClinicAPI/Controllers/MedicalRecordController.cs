@@ -107,5 +107,25 @@ namespace ClinicAPI.Controllers
                 _ => BadRequest(result.Message)
             };
         }
+        [HttpGet("medical-records/latest/{userid}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<MedicalRecordInfoDTO>>GetLatestMedicalRecord(int userid)
+        {
+            var result = await _service
+                .GetLastMedcalRecordForPatientByUserId(userid);
+
+            return result.Status switch
+            {
+                ResultStatus.Success => Ok(result.Data),
+                ResultStatus.NotFound => NotFound(result.Message),
+                _ => StatusCode(
+                        StatusCodes.Status500InternalServerError,
+                        result.Message)
+            };
+        }
+
     }
 }

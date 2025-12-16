@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BusinessLayer;
 using BusinessLayer.BusinessLogic;
+using BusinessLayer.DTOsPresentation;
 using BusinessLayer.DTOsPresentation.ClinicDTOs;
 using DataLayer.Data;
 using DataLayer.Entities;
@@ -49,9 +50,9 @@ namespace ClinicAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> UpdateClinic([FromBody] ClinicRequestDTO clinic)
+        public async Task<ActionResult> UpdateClinic(int clinicid,[FromBody] ClinicRequestDTO clinic)
         {
-            var result =await _service.UpdateClinic(clinic);
+            var result =await _service.UpdateClinic(clinicid,clinic);
             return result.Status switch
             {
                 ResultStatus.Updated => Ok(result.Message),

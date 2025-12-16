@@ -14,7 +14,8 @@ namespace DataLayer.Data
         Conflict,
         InternalError,
         NotFound,
-        NoContent
+        NoContent,
+        updated
 
     }
     public class DataLayerOperationResult<T> 
@@ -40,6 +41,9 @@ namespace DataLayer.Data
         }
         public static DataLayerOperationResult<T> SuccessOperation(T data, string message = "Operation completed successfully")
         => new DataLayerOperationResult<T>(DataLayerResult.Success, message, data);
+
+        public static DataLayerOperationResult<T> Updated(T data, string message = "Updated successfully")
+        => new DataLayerOperationResult<T>(DataLayerResult.updated, message);
 
         //
         public static DataLayerOperationResult<T> Fail(string message = "Database operation failed")

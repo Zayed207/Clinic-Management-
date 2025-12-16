@@ -46,26 +46,16 @@ namespace BusinessLayer
             IsActive = dalDto.IsActive;
         }
 
-        public User(UpdateUserRequestDTO dalDto)
+        public User(UserRequestDTO dalDto)
         {
-            UserID = dalDto.UserID;
+            
             UserName = dalDto.UserName;
             Password = dalDto.Password;
             Email = dalDto.Email;
             RoleID = (short)dalDto.PermissionType;
 
         }
-        public User(AddUserRequestDTO dalDto)
-        {
-           
-            UserName = dalDto.UserName;
-            Password = dalDto.Password;
-            Email = dalDto.Email;
-            RoleID = (short)dalDto.PermissionType;
-
-
-
-        }
+       
     }
 
 
@@ -97,7 +87,7 @@ namespace BusinessLayer
                 return builder.ToString();
             }
         }
-        public async Task <OperationResult<int> >AddNewUser(AddUserRequestDTO newuser)
+        public async Task <OperationResult<int> >AddNewUser(UserRequestDTO newuser)
         {
             var exist= await _repo.IsUserNameExists(newuser.UserName);
 
@@ -137,7 +127,7 @@ namespace BusinessLayer
          
         }
 
-        public async Task<OperationResult<bool>> UpdateUser(UpdateUserRequestDTO user)
+        public async Task<OperationResult<bool>> UpdateUser(UserRequestDTO user)
         {
 
 

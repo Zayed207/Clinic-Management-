@@ -14,6 +14,7 @@ namespace DataLayer.Contract
        public Task  <DataLayerOperationResult<ClinicEntity>> GetClinicById(int clinicId);
        public Task <DataLayerOperationResult<List<ClinicEntity> >>GetAllClinics();
         public Task<DataLayerOperationResult<ClinicInfo>> GetClinicInfo(int clinicId);
+        public Task<DataLayerOperationResult<bool>> IsClinicExiset(string clinicname);
 
     }
 

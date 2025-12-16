@@ -48,7 +48,7 @@ namespace BusinessLayer
         }
         public Employee(EmployeeRequestDTO  Entity)
         {
-            EmployeeID = Entity.EmployeeID;
+           
             EmpployeeTypeID = Entity.EmpployeeTypeID;
             ClinicID = Entity.ClinicID;
             Title = Entity.Title;
@@ -137,24 +137,24 @@ namespace BusinessLayer
               
         }
 
-        public async Task<OperationResult<Employee>> GetEmployeeByUserId(int userId)
+        public async Task<OperationResult<EmployeeInfoDTO>> GetEmployeeByUserId(int userId)
         {
-            if (userId <= 0) return OperationResult<Employee>.ValidationError("this id is not valid");
+            if (userId <= 0) return OperationResult<EmployeeInfoDTO>.ValidationError("this id is not valid");
 
-            var entity = await _repo.GetEmployeeByUserId(userId);
+            var entity = await _repo.GetEmployeeInfoByUserID(userId);
 
 
 
             switch (entity.ResultType)
     {
         case DataLayerResult.Success:
-            return OperationResult<Employee>.Success(new Employee(entity.Data), "Employee updated successfully.");
+            return OperationResult<EmployeeInfoDTO>.Success(EmployeeInfoDTO.FromData(entity.Data), "Employee updated successfully.");
 
         case DataLayerResult.Conflict:
-            return OperationResult<Employee>.NotFound("Employee not found or nothing to update..");
+            return OperationResult<EmployeeInfoDTO>.NotFound("Employee not found or nothing to update..");
 
         default:
-            return OperationResult<Employee>.InternalError($"Unexpected error: {entity.Message}");
+            return OperationResult<EmployeeInfoDTO>.InternalError($"Unexpected error: {entity.Message}");
     }
    
         }

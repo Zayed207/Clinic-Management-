@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataLayer.Contract;
 
 namespace BusinessLayer
 {
@@ -30,7 +31,16 @@ namespace BusinessLayer
 
 
     }
+    public class PaymentsServices
+    {
 
+        private readonly IPaymentRepository _repo;
+
+        public PaymentsServices(IPaymentRepository repo)
+        {
+            _repo = repo;
+        }
+    }
     //public class PaymentConfigrations : IEntityTypeConfiguration<PaymentEntity>
     //{
     //    public void Configure(EntityTypeBuilder<PaymentEntity> builder)

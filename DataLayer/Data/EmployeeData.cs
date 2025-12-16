@@ -1,5 +1,7 @@
 ﻿using DataLayer.Contract;
 using DataLayer.Entities;
+using DataLayer.ReadModel.Employee;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using System;
@@ -204,41 +206,7 @@ namespace DataLayer.Data
 
         }
 
-        public async Task<DataLayerOperationResult<EmployeeEntity>> GetEmployeeByUserId(int UserId)
-        {
-            try
-
-            {
-
-                var employeeEntity = await _context.Employees.FirstOrDefaultAsync(x => x.UserID_FK == UserId);
-                if (employeeEntity != null)
-                {
-
-                    return DataLayerOperationResult<EmployeeEntity>.SuccessOperation(employeeEntity);
-                }
-
-                return DataLayerOperationResult<EmployeeEntity>.Fail("this userid is not exist");
-
-
-
-
-
-
-
-
-
-
-            }
-
-            catch (Exception ex)
-            {
-                Log.Error("DataBase Exception in  DataLayer/GetEmployeeByUserId ", ex);
-
-
-                return DataLayerOperationResult<EmployeeEntity>.InternalError();
-
-            }
-        }
+       
 
        
 
@@ -269,5 +237,34 @@ namespace DataLayer.Data
         {
             throw new NotImplementedException();
         }
+        public async Task<DataLayerOperationResult<EmployeeInfo>> GetEmployeeInfoByUserID(int userId)
+        {
+            try
+            {
+                var data = await _context.EmployeeInfo
+                    .FromSqlRaw(
+                        "EXEC sp_GetEmployeeInfoByUserId @UserID",
+                        new SqlParameter("@UserID", userId))
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync();
+
+                if (data == null)
+                    return DataLayerOperationResult<EmployeeInfo>
+                        .NotFound("Employee not found");
+
+                return DataLayerOperationResult<EmployeeInfo>
+                    .SuccessOperation(data);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex,
+                    "DB Error in GetEmployeeInfoByUserId | UserID: {UserID}",
+                    userId);
+
+                return DataLayerOperationResult<EmployeeInfo>
+                    .InternalError();
+            }
+        }
+
     }
 }

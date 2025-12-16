@@ -3,6 +3,7 @@
 namespace DataLayer.Contract
 {
     using DataLayer.Data;
+    using DataLayer.ReadModel.Patient;
     using System.Collections.Generic;
 
     public interface IPatientRepository
@@ -11,21 +12,10 @@ namespace DataLayer.Contract
        public Task <DataLayerOperationResult<bool> >UpdatePatient(PatientEntity entity);
        public Task <DataLayerOperationResult<bool >>DeletePatient(int id);
 
-        public Task<DataLayerOperationResult<PatientEntity>>FindPatientUserID(int userid);
+        public Task<DataLayerOperationResult<PatientInfo>> GetPatientInfoByUserID(int userId);
 
-        public Task<DataLayerOperationResult<PatientEntity>>FindByPatientID(int Patientid);
 
-        public Task< DataLayerOperationResult< PatientEntity >>FindPatientUserName(string patientname);
-      
 
     }
 
-    //public interface IPayPalRepository
-    //{
-    //    int AddPayPal(PayPalEntity entity);
-    //    bool UpdatePayPal(PayPalEntity entity);
-    //    bool DeletePayPal(int id);
-    //    PayPalEntity? GetPayPalById(int id);
-    //    List<PayPalEntity> GetAllPayPals();
-    //}
 }

@@ -147,21 +147,21 @@ namespace BusinessLayer
               
             }
 
-            public async Task<OperationResult<Patient>> FindPatientByUserID(int userId)
+            public async Task<OperationResult<PatientInfoDTO>> GetPatientByUserID(int userId)
             {
-                if (userId <= 0) return OperationResult<Patient>.ValidationError("this id is not valid");
+                if (userId <= 0) return OperationResult<PatientInfoDTO>.ValidationError("this id is not valid");
 
-                        var entity = await _repo.FindPatientUserID(userId);
+                        var entity = await _repo.GetPatientInfoByUserID(userId);
                         switch (entity.ResultType)
                 {
                     case DataLayerResult.Success:
-                        return OperationResult<Patient>.Success(new Patient(entity.Data), "Patient  founded.");
+                        return OperationResult<PatientInfoDTO>.Success(new PatientInfoDTO(entity.Data), "Patient  founded.");
 
                     case DataLayerResult.Conflict:
-                        return OperationResult<Patient>.NotFound("Patient not found.");
+                        return OperationResult<PatientInfoDTO>.NotFound("Patient not found.");
 
                     default:
-                        return OperationResult<Patient>.InternalError($"Unexpected error: {entity.Message}");
+                        return OperationResult<PatientInfoDTO>.InternalError($"Unexpected error: {entity.Message}");
 
 
                 }
@@ -169,47 +169,47 @@ namespace BusinessLayer
              
             }
 
-            public async Task<OperationResult<Patient>> FindByPatientID(int patientId)
-            {
+            //public async Task<OperationResult<Patient>> FindByPatientID(int patientId)
+            //{
 
-                if (patientId <= 0) return OperationResult<Patient>.ValidationError("this id is not valid");
+            //    if (patientId <= 0) return OperationResult<Patient>.ValidationError("this id is not valid");
 
-                        var entity = await _repo.FindByPatientID(patientId);
-                        switch (entity.ResultType)
-                {
-                    case DataLayerResult.Success:
-                        return OperationResult<Patient>.Success(new Patient(entity.Data), "Medical record deleted successfully.");
+            //            var entity = await _repo.FindByPatientID(patientId);
+            //            switch (entity.ResultType)
+            //    {
+            //        case DataLayerResult.Success:
+            //            return OperationResult<Patient>.Success(new Patient(entity.Data), "Medical record deleted successfully.");
 
-                    case DataLayerResult.Conflict:
-                        return OperationResult<Patient>.NotFound("Failed to delete medical record.");
+            //        case DataLayerResult.Conflict:
+            //            return OperationResult<Patient>.NotFound("Failed to delete medical record.");
 
-                    default:
-                        return OperationResult<Patient>.InternalError($"Unexpected error: {entity.Message}");
+            //        default:
+            //            return OperationResult<Patient>.InternalError($"Unexpected error: {entity.Message}");
 
 
-                }
+            //    }
     
                
-            }
+            //}
 
-            public async Task<OperationResult<Patient>> FindPatientByUserName(string name)
-            {
+            //public async Task<OperationResult<Patient>> FindPatientByUserName(string name)
+            //{
 
-            var entity = await _repo.FindPatientUserName(name);
-            switch (entity.ResultType)
-            {
-                case DataLayerResult.Success:
-                    return OperationResult<Patient>.Success(new Patient(entity.Data), "Patient  founded");
+            //var entity = await _repo.FindPatientUserName(name);
+            //switch (entity.ResultType)
+            //{
+            //    case DataLayerResult.Success:
+            //        return OperationResult<Patient>.Success(new Patient(entity.Data), "Patient  founded");
 
-                case DataLayerResult.Conflict:
-                    return OperationResult<Patient>.NotFound("Patient not found");
+            //    case DataLayerResult.Conflict:
+            //        return OperationResult<Patient>.NotFound("Patient not found");
 
-                default:
-                    return OperationResult<Patient>.InternalError($"Unexpected error: {entity.Message}");
+            //    default:
+            //        return OperationResult<Patient>.InternalError($"Unexpected error: {entity.Message}");
 
 
-            }
-                }
+            //}
+            //    }
              
             }}
 

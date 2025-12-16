@@ -147,20 +147,20 @@ namespace BusinessLayer
         }
 
         // Get last record for patient
-        public async Task<OperationResult<MedicalRecord>> GetLastMedcalRecordForPatientByUserId(int userId)
+        public async Task<OperationResult<MedicalRecordInfoDTO>> GetLastMedcalRecordForPatientByUserId(int userId)
         {
-            if (userId <= 0) return OperationResult<MedicalRecord>.ValidationError("this id is not valid");
-            var entity = await _repo.GetLastMedcalRecordForPatientByUserId(userId);
+            if (userId <= 0) return OperationResult<MedicalRecordInfoDTO>.ValidationError("this id is not valid");
+            var entity = await _repo.GetLastMedcalRecordForPatientByUserID(userId);
             switch (entity.ResultType)
     {
         case DataLayerResult.Success:
-            return OperationResult<MedicalRecord>.Success(new MedicalRecord(entity.Data));
+            return OperationResult<MedicalRecordInfoDTO>.Success(new MedicalRecordInfoDTO(entity.Data));
 
         case DataLayerResult.Conflict:
-            return OperationResult<MedicalRecord>.NotFound("No medical record found for this patient..");
+            return OperationResult<MedicalRecordInfoDTO>.NotFound("No medical record found for this patient..");
 
         default:
-            return OperationResult<MedicalRecord>.InternalError($"Unexpected error: {entity.Message}");
+            return OperationResult<MedicalRecordInfoDTO>.InternalError($"Unexpected error: {entity.Message}");
 
 
     }

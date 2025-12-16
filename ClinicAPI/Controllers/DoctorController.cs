@@ -1,5 +1,6 @@
 ﻿using BusinessLayer;
 using BusinessLayer.BusinessLogic;
+using BusinessLayer.DTOsPresentation;
 using BusinessLayer.DTOsPresentation.DoctorDTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

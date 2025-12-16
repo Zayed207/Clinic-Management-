@@ -1,5 +1,7 @@
 ﻿using DataLayer.Contract;
 using DataLayer.Entities;
+using DataLayer.ReadModel.Patient;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using System;
@@ -132,12 +134,7 @@ namespace DataLayer.Data
             }
         }
 
-        //public  async Task<PatientEntity> GetPatientById(int patientId)
-        //{
-           
-              
-            
-        //}
+    
 
         public  async Task<DataLayerOperationResult<List<PatientEntity>>> GetAllPatient()
         {
@@ -166,24 +163,39 @@ namespace DataLayer.Data
 
         }
 
-        
 
 
 
 
-        async  Task<DataLayerOperationResult<PatientEntity>> IPatientRepository.FindPatientUserID(int userid)
+
+        public async Task<DataLayerOperationResult<PatientInfo>>GetPatientInfoByUserID(int userId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var data = await _context.PatientInfo
+                    .FromSqlRaw(
+                        "EXEC sp_GetPatientInfoByUserId @UserID",
+                        new SqlParameter("@UserID", userId))
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync();
+
+                if (data == null)
+                    return DataLayerOperationResult<PatientInfo>
+                        .NotFound("Patient not found");
+
+                return DataLayerOperationResult<PatientInfo>
+                    .SuccessOperation(data);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex,
+                    "DB Error in GetPatientInfoByUserId | UserID: {UserID}",
+                    userId);
+
+                return DataLayerOperationResult<PatientInfo>
+                    .InternalError();
+            }
         }
 
-        async Task<DataLayerOperationResult<PatientEntity>> IPatientRepository.FindByPatientID(int Patientid)
-        {
-            throw new NotImplementedException();
-        }
-
-        async Task<DataLayerOperationResult<PatientEntity>> IPatientRepository.FindPatientUserName(string patientname)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

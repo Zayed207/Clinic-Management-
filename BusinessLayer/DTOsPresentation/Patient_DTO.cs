@@ -4,47 +4,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BusinessLayer.DTOsPresentation
 {
-    public class PatientResponseDTO
-    {
-        public int PatientID { get; set; }
-        public int UserID { get; set; }
-        public string FullName { get; set; }
-
-        public int PatientPersonID { get; set; }
-        
-       
-
-        public string EmergencyContactName { get; set; }
-       
-        public string EmergencyContactPhone { get; set; }
-
-        public DateOnly RegisterDatew { get; set; }
-
-
-
-        public PatientResponseDTO(Patient DTO)
-        {
-            PatientID = DTO.PatientID;
-            PatientPersonID = DTO.PatientPersonID;
-
-            EmergencyContactName = DTO.EmergencyContactName;
-            EmergencyContactPhone = DTO.EmergencyContactPhone;
-            RegisterDatew = DTO.RegisterDatew;
-
-
-
-        }
-
-
-        
-    }
 
     public class PatientRequestDTO
     {
 
 
 
-        public int UserID { get; set; }
+        public int PatientPersonID { get; set; }
+
         public string EmergencyContactName { get; set; }
 
         public string EmergencyContactPhone { get; set; }
@@ -54,20 +21,7 @@ namespace BusinessLayer.DTOsPresentation
 
 
     }
-    public class UpdatePatientRequestDTO
-    {
-        
-        public int PatientPersonID { get; set; }
-       
-        public string EmergencyContactName { get; set; }
-
-        public string EmergencyContactPhone { get; set; }
-
-        public DateTime RegisterDatew { get; set; }
-
-
-
-    }
+    
     //public class PatientSummaryDTOs
     //{
     //    public int PatientID { get; set; }

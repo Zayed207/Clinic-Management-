@@ -1,5 +1,7 @@
 ﻿using DataLayer.Contract;
 using DataLayer.Entities;
+using DataLayer.ReadModel.MedicalRecord;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using System;
@@ -205,9 +207,34 @@ namespace DataLayer.Data
             throw new NotImplementedException();
         }
 
-        Task<DataLayerOperationResult<MedicalRecordEntity>> IMedicalRecordRepository.GetLastMedcalRecordForPatientByUserId(int mrnId)
+     public async   Task<DataLayerOperationResult<MedicalRecordInfo>> GetLastMedcalRecordForPatientByUserID(int userId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var data = await _context.MedicalRecordInfo
+                    .FromSqlRaw(
+                        "EXEC sp_GetLatestMedicalRecordByPatientId @UserID",
+                        new SqlParameter("@UserID", userId))
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync();
+
+                if (data == null)
+                    return DataLayerOperationResult<MedicalRecordInfo>
+                        .NotFound("Medical record not found");
+
+                return DataLayerOperationResult<MedicalRecordInfo>
+                    .SuccessOperation(data);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex,
+                    "DB Error in GetLatestMedicalRecordByuserId| userId: {userId}",
+                    userId);
+
+                return DataLayerOperationResult<MedicalRecordInfo>
+                    .InternalError();
+            }
         }
+
     }
 }

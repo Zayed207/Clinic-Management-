@@ -83,12 +83,13 @@ namespace BusinessLayer
             var check = Clinic_V.ClinicObjectCheck(clinicDto);
             if (check.Status == ResultStatus.ValidationError)return OperationResult<int>.ValidationError($"{check.Message}");
 
-        
 
+            var checkonclinicname =await _repo.IsClinicExiset(clinicDto.ClinicName);
+            if (checkonclinicname.ResultType == DataLayerResult.Success) return OperationResult<int>.Conflict($"{check.Message}");
+            if (checkonclinicname.ResultType == DataLayerResult.InternalError) return OperationResult<int>.InternalError($"{check.Message}");
 
-                var entity = _mapper.Map<ClinicEntity>(new Clinic(clinicDto));
-                // if you want to ensure id initial value like original code:
-                // entity.ClinicID = -1;
+            var entity = _mapper.Map<ClinicEntity>(new Clinic(clinicDto));
+                
                 var id =await _repo.AddClinic(entity);
 
             switch (id.ResultType)
@@ -97,7 +98,7 @@ namespace BusinessLayer
                     return OperationResult<int>.Success(id.Data, "Clinic created successfully.");
 
                 case DataLayerResult.Conflict:
-                    return OperationResult<int>.NotFound("Failed to create clinic.");
+                    return OperationResult<int>.Conflict("Failed to create clinic.");
 
                 default:
                     return OperationResult<int>.InternalError($"Unexpected error: {id.Message}");
@@ -108,14 +109,18 @@ namespace BusinessLayer
             
         }
 
-        public async Task<OperationResult<bool>> UpdateClinic(ClinicRequestDTO clinicDto)
+        public async Task<OperationResult<bool>> UpdateClinic(int clinicid,ClinicRequestDTO clinicDto)
         {
             var check = Clinic_V.ClinicObjectCheck(clinicDto);
             if (check.Status == ResultStatus.ValidationError)return OperationResult<bool>.ValidationError($"{check.Message}");
 
+            var checkonclinicname = await _repo.IsClinicExiset(clinicDto.ClinicName);
+            if (checkonclinicname.ResultType == DataLayerResult.Success) return OperationResult<bool>.Conflict($"{check.Message}");
+            if (checkonclinicname.ResultType == DataLayerResult.InternalError) return OperationResult<bool>.InternalError($"{check.Message}");
+            var entity = new Clinic(clinicDto);
+            entity.ClinicID = clinicid;
 
-            var entity = _mapper.Map<ClinicEntity>(new Clinic(clinicDto));
-            var updated = await _repo.UpdateClinic(entity);
+            var updated = await _repo.UpdateClinic(_mapper.Map<ClinicEntity> (entity));
 
             switch (updated.ResultType)
             {
