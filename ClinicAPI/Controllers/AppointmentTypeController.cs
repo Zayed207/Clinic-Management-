@@ -24,7 +24,7 @@ namespace ClinicAPI.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> AddAppointmentType([FromBody] AppointmentTypeDTO dto)
         {
-            var result =await _service.AddAppointmentType(dto);
+            var result = await _service.AddAppointmentType(dto);
 
             return result.Status switch
             {
@@ -44,7 +44,7 @@ namespace ClinicAPI.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> UpdateAppointmentType([FromBody] AppointmentTypeDTO dto)
         {
-            var result =await _service.UpdateAppointmentType(dto);
+            var result = await _service.UpdateAppointmentType(dto);
 
             return result.Status switch
             {
@@ -64,7 +64,7 @@ namespace ClinicAPI.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> DeleteAppointmentType(int id)
         {
-            var result =await _service.DeleteAppointmentType(id);
+            var result = await _service.DeleteAppointmentType(id);
 
             return result.Status switch
             {
@@ -84,7 +84,7 @@ namespace ClinicAPI.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> GetAppointmentTypeById(int id)
         {
-            var result =await _service.GetAppointmentTypeById(id);
+            var result = await _service.GetAppointmentTypeById(id);
 
             return result.Status switch
             {
@@ -104,7 +104,7 @@ namespace ClinicAPI.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> GetAllAppointmentTypes()
         {
-            var result =await _service.GetAllAppointmentTypes();
+            var result = await _service.GetAllAppointmentTypes();
 
             return result.Status switch
             {

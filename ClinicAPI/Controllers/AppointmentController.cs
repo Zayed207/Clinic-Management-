@@ -74,7 +74,7 @@ namespace ClinicAPI.Controllers
         }
 
 
-        [HttpDelete("{patientId:int}")]
+        [HttpDelete("by/{patientId:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -162,7 +162,7 @@ namespace ClinicAPI.Controllers
             };
             
         }
-        [HttpGet("today/doctor/{doctorId:int}")]
+        [HttpGet("today/doctor/by{doctorId:int}")]
         public async Task<ActionResult<IEnumerable<AppointmentCalendarDTO>>> GetTodayAppointmentsByDoctor(int doctorId)
         {
             var result =

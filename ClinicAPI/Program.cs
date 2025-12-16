@@ -43,8 +43,7 @@ builder.Services.AddScoped<clsPayPal>();
 //    });
 
 //builder.Services.Add<DataLayer.Contract.IClinicRepository>()
-try
-{
+
     
 var configuration = builder.Configuration;
 
@@ -111,8 +110,4 @@ var configuration = builder.Configuration;
     app.MapControllers();
 
     app.Run();
-}
-catch (Exception ex)
-{
-    Console.WriteLine($"Unhandled exception: {ex.Message}");
-}
+

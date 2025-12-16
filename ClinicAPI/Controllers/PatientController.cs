@@ -17,56 +17,56 @@ namespace ClinicAPI.Controllers
         readonly PatientServices _service;
         private readonly PersonServices _personServices;
 
-        public PatientController(PatientServices service,PersonServices personServices)
+        public PatientController(PatientServices service, PersonServices personServices)
         {
             _service = service;
             _personServices = personServices;
         }
 
-       
+
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<int>> AddNewPatient( [FromBody] PatientRequestDTO patient)
+        public async Task<ActionResult<int>> AddNewPatient([FromBody] PatientRequestDTO patient)
         {
 
-            
-              
-            var result =await _service.AddNewPatient(patient);
 
-                return result.Status switch
-                {
-                    ResultStatus.Success => CreatedAtAction(nameof(GetPatientById), new { patientId = result.Data }, result.Data),
-                    ResultStatus.Conflict => Conflict(result.Message),
-                    ResultStatus.InternalError => StatusCode(500, result.Message),
-                    _ => BadRequest(result.Message)
-                };
-            }
-           
-        
+
+            var result = await _service.AddNewPatient(patient);
+
+            return result.Status switch
+            {
+                ResultStatus.Success => CreatedAtAction(nameof(GetPatientById), new { patientId = result.Data }, result.Data),
+                ResultStatus.Conflict => Conflict(result.Message),
+                ResultStatus.InternalError => StatusCode(500, result.Message),
+                _ => BadRequest(result.Message)
+            };
+        }
+
+
 
         [HttpPut("{patientid:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> UpdatePatient( int patientid,[FromBody] PatientRequestDTO patient)
+        public async Task<ActionResult> UpdatePatient(int patientid, [FromBody] PatientRequestDTO patient)
         {
-            var result =await _service.UpdatePatient(patient);
+            var result = await _service.UpdatePatient(patient);
 
             return result.Status switch
             {
                 ResultStatus.Updated => Ok(result.Message),
                 ResultStatus.NotFound => NotFound(result.Message),
-                ResultStatus.Conflict=> Conflict(result.Message),
+                ResultStatus.Conflict => Conflict(result.Message),
                 ResultStatus.InternalError => StatusCode(500, result.Message),
                 _ => BadRequest(result.Message)
             };
         }
 
-     
+
         [HttpDelete("{patientId:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -74,7 +74,7 @@ namespace ClinicAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> DeletePatient(int patientId)
         {
-            var result =await _service.DeleteByPatientID(patientId);
+            var result = await _service.DeleteByPatientID(patientId);
 
             return result.Status switch
             {
@@ -85,14 +85,14 @@ namespace ClinicAPI.Controllers
             };
         }
 
-        [HttpGet("{patientId:int}")]
+        [HttpGet("by/-{patientId:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Patient>> GetPatientById(int patientId)
         {
-            var result =await _service.GetPatientByUserID(patientId);
+            var result = await _service.GetPatientByUserID(patientId);
 
             return result.Status switch
             {
@@ -103,7 +103,7 @@ namespace ClinicAPI.Controllers
             };
         }
 
-      
+
         [HttpGet("users/{userid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -122,15 +122,15 @@ namespace ClinicAPI.Controllers
             };
         }
 
-        
-        [HttpGet("{username}")]
+
+        [HttpGet("by/{username}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<Patient>> GetPatientByUserName(string username)
         {
-            var result =await _service.GetPatientByUserID(1);
+            var result = await _service.GetPatientByUserID(1);
 
             return result.Status switch
             {
@@ -143,22 +143,23 @@ namespace ClinicAPI.Controllers
 
 
 
-        //[HttpGet("all")]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status204NoContent)]
-        //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //public ActionResult<List<Patient>> GetAllPatients()
-        //{
-        //    var result = _service.GetAllPatients();
+        [HttpGet("all")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<List<Patient>> GetAllPatients()
+        {
+            return NoContent();
+            //var result = _service.GetAllPatients();
 
-        //    return result.Status switch
-        //    {
-        //        ResultStatus.Success => Ok(result.Data),
-        //        ResultStatus.NotFound => NoContent(),
-        //        ResultStatus.InternalError => StatusCode(500, result.Message),
-        //        _ => BadRequest(result.Message)
-        //    };
-        //}
+            //return result.Status switch
+            //{
+            //    ResultStatus.Success => Ok(result.Data),
+            //    ResultStatus.NotFound => NoContent(),
+            //    ResultStatus.InternalError => StatusCode(500, result.Message),
+            //    _ => BadRequest(result.Message)
+            //};
+        }
     }
 }

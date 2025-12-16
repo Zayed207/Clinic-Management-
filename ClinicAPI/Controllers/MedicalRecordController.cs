@@ -35,20 +35,20 @@ namespace ClinicAPI.Controllers
         //    };
         //}
 
-        [HttpPut("{MedicalRecord:int}")]
+        [HttpPut("{medicalrecord:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> UpdateMedicalRecord(int MedicalRecord, [FromBody] MedicalRecord record)
+        public async Task<ActionResult> UpdateMedicalRecord(int medicalrecord, [FromBody] MedicalRecord record)
         {
-            var result =await _service.UpdateMedicalRecord(record);
+            var result = await _service.UpdateMedicalRecord(record);
 
             return result.Status switch
             {
                 ResultStatus.Updated => Ok(result.Message),
                 ResultStatus.NotFound => NotFound(result.Message),
-                ResultStatus.Conflict=>Conflict(result.Message),
+                ResultStatus.Conflict => Conflict(result.Message),
                 ResultStatus.InternalError => StatusCode(500, result.Message),
                 _ => BadRequest(result.Message)
             };
@@ -61,7 +61,7 @@ namespace ClinicAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> DeleteMedicalRecord(int medicalrecordid)
         {
-            var result =await _service.DeleteMedicalRecord (medicalrecordid);
+            var result = await _service.DeleteMedicalRecord(medicalrecordid);
 
             return result.Status switch
             {
@@ -78,7 +78,7 @@ namespace ClinicAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<MedicalRecord>> GetLastRecordByUserId(int userid)
         {
-            var result =await _service.GetLastMedcalRecordForPatientByUserId(userid);
+            var result = await _service.GetLastMedcalRecordForPatientByUserId(userid);
 
             return result.Status switch
             {
@@ -96,13 +96,13 @@ namespace ClinicAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<List<MedicalRecord>>> GetAllByUserId(int userId)
         {
-            var result =await _service.GetMedicalRecordsForPatientByUserID(userId);
+            var result = await _service.GetMedicalRecordsForPatientByUserID(userId);
 
             return result.Status switch
             {
                 ResultStatus.Success => Ok(result.Data),
                 ResultStatus.NotFound => NotFound(result.Message),
-                ResultStatus.Conflict => Conflict( result.Message),
+                ResultStatus.Conflict => Conflict(result.Message),
                 ResultStatus.InternalError => StatusCode(500, result.Message),
                 _ => BadRequest(result.Message)
             };
@@ -112,7 +112,7 @@ namespace ClinicAPI.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<MedicalRecordInfoDTO>>GetLatestMedicalRecord(int userid)
+        public async Task<ActionResult<MedicalRecordInfoDTO>> GetLatestMedicalRecord(int userid)
         {
             var result = await _service
                 .GetLastMedcalRecordForPatientByUserId(userid);

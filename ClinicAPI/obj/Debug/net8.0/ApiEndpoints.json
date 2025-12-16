@@ -190,7 +190,7 @@
   {
     "ContainingType": "ClinicAPI.Controllers.AppointmentController",
     "Method": "DeleteAppointmentByPatient",
-    "RelativePath": "api/Appointment/{patientId}",
+    "RelativePath": "api/Appointment/by/{patientId}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -376,7 +376,7 @@
   {
     "ContainingType": "ClinicAPI.Controllers.AppointmentController",
     "Method": "GetTodayAppointmentsByDoctor",
-    "RelativePath": "api/Appointment/today/doctor/{doctorId}",
+    "RelativePath": "api/Appointment/today/doctor/by{doctorId}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -990,18 +990,12 @@
   },
   {
     "ContainingType": "ClinicAPI.Controllers.ClinicController",
-    "Method": "UpdateClinic",
+    "Method": "GetAllClinics",
     "RelativePath": "api/Clinic",
-    "HttpMethod": "PUT",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [
-      {
-        "Name": "clinic",
-        "Type": "BusinessLayer.DTOsPresentation.ClinicDTOs.ClinicRequestDTO",
-        "IsRequired": true
-      }
-    ],
+    "Parameters": [],
     "ReturnTypes": [
       {
         "Type": "System.Void",
@@ -1044,20 +1038,32 @@
   },
   {
     "ContainingType": "ClinicAPI.Controllers.ClinicController",
-    "Method": "GetAllClinics",
-    "RelativePath": "api/Clinic",
-    "HttpMethod": "GET",
+    "Method": "UpdateClinic",
+    "RelativePath": "api/Clinic/{cinicid}",
+    "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "clinicid",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "clinic",
+        "Type": "BusinessLayer.DTOsPresentation.ClinicDTOs.ClinicRequestDTO",
+        "IsRequired": true
+      },
+      {
+        "Name": "cinicid",
+        "Type": "",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.List\u00601[[BusinessLayer.Clinic, BusinessLayer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
+        "Type": "System.Void",
+        "MediaTypes": [],
         "StatusCode": 200
       },
       {
@@ -1207,32 +1213,6 @@
     ]
   },
   {
-    "ContainingType": "ClinicAPI.Controllers.ClinicController",
-    "Method": "GetClinicInfo",
-    "RelativePath": "api/Clinic/clinics/{clinicId}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "clinicId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "BusinessLayer.DTOsPresentation.ClinicDTOs.ClinicInfoDTO",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
     "ContainingType": "ClinicAPI.Controllers.DoctorController",
     "Method": "AddDoctor",
     "RelativePath": "api/Doctor",
@@ -1299,13 +1279,13 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "doctor",
-        "Type": "BusinessLayer.DTOsPresentation.DoctorDTO.DoctorRequestDTO",
+        "Name": "id",
+        "Type": "System.Int32",
         "IsRequired": true
       },
       {
-        "Name": "id",
-        "Type": "System.Int32",
+        "Name": "doctor",
+        "Type": "BusinessLayer.DTOsPresentation.DoctorDTO.DoctorRequestDTO",
         "IsRequired": true
       }
     ],
@@ -1352,7 +1332,7 @@
   {
     "ContainingType": "ClinicAPI.Controllers.DoctorController",
     "Method": "GetAllDoctorsInClinic",
-    "RelativePath": "api/Doctor/all/{clinicId}",
+    "RelativePath": "api/Doctor/all/by-clinicid/{clinicId}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -1410,7 +1390,7 @@
   {
     "ContainingType": "ClinicAPI.Controllers.DoctorController",
     "Method": "GetAllDoctorsInClinic",
-    "RelativePath": "api/Doctor/all/{clinicName}",
+    "RelativePath": "api/Doctor/all/by-clinicname/{clinicName}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -1826,7 +1806,7 @@
   {
     "ContainingType": "ClinicAPI.Controllers.EmployeeController",
     "Method": "GetEmployeeById",
-    "RelativePath": "api/Employee/{employeeId}",
+    "RelativePath": "api/Employee/{userId}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -1834,11 +1814,6 @@
       {
         "Name": "userId",
         "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "employeeId",
-        "Type": "",
         "IsRequired": true
       }
     ],
@@ -1872,7 +1847,7 @@
   {
     "ContainingType": "ClinicAPI.Controllers.EmployeeController",
     "Method": "GetEmployeeByUserId",
-    "RelativePath": "api/Employee/employees/{userId}",
+    "RelativePath": "api/Employee/employees/by/{userId}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -2044,13 +2019,13 @@
   {
     "ContainingType": "ClinicAPI.Controllers.MedicalRecordController",
     "Method": "UpdateMedicalRecord",
-    "RelativePath": "api/MedicalRecord/{MedicalRecord}",
+    "RelativePath": "api/MedicalRecord/{medicalrecord}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "MedicalRecord",
+        "Name": "medicalrecord",
         "Type": "System.Int32",
         "IsRequired": true
       },
@@ -2421,8 +2396,47 @@
   },
   {
     "ContainingType": "ClinicAPI.Controllers.PatientController",
+    "Method": "GetAllPatients",
+    "RelativePath": "api/Patient/all",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[BusinessLayer.Patient, BusinessLayer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 204
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 400
+      }
+    ]
+  },
+  {
+    "ContainingType": "ClinicAPI.Controllers.PatientController",
     "Method": "GetPatientById",
-    "RelativePath": "api/Patient/{patientId}",
+    "RelativePath": "api/Patient/by/-{patientId}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -2471,7 +2485,7 @@
   {
     "ContainingType": "ClinicAPI.Controllers.PatientController",
     "Method": "GetPatientByUserName",
-    "RelativePath": "api/Patient/{username}",
+    "RelativePath": "api/Patient/by/{username}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -2872,46 +2886,6 @@
   },
   {
     "ContainingType": "ClinicAPI.Controllers.UserController",
-    "Method": "GetUserById",
-    "RelativePath": "api/User/{userid}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "userid",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "BusinessLayer.User",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      },
-      {
-        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 404
-      },
-      {
-        "Type": "System.Void",
-        "MediaTypes": [],
-        "StatusCode": 500
-      }
-    ]
-  },
-  {
-    "ContainingType": "ClinicAPI.Controllers.UserController",
     "Method": "UpdateUser",
     "RelativePath": "api/User/{userid}",
     "HttpMethod": "PUT",
@@ -3037,6 +3011,46 @@
           "text/json"
         ],
         "StatusCode": 400
+      }
+    ]
+  },
+  {
+    "ContainingType": "ClinicAPI.Controllers.UserController",
+    "Method": "GetUserById",
+    "RelativePath": "api/User/by/{userid}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userid",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "BusinessLayer.User",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 404
+      },
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 500
       }
     ]
   },

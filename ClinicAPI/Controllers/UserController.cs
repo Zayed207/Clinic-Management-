@@ -21,10 +21,10 @@ namespace ClinicAPI.Controllers
             _service = service;
         }
 
-       
+
         [HttpPost]
 
-       
+
         [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(int))]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -33,18 +33,18 @@ namespace ClinicAPI.Controllers
         //done
         public async Task<ActionResult<int>> AddNewUser([FromBody] UserRequestDTO user)
         {
-            var result =await  _service.AddNewUser(user);
+            var result = await _service.AddNewUser(user);
 
             return result.Status switch
             {
-                ResultStatus.Success => Ok($"successfuladded userid = { result.Data }"),
+                ResultStatus.Success => Ok($"successfuladded userid = {result.Data}"),
                 ResultStatus.Conflict => Conflict(result.Message),
                 ResultStatus.InternalError => StatusCode(500, result.Message),
                 _ => BadRequest(result.Message)
             };
         }
 
-       
+
         [HttpPost("Authenticate")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(User))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -52,7 +52,7 @@ namespace ClinicAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<User>> Authenticate([FromBody] LoginRequestDTO login)
         {
-            var result =await _service.Authenticate(login.UserName, login.Password);
+            var result = await _service.Authenticate(login.UserName, login.Password);
 
             return result.Status switch
             {
@@ -83,7 +83,7 @@ namespace ClinicAPI.Controllers
         //    };
         //}
 
-        
+
         //[HttpPut("ResetPassword/{userId}")]
         //[ProducesResponseType(StatusCodes.Status200OK)]
         //[ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -112,26 +112,26 @@ namespace ClinicAPI.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> IsUserNameExists(string username)
         {
-            var result =await _service.IsUserNameExists(username);
+            var result = await _service.IsUserNameExists(username);
 
             return result.Status switch
             {
                 ResultStatus.Conflict => Conflict(result.Message),
-                ResultStatus.NotFound=>NotFound(result.Message),
+                ResultStatus.NotFound => NotFound(result.Message),
                 ResultStatus.Success => Ok(result.Message),
                 ResultStatus.InternalError => StatusCode(500, result.Message),
                 _ => BadRequest(result.Message)
             };
         }
 
-      
-        [HttpGet("{userid:int}")]
+
+        [HttpGet("by/{userid:int}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(User))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<User>> GetUserById(int userid)
         {
-            var result =await _service.GetUserByID(userid);
+            var result = await _service.GetUserByID(userid);
 
             return result.Status switch
             {
@@ -166,7 +166,7 @@ namespace ClinicAPI.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> UpdateUser(int userid, [FromBody] UserRequestDTO user)
         {
-            var result =await _service.UpdateUser(user);
+            var result = await _service.UpdateUser(user);
 
             return result.Status switch
             {
@@ -184,7 +184,7 @@ namespace ClinicAPI.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> DeleteUser(int id)
         {
-            var result =await _service.DeleteUserByUserID(id);
+            var result = await _service.DeleteUserByUserID(id);
 
             return result.Status switch
             {
@@ -196,7 +196,7 @@ namespace ClinicAPI.Controllers
         }
 
 
-      
-       
+
+
     }
 }
