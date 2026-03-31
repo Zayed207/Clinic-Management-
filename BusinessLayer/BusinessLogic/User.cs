@@ -2,6 +2,7 @@
 using BusinessLayer;
 using BusinessLayer.BusinessLogic;
 using BusinessLayer.DTOsPresentation;
+using BusinessLayer.DTOsPresentation.AuthDTOs;
 using DataLayer;
 using DataLayer.Contract;
 using DataLayer.Data;
@@ -31,10 +32,12 @@ namespace BusinessLayer
         public bool IsActive { get; set; }
 
         public enPermissionType PermissionType { get; set; }
-        
+        public string RefreshTokenHash { get; set; }
+        public DateTime? RefreshTokenExpiresAt { get; set; }
+        public DateTime? RefreshTokenRevokedAt { get; set; }
 
 
-       
+
         public User(UserEntity dalDto)
         {
             UserID = dalDto.UserID;
@@ -42,7 +45,9 @@ namespace BusinessLayer
             Password = dalDto.Password;
             Email = dalDto.Email;
             RoleID = dalDto.RoleID_FK;
-
+            RefreshTokenHash = dalDto.RefreshTokenHash;
+            RefreshTokenExpiresAt = dalDto.RefreshTokenExpiresAt;
+            RefreshTokenRevokedAt = dalDto.RefreshTokenRevokedAt;
             IsActive = dalDto.IsActive;
         }
 
@@ -55,7 +60,15 @@ namespace BusinessLayer
             RoleID = (short)dalDto.PermissionType;
 
         }
-       
+        public User(LoginRequest dalDto)
+        {
+
+            UserName = dalDto.Email;
+            Password = dalDto.Password;
+
+
+        }
+
     }
 
 
@@ -74,7 +87,7 @@ namespace BusinessLayer
                 _repo = repo;
                 _mapper = mapper;
             }
-        private string HashPassword(string password)
+          internal string HashPassword(string password)
         {
             using (SHA256 sha256Hash = SHA256.Create())
             {
@@ -150,6 +163,29 @@ namespace BusinessLayer
 
 
          
+        }
+        public async Task<OperationResult<bool>> UpdateUpdateRefreachToken(User user)
+        {
+
+
+            var updated = await _repo.UpdateUser(_mapper.Map<UserEntity>(user));
+
+            switch (updated.ResultType)
+            {
+                case DataLayerResult.Success:
+                    return OperationResult<bool>.Success(updated.Data, "User updated successfully.");
+
+                case DataLayerResult.Conflict:
+                    return OperationResult<bool>.NotFound("User not found");
+
+                default:
+                    return OperationResult<bool>.InternalError($"Unexpected error: {updated.Message}");
+
+
+            }
+
+
+
         }
 
         public async Task<OperationResult<bool>> DeleteUserByUserID(int userId)
@@ -241,10 +277,8 @@ namespace BusinessLayer
                 }
             }
 
-            /// <summary>
-            /// Change password securely.
-            /// </summary>
-            public async Task<OperationResult<bool>> ChangePassword(int userId, string oldPassword, string newPassword)
+            
+          public async Task<OperationResult<bool>> ChangePassword(int userId, string oldPassword, string newPassword)
             {
 
             // business validation
@@ -282,16 +316,14 @@ namespace BusinessLayer
             }
 
             
-            public async Task<OperationResult<bool>> ResetPassword(int userId)
+         public async Task<OperationResult<bool>> ResetPassword(int userId)
             {
               throw new NotImplementedException();
                   
             }
 
-            /// <summary>
-            /// Check if username already exists.
-            /// </summary>
-            public async Task<OperationResult<bool>> IsUserNameExists(string username)
+     
+         public async Task<OperationResult<bool>> IsUserNameExists(string username)
             {
             if (username.IsNullOrEmpty()) return OperationResult<bool>.ValidationError("this username is empty");
 
@@ -313,7 +345,27 @@ namespace BusinessLayer
                
             }
 
+        public async Task<OperationResult<bool>> IsEmailExists(string email)
+        {
+            if (email.IsNullOrEmpty()) return OperationResult<bool>.ValidationError("this username is empty");
 
+            var exist = await _repo.IsEmailExists(email);
+            switch (exist.ResultType)
+            {
+                case DataLayerResult.Success:
+                    return OperationResult<bool>.Success(exist.Data, "already exists");
+
+                case DataLayerResult.Conflict:
+                    return OperationResult<bool>.NotFound("Username is available.");
+
+                default:
+                    return OperationResult<bool>.InternalError($"Unexpected error: {exist.Message}");
+
+
+            }
+
+
+        }
         public async Task<OperationResult<User>> GetUserByUserName(string username)
         {
             if (username.IsNullOrEmpty()) return OperationResult<User>.ValidationError("this username is empty");
@@ -336,6 +388,30 @@ namespace BusinessLayer
             
 
            
+        }
+
+        public async Task<OperationResult<User>> GetUserByEmail(string email)
+        {
+            if (email.IsNullOrEmpty()) return OperationResult<User>.ValidationError("this username is empty");
+
+            var entity = await _repo.GetUserByEmail(email);
+            switch (entity.ResultType)
+            {
+                case DataLayerResult.Success:
+                    return OperationResult<User>.Success(new User(entity.Data), "exist");
+
+                case DataLayerResult.Conflict:
+                    return OperationResult<User>.NotFound("Username is not exist.");
+
+                default:
+                    return OperationResult<User>.InternalError($"Unexpected error: {entity.Message}");
+
+
+            }
+
+
+
+
         }
 
     }

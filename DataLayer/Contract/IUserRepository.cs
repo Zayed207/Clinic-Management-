@@ -14,8 +14,12 @@ namespace DataLayer.Contract
           public  Task<DataLayerOperationResult<UserEntity>> GetUserById(int userId);
           public  Task<DataLayerOperationResult<List<UserEntity>>> GetAllUsers();
           public  Task<DataLayerOperationResult<bool>> IsUserNameExists(string userName);
+          public Task<DataLayerOperationResult<bool>> IsEmailExists(string email);
           public  Task<DataLayerOperationResult<UserEntity>> GetUserByUserName(string userName, string password);
           public  Task<DataLayerOperationResult<UserEntity>> GetUserByUserName(string userName);
+          public Task<DataLayerOperationResult<UserEntity>> GetUserByEmail(string email);
+
+
         }
 
 

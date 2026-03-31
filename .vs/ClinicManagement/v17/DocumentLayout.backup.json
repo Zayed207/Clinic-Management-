@@ -7,72 +7,60 @@
       "RelativeMoniker": "D:0:0:{3615710B-6452-4AE8-9AE6-3E619A58651F}|ClinicAPI\\ClinicAPI.csproj|solutionrelative:clinicapi\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3615710B-6452-4AE8-9AE6-3E619A58651F}|ClinicAPI\\ClinicAPI.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\clinicapi\\controllers\\peoplecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3615710B-6452-4AE8-9AE6-3E619A58651F}|ClinicAPI\\ClinicAPI.csproj|solutionrelative:clinicapi\\controllers\\peoplecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1AFE25D3-C858-4240-A622-C7D8226BECD5}|BusinessLayer\\BusinessLayer.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\businesslayer\\dtospresentation\\userdtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1AFE25D3-C858-4240-A622-C7D8226BECD5}|BusinessLayer\\BusinessLayer.csproj|solutionrelative:businesslayer\\dtospresentation\\userdtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3615710B-6452-4AE8-9AE6-3E619A58651F}|ClinicAPI\\ClinicAPI.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\clinicapi\\controllers\\patientcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3615710B-6452-4AE8-9AE6-3E619A58651F}|ClinicAPI\\ClinicAPI.csproj|solutionrelative:clinicapi\\controllers\\patientcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{3615710B-6452-4AE8-9AE6-3E619A58651F}|ClinicAPI\\ClinicAPI.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\clinicapi\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3615710B-6452-4AE8-9AE6-3E619A58651F}|ClinicAPI\\ClinicAPI.csproj|solutionrelative:clinicapi\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3615710B-6452-4AE8-9AE6-3E619A58651F}|ClinicAPI\\ClinicAPI.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\clinicapi\\controllers\\paymentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3615710B-6452-4AE8-9AE6-3E619A58651F}|ClinicAPI\\ClinicAPI.csproj|solutionrelative:clinicapi\\controllers\\paymentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1AFE25D3-C858-4240-A622-C7D8226BECD5}|BusinessLayer\\BusinessLayer.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\businesslayer\\businesslogic\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1AFE25D3-C858-4240-A622-C7D8226BECD5}|BusinessLayer\\BusinessLayer.csproj|solutionrelative:businesslayer\\businesslogic\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3615710B-6452-4AE8-9AE6-3E619A58651F}|ClinicAPI\\ClinicAPI.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\clinicapi\\controllers\\medicalrecordcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3615710B-6452-4AE8-9AE6-3E619A58651F}|ClinicAPI\\ClinicAPI.csproj|solutionrelative:clinicapi\\controllers\\medicalrecordcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B2EC1D84-AAFA-4153-93C5-9CEA0C7E1FCA}|DataLayer\\DataLayer.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\datalayer\\data\\userdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B2EC1D84-AAFA-4153-93C5-9CEA0C7E1FCA}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\data\\userdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3615710B-6452-4AE8-9AE6-3E619A58651F}|ClinicAPI\\ClinicAPI.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\clinicapi\\controllers\\employeecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3615710B-6452-4AE8-9AE6-3E619A58651F}|ClinicAPI\\ClinicAPI.csproj|solutionrelative:clinicapi\\controllers\\employeecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3615710B-6452-4AE8-9AE6-3E619A58651F}|ClinicAPI\\ClinicAPI.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\clinicapi\\controllers\\doctorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3615710B-6452-4AE8-9AE6-3E619A58651F}|ClinicAPI\\ClinicAPI.csproj|solutionrelative:clinicapi\\controllers\\doctorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3615710B-6452-4AE8-9AE6-3E619A58651F}|ClinicAPI\\ClinicAPI.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\clinicapi\\controllers\\cliniccontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3615710B-6452-4AE8-9AE6-3E619A58651F}|ClinicAPI\\ClinicAPI.csproj|solutionrelative:clinicapi\\controllers\\cliniccontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3615710B-6452-4AE8-9AE6-3E619A58651F}|ClinicAPI\\ClinicAPI.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\clinicapi\\controllers\\appointmenttypecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3615710B-6452-4AE8-9AE6-3E619A58651F}|ClinicAPI\\ClinicAPI.csproj|solutionrelative:clinicapi\\controllers\\appointmenttypecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3615710B-6452-4AE8-9AE6-3E619A58651F}|ClinicAPI\\ClinicAPI.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\clinicapi\\controllers\\appointmentstatuscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3615710B-6452-4AE8-9AE6-3E619A58651F}|ClinicAPI\\ClinicAPI.csproj|solutionrelative:clinicapi\\controllers\\appointmentstatuscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3615710B-6452-4AE8-9AE6-3E619A58651F}|ClinicAPI\\ClinicAPI.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\clinicapi\\controllers\\appointmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3615710B-6452-4AE8-9AE6-3E619A58651F}|ClinicAPI\\ClinicAPI.csproj|solutionrelative:clinicapi\\controllers\\appointmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3615710B-6452-4AE8-9AE6-3E619A58651F}|ClinicAPI\\ClinicAPI.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\clinicapi\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3615710B-6452-4AE8-9AE6-3E619A58651F}|ClinicAPI\\ClinicAPI.csproj|solutionrelative:clinicapi\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B2EC1D84-AAFA-4153-93C5-9CEA0C7E1FCA}|DataLayer\\DataLayer.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\datalayer\\contract\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B2EC1D84-AAFA-4153-93C5-9CEA0C7E1FCA}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\contract\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3615710B-6452-4AE8-9AE6-3E619A58651F}|ClinicAPI\\ClinicAPI.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\clinicapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3615710B-6452-4AE8-9AE6-3E619A58651F}|ClinicAPI\\ClinicAPI.csproj|solutionrelative:clinicapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{055078B7-DE5C-45CB-97B8-928F4B23FFED}|Clinic_Test\\Clinic_Test.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\clinic_test\\clinic.test\\updateclinicmethod.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{055078B7-DE5C-45CB-97B8-928F4B23FFED}|Clinic_Test\\Clinic_Test.csproj|solutionrelative:clinic_test\\clinic.test\\updateclinicmethod.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1AFE25D3-C858-4240-A622-C7D8226BECD5}|BusinessLayer\\BusinessLayer.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\businesslayer\\businesslogic\\auth\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1AFE25D3-C858-4240-A622-C7D8226BECD5}|BusinessLayer\\BusinessLayer.csproj|solutionrelative:businesslayer\\businesslogic\\auth\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1AFE25D3-C858-4240-A622-C7D8226BECD5}|BusinessLayer\\BusinessLayer.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\businesslayer\\businesslogic\\clinic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1AFE25D3-C858-4240-A622-C7D8226BECD5}|BusinessLayer\\BusinessLayer.csproj|solutionrelative:businesslayer\\businesslogic\\clinic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1AFE25D3-C858-4240-A622-C7D8226BECD5}|BusinessLayer\\BusinessLayer.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\businesslayer\\authentication\\jwtauthentication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1AFE25D3-C858-4240-A622-C7D8226BECD5}|BusinessLayer\\BusinessLayer.csproj|solutionrelative:businesslayer\\authentication\\jwtauthentication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{055078B7-DE5C-45CB-97B8-928F4B23FFED}|Clinic_Test\\Clinic_Test.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\clinic_test\\clinic.test\\addnewclinicmethod.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{055078B7-DE5C-45CB-97B8-928F4B23FFED}|Clinic_Test\\Clinic_Test.csproj|solutionrelative:clinic_test\\clinic.test\\addnewclinicmethod.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{3615710B-6452-4AE8-9AE6-3E619A58651F}|ClinicAPI\\ClinicAPI.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\clinicapi\\controllers\\cliniccontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3615710B-6452-4AE8-9AE6-3E619A58651F}|ClinicAPI\\ClinicAPI.csproj|solutionrelative:clinicapi\\controllers\\cliniccontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B2EC1D84-AAFA-4153-93C5-9CEA0C7E1FCA}|DataLayer\\DataLayer.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\datalayer\\data\\clinicdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B2EC1D84-AAFA-4153-93C5-9CEA0C7E1FCA}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\data\\clinicdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{3615710B-6452-4AE8-9AE6-3E619A58651F}|ClinicAPI\\ClinicAPI.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\clinicapi\\controllers\\appointmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3615710B-6452-4AE8-9AE6-3E619A58651F}|ClinicAPI\\ClinicAPI.csproj|solutionrelative:clinicapi\\controllers\\appointmentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B2EC1D84-AAFA-4153-93C5-9CEA0C7E1FCA}|DataLayer\\DataLayer.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\datalayer\\contract\\iclinicrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B2EC1D84-AAFA-4153-93C5-9CEA0C7E1FCA}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\contract\\iclinicrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1AFE25D3-C858-4240-A622-C7D8226BECD5}|BusinessLayer\\BusinessLayer.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\businesslayer\\dtospresentation\\authdtos\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1AFE25D3-C858-4240-A622-C7D8226BECD5}|BusinessLayer\\BusinessLayer.csproj|solutionrelative:businesslayer\\dtospresentation\\authdtos\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B2EC1D84-AAFA-4153-93C5-9CEA0C7E1FCA}|DataLayer\\DataLayer.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\datalayer\\entities\\userentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B2EC1D84-AAFA-4153-93C5-9CEA0C7E1FCA}|DataLayer\\DataLayer.csproj|solutionrelative:datalayer\\entities\\userentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1AFE25D3-C858-4240-A622-C7D8226BECD5}|BusinessLayer\\BusinessLayer.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\businesslayer\\dtospresentation\\authdtos\\tokenresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1AFE25D3-C858-4240-A622-C7D8226BECD5}|BusinessLayer\\BusinessLayer.csproj|solutionrelative:businesslayer\\dtospresentation\\authdtos\\tokenresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1AFE25D3-C858-4240-A622-C7D8226BECD5}|BusinessLayer\\BusinessLayer.csproj|d:\\onedrive\\desktop\\cv\\clinicmanagement\\businesslayer\\dtospresentation\\authdtos\\refreshrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1AFE25D3-C858-4240-A622-C7D8226BECD5}|BusinessLayer\\BusinessLayer.csproj|solutionrelative:businesslayer\\dtospresentation\\authdtos\\refreshrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -82,8 +70,203 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 2,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UserDTOs.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\BusinessLayer\\DTOsPresentation\\UserDTOs.cs",
+              "RelativeDocumentMoniker": "BusinessLayer\\DTOsPresentation\\UserDTOs.cs",
+              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\BusinessLayer\\DTOsPresentation\\UserDTOs.cs*",
+              "RelativeToolTip": "BusinessLayer\\DTOsPresentation\\UserDTOs.cs*",
+              "ViewState": "AgIAAEgAAAAAAAAAAAAiwFAAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-31T09:00:28.333Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\Program.cs",
+              "RelativeDocumentMoniker": "ClinicAPI\\Program.cs",
+              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\Program.cs",
+              "RelativeToolTip": "ClinicAPI\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-31T08:55:10.851Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "ClinicAPI\\Controllers\\UserController.cs",
+              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\Controllers\\UserController.cs",
+              "RelativeToolTip": "ClinicAPI\\Controllers\\UserController.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAcwCsAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-31T08:42:11.426Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "IUserRepository.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\Contract\\IUserRepository.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Contract\\IUserRepository.cs",
+              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\Contract\\IUserRepository.cs",
+              "RelativeToolTip": "DataLayer\\Contract\\IUserRepository.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-31T08:26:18.026Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "UserData.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\Data\\UserData.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Data\\UserData.cs",
+              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\Data\\UserData.cs",
+              "RelativeToolTip": "DataLayer\\Data\\UserData.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAQwOcAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-31T08:25:27.051Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Login.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\BusinessLayer\\BusinessLogic\\Auth\\Login.cs",
+              "RelativeDocumentMoniker": "BusinessLayer\\BusinessLogic\\Auth\\Login.cs",
+              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\BusinessLayer\\BusinessLogic\\Auth\\Login.cs",
+              "RelativeToolTip": "BusinessLayer\\BusinessLogic\\Auth\\Login.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAvwBsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-31T07:04:30.409Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "ClinicAPI\\Controllers\\AuthController.cs",
+              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\Controllers\\AuthController.cs*",
+              "RelativeToolTip": "ClinicAPI\\Controllers\\AuthController.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-31T06:49:17.653Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "JWTAuthentication.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\BusinessLayer\\Authentication\\JWTAuthentication.cs",
+              "RelativeDocumentMoniker": "BusinessLayer\\Authentication\\JWTAuthentication.cs",
+              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\BusinessLayer\\Authentication\\JWTAuthentication.cs",
+              "RelativeToolTip": "BusinessLayer\\Authentication\\JWTAuthentication.cs",
+              "ViewState": "AgIAADQAAAAAAAAAAAAAAEIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-31T06:37:13.045Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "User.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\BusinessLayer\\BusinessLogic\\User.cs",
+              "RelativeDocumentMoniker": "BusinessLayer\\BusinessLogic\\User.cs",
+              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\BusinessLayer\\BusinessLogic\\User.cs*",
+              "RelativeToolTip": "BusinessLayer\\BusinessLogic\\User.cs*",
+              "ViewState": "AgIAADMAAAAAAAAAAAAUwEAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-31T06:50:39.58Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ClinicController.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\Controllers\\ClinicController.cs",
+              "RelativeDocumentMoniker": "ClinicAPI\\Controllers\\ClinicController.cs",
+              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\Controllers\\ClinicController.cs",
+              "RelativeToolTip": "ClinicAPI\\Controllers\\ClinicController.cs",
+              "ViewState": "AgIAACoAAAAAAAAAAAAYwDcAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-31T07:28:10.746Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "AppointmentController.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\Controllers\\AppointmentController.cs",
+              "RelativeDocumentMoniker": "ClinicAPI\\Controllers\\AppointmentController.cs",
+              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\Controllers\\AppointmentController.cs",
+              "RelativeToolTip": "ClinicAPI\\Controllers\\AppointmentController.cs",
+              "ViewState": "AgIAAI4AAAAAAAAAAAAwwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-31T07:28:02.342Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "LoginRequest.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\BusinessLayer\\DTOsPresentation\\AuthDTOs\\LoginRequest.cs",
+              "RelativeDocumentMoniker": "BusinessLayer\\DTOsPresentation\\AuthDTOs\\LoginRequest.cs",
+              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\BusinessLayer\\DTOsPresentation\\AuthDTOs\\LoginRequest.cs",
+              "RelativeToolTip": "BusinessLayer\\DTOsPresentation\\AuthDTOs\\LoginRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-31T06:54:29.911Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "UserEntity.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\Entities\\UserEntity.cs",
+              "RelativeDocumentMoniker": "DataLayer\\Entities\\UserEntity.cs",
+              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\Entities\\UserEntity.cs",
+              "RelativeToolTip": "DataLayer\\Entities\\UserEntity.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAA7wBYAAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-31T06:52:03.107Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "TokenResponse.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\BusinessLayer\\DTOsPresentation\\AuthDTOs\\TokenResponse.cs",
+              "RelativeDocumentMoniker": "BusinessLayer\\DTOsPresentation\\AuthDTOs\\TokenResponse.cs",
+              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\BusinessLayer\\DTOsPresentation\\AuthDTOs\\TokenResponse.cs",
+              "RelativeToolTip": "BusinessLayer\\DTOsPresentation\\AuthDTOs\\TokenResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-31T06:54:33.167Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "RefreshRequest.cs",
+              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\BusinessLayer\\DTOsPresentation\\AuthDTOs\\RefreshRequest.cs",
+              "RelativeDocumentMoniker": "BusinessLayer\\DTOsPresentation\\AuthDTOs\\RefreshRequest.cs",
+              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\BusinessLayer\\DTOsPresentation\\AuthDTOs\\RefreshRequest.cs",
+              "RelativeToolTip": "BusinessLayer\\DTOsPresentation\\AuthDTOs\\RefreshRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-31T06:54:35.005Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
@@ -95,235 +278,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\Program.cs",
-              "RelativeDocumentMoniker": "ClinicAPI\\Program.cs",
-              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\Program.cs",
-              "RelativeToolTip": "ClinicAPI\\Program.cs",
-              "ViewState": "AgIAAEMAAAAAAAAAAAAmwGAAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-16T16:11:09.65Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "UserController.cs",
-              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\Controllers\\UserController.cs",
-              "RelativeDocumentMoniker": "ClinicAPI\\Controllers\\UserController.cs",
-              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\Controllers\\UserController.cs*",
-              "RelativeToolTip": "ClinicAPI\\Controllers\\UserController.cs*",
-              "ViewState": "AgIAAIwAAAAAAAAAAAAmwMkAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-16T16:07:40.267Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "PeopleController.cs",
-              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\Controllers\\PeopleController.cs",
-              "RelativeDocumentMoniker": "ClinicAPI\\Controllers\\PeopleController.cs",
-              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\Controllers\\PeopleController.cs*",
-              "RelativeToolTip": "ClinicAPI\\Controllers\\PeopleController.cs*",
-              "ViewState": "AgIAAGoAAAAAAAAAAAAmwH4AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-16T16:07:22.959Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "PaymentsController.cs",
-              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\Controllers\\PaymentsController.cs",
-              "RelativeDocumentMoniker": "ClinicAPI\\Controllers\\PaymentsController.cs",
-              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\Controllers\\PaymentsController.cs",
-              "RelativeToolTip": "ClinicAPI\\Controllers\\PaymentsController.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAAcwBgAAABRAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-16T16:07:17.924Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "AppointmentTypeController.cs",
-              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\Controllers\\AppointmentTypeController.cs",
-              "RelativeDocumentMoniker": "ClinicAPI\\Controllers\\AppointmentTypeController.cs",
-              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\Controllers\\AppointmentTypeController.cs",
-              "RelativeToolTip": "ClinicAPI\\Controllers\\AppointmentTypeController.cs",
-              "ViewState": "AgIAAGQAAAAAAAAAAAAiwHYAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-16T16:01:01.132Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "AppointmentStatusController.cs",
-              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\Controllers\\AppointmentStatusController.cs",
-              "RelativeDocumentMoniker": "ClinicAPI\\Controllers\\AppointmentStatusController.cs",
-              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\Controllers\\AppointmentStatusController.cs",
-              "RelativeToolTip": "ClinicAPI\\Controllers\\AppointmentStatusController.cs",
-              "ViewState": "AgIAAGEAAAAAAAAAAAAiwHMAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-16T15:59:26.809Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "PatientController.cs",
-              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\Controllers\\PatientController.cs",
-              "RelativeDocumentMoniker": "ClinicAPI\\Controllers\\PatientController.cs",
-              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\Controllers\\PatientController.cs",
-              "RelativeToolTip": "ClinicAPI\\Controllers\\PatientController.cs",
-              "ViewState": "AgIAAI8AAAAAAAAAAAAmwJgAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-16T15:53:48.837Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "MedicalRecordController.cs",
-              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\Controllers\\MedicalRecordController.cs",
-              "RelativeDocumentMoniker": "ClinicAPI\\Controllers\\MedicalRecordController.cs",
-              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\Controllers\\MedicalRecordController.cs",
-              "RelativeToolTip": "ClinicAPI\\Controllers\\MedicalRecordController.cs",
-              "ViewState": "AgIAAG0AAAAAAAAAAAAiwIIAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-16T15:53:42.036Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "LoginController.cs",
-              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\Controllers\\LoginController.cs",
-              "RelativeDocumentMoniker": "ClinicAPI\\Controllers\\LoginController.cs",
-              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\Controllers\\LoginController.cs",
-              "RelativeToolTip": "ClinicAPI\\Controllers\\LoginController.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAiwCYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-16T15:53:41.013Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "EmployeeController.cs",
-              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\Controllers\\EmployeeController.cs",
-              "RelativeDocumentMoniker": "ClinicAPI\\Controllers\\EmployeeController.cs",
-              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\Controllers\\EmployeeController.cs",
-              "RelativeToolTip": "ClinicAPI\\Controllers\\EmployeeController.cs",
-              "ViewState": "AgIAAHMAAAAAAAAAAAAmwJIAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-16T15:53:34.772Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "DoctorController.cs",
-              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\Controllers\\DoctorController.cs",
-              "RelativeDocumentMoniker": "ClinicAPI\\Controllers\\DoctorController.cs",
-              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\Controllers\\DoctorController.cs",
-              "RelativeToolTip": "ClinicAPI\\Controllers\\DoctorController.cs",
-              "ViewState": "AgIAALYAAAAAAAAAAAAiwMoAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-16T15:52:43.978Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "AppointmentController.cs",
-              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\Controllers\\AppointmentController.cs",
-              "RelativeDocumentMoniker": "ClinicAPI\\Controllers\\AppointmentController.cs",
-              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\Controllers\\AppointmentController.cs",
-              "RelativeToolTip": "ClinicAPI\\Controllers\\AppointmentController.cs",
-              "ViewState": "AgIAAH4AAAAAAAAAAAAUwIQAAABIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-16T10:21:32.781Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "ClinicController.cs",
-              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\Controllers\\ClinicController.cs",
-              "RelativeDocumentMoniker": "ClinicAPI\\Controllers\\ClinicController.cs",
-              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\ClinicAPI\\Controllers\\ClinicController.cs",
-              "RelativeToolTip": "ClinicAPI\\Controllers\\ClinicController.cs",
-              "ViewState": "AgIAAHUAAAAAAAAAAAA6wIcAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-16T10:21:03.479Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "UpdateClinicMethod.cs",
-              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\Clinic_Test\\Clinic.Test\\UpdateClinicMethod.cs",
-              "RelativeDocumentMoniker": "Clinic_Test\\Clinic.Test\\UpdateClinicMethod.cs",
-              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\Clinic_Test\\Clinic.Test\\UpdateClinicMethod.cs",
-              "RelativeToolTip": "Clinic_Test\\Clinic.Test\\UpdateClinicMethod.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFcAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-16T10:14:38.369Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "IClinicRepository.cs",
-              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\Contract\\IClinicRepository.cs",
-              "RelativeDocumentMoniker": "DataLayer\\Contract\\IClinicRepository.cs",
-              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\Contract\\IClinicRepository.cs",
-              "RelativeToolTip": "DataLayer\\Contract\\IClinicRepository.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAlwBAAAAA0AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-16T09:52:55.674Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "ClinicData.cs",
-              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\Data\\ClinicData.cs",
-              "RelativeDocumentMoniker": "DataLayer\\Data\\ClinicData.cs",
-              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\DataLayer\\Data\\ClinicData.cs",
-              "RelativeToolTip": "DataLayer\\Data\\ClinicData.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAQwJQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-16T09:50:07.009Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "Clinic.cs",
-              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\BusinessLayer\\BusinessLogic\\Clinic.cs",
-              "RelativeDocumentMoniker": "BusinessLayer\\BusinessLogic\\Clinic.cs",
-              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\BusinessLayer\\BusinessLogic\\Clinic.cs",
-              "RelativeToolTip": "BusinessLayer\\BusinessLogic\\Clinic.cs",
-              "ViewState": "AgIAAG0AAAAAAAAAAAAAAHoAAABOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-16T09:49:42.001Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "AddNewClinicMethod.cs",
-              "DocumentMoniker": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\Clinic_Test\\Clinic.Test\\AddNewClinicMethod.cs",
-              "RelativeDocumentMoniker": "Clinic_Test\\Clinic.Test\\AddNewClinicMethod.cs",
-              "ToolTip": "D:\\OneDrive\\Desktop\\CV\\ClinicManagement\\Clinic_Test\\Clinic.Test\\AddNewClinicMethod.cs",
-              "RelativeToolTip": "Clinic_Test\\Clinic.Test\\AddNewClinicMethod.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAUwCoAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-16T09:49:28.215Z"
             }
           ]
         }

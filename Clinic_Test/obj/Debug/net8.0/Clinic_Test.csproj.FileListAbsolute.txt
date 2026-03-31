@@ -179,3 +179,4 @@ D:\OneDrive\Desktop\CV\ClinicManagement\Clinic_Test\obj\Debug\net8.0\refint\Clin
 D:\OneDrive\Desktop\CV\ClinicManagement\Clinic_Test\obj\Debug\net8.0\Clinic_Test.pdb
 D:\OneDrive\Desktop\CV\ClinicManagement\Clinic_Test\obj\Debug\net8.0\Clinic_Test.genruntimeconfig.cache
 D:\OneDrive\Desktop\CV\ClinicManagement\Clinic_Test\obj\Debug\net8.0\ref\Clinic_Test.dll
+D:\OneDrive\Desktop\CV\ClinicManagement\Clinic_Test\bin\Debug\net8.0\BouncyCastle.Crypto.dll

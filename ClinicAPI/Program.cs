@@ -1,5 +1,4 @@
 using BusinessLayer.Authentication;
-using BusinessLayer.Authentication_;
 using BusinessLayer.IntegrationsConfigurations.PayPal;
 using BusinessLayer.Profiles;
 using ClinicAPI.Global;
@@ -8,6 +7,7 @@ using DataLayer.Data;
 using Microsoft.AspNetCore.Authentication.BearerToken;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -18,9 +18,12 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
-builder.Services.AddControllers();
+
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add(new AuthorizeFilter());
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -89,8 +92,9 @@ var configuration = builder.Configuration;
       });
 
     builder.Services.AddAuthorization();
-    
-    var app = builder.Build();
+
+
+var app = builder.Build();
 
 
 
@@ -100,9 +104,9 @@ var configuration = builder.Configuration;
         app.UseSwagger();
         app.UseSwaggerUI();
     }
-    app.UseMiddleware<RateTime_MW>();
-    app.UseHttpsRedirection();
 
+    app.UseHttpsRedirection();
+    app.UseMiddleware<RateTime_MW>();
     app.UseAuthentication();
 
     app.UseAuthorization();

@@ -9,8 +9,6 @@ using static BusinessLayer.Patient;
 using BusinessLayer.Authentication;
 namespace ClinicAPI.Global
 {
-
-
     public static class DI
     {
     public static IServiceCollection AddProjectDependencies(this IServiceCollection services)

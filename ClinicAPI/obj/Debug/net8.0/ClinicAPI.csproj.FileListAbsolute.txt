@@ -180,3 +180,4 @@ D:\OneDrive\Desktop\CV\ClinicManagement\ClinicAPI\obj\Debug\net8.0\refint\Clinic
 D:\OneDrive\Desktop\CV\ClinicManagement\ClinicAPI\obj\Debug\net8.0\ClinicAPI.pdb
 D:\OneDrive\Desktop\CV\ClinicManagement\ClinicAPI\obj\Debug\net8.0\ClinicAPI.genruntimeconfig.cache
 D:\OneDrive\Desktop\CV\ClinicManagement\ClinicAPI\obj\Debug\net8.0\ref\ClinicAPI.dll
+D:\OneDrive\Desktop\CV\ClinicManagement\ClinicAPI\bin\Debug\net8.0\BouncyCastle.Crypto.dll

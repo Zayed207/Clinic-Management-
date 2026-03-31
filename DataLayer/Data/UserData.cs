@@ -185,7 +185,7 @@ namespace DataLayer.Data
             }
         }
 
-        public async Task<DataLayerOperationResult<bool>> IsUserNameExists(string userName)
+        public async Task<DataLayerOperationResult<bool>> IsEmailExists(string email)
         {
             
 
@@ -193,10 +193,10 @@ namespace DataLayer.Data
 
                 {
 
-                    var employee = await _context.Users.AnyAsync(x => x.UserName == userName);
+                    var employee = await _context.Users.AnyAsync(x => x.Email== email);
                     if (!employee )
                     {
-                        return DataLayerOperationResult<bool>.Fail("this username is not exist");
+                        return DataLayerOperationResult<bool>.Fail("this email is not exist");
 
                     }
 
@@ -219,8 +219,42 @@ namespace DataLayer.Data
 
                 }
             }
+        public async Task<DataLayerOperationResult<bool>> IsUserNameExists(string username)
+        {
 
-            
+
+            try
+
+            {
+
+                var employee = await _context.Users.AnyAsync(x => x.UserName == username);
+                if (!employee)
+                {
+                    return DataLayerOperationResult<bool>.Fail("this username is not exist");
+
+                }
+
+
+
+
+                return DataLayerOperationResult<bool>.SuccessOperation(true);
+
+
+
+
+
+
+            }
+
+            catch (Exception ex)
+            {
+
+                return DataLayerOperationResult<bool>.InternalError();
+
+            }
+        }
+
+
         public async Task<DataLayerOperationResult<UserEntity>> GetUserByUserName(string userName, string password)
         {
 			
@@ -278,6 +312,43 @@ namespace DataLayer.Data
 
                
                     return DataLayerOperationResult<UserEntity>.SuccessOperation(user);
+
+
+
+
+
+
+            }
+
+            catch (Exception ex)
+            {
+
+                return DataLayerOperationResult<UserEntity>.InternalError();
+
+            }
+
+        }
+
+        public async Task<DataLayerOperationResult<UserEntity>> GetUserByEmail(string email)
+        {
+
+
+
+            try
+
+            {
+
+                var user = await _context.Users.FirstOrDefaultAsync(x => x.Email== email);
+                if (user == null)
+                {
+                    return DataLayerOperationResult<UserEntity>.Fail("this email is not exist");
+
+                }
+
+
+
+
+                return DataLayerOperationResult<UserEntity>.SuccessOperation(user);
 
 
 

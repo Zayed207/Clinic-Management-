@@ -17,6 +17,9 @@ public partial class UserEntity
 
     public bool IsActive { get; set; }
 
+    public string RefreshTokenHash { get; set; }
+    public DateTime? RefreshTokenExpiresAt { get; set; }
+    public DateTime? RefreshTokenRevokedAt { get; set; }
     public virtual EmployeeEntity? Employees { get; set; } 
 
     public virtual PatientEntity? Patient { get; set; }
