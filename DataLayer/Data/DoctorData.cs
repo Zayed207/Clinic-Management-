@@ -35,11 +35,12 @@ namespace DataLayer.Data
 
                 _context.Doctor.Add(doctor);
                 if (await _context.SaveChangesAsync() > 0)
-
+                {
                     return DataLayerOperationResult<int>.SuccessOperation(doctor.DoctorID);
+                }
+                else
 
-
-                return DataLayerOperationResult<int>.Fail("adding not successfuly");
+                    return DataLayerOperationResult<int>.Fail("adding not successfuly");
 
 
 

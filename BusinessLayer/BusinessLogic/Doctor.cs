@@ -96,7 +96,6 @@ namespace BusinessLayer
 
         public async Task<OperationResult<int>> AddNewDoctor(DoctorRequestDTO doctor)
         {
-            //validation->is employee exist? ->add doctor
             var d = await _repo.IsDoctorExistByEmployeeID(doctor.EmployeeID);
             if (d.ResultType==DataLayerResult.Conflict)
             {

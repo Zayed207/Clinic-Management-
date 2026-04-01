@@ -93,7 +93,7 @@ namespace BusinessLayer
                     return OperationResult<int>.Success(newId.Data, "Patient  Added successfully.");
 
                 case DataLayerResult.Conflict:
-                    return OperationResult<int>.NotFound("Patient could not be added");
+                    return OperationResult<int>.Conflict("Patient could not be added");
 
                 default:
                     return OperationResult<int>.InternalError($"Unexpected error: {newId.Message}");

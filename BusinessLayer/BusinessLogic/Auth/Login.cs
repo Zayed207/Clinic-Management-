@@ -21,7 +21,7 @@ namespace BusinessLayer.BusinessLogic.Auth
         {
             var user =await _services.GetUserByUserName(username,password);
 
-            if (user != null)
+            if (user.Status ==ResultStatus.Success)
             {
 
                 var token =  _jwt.GenerateToken(user.Data.UserID, user.Data.RoleID, user.Data.UserName);
@@ -30,24 +30,22 @@ namespace BusinessLayer.BusinessLogic.Auth
                 user.Data.RefreshTokenExpiresAt = DateTime.UtcNow.AddDays(7);
                 user.Data.RefreshTokenRevokedAt = null;
 
-                var updated= _services.UpdateUpdateRefreachToken(user.Data);
+               // var updated= _services.UpdateUpdateRefreachToken(user.Data);
 
-                if (updated != null)
-                {
+               
+                
                     return  token;
 
 
 
 
-                }
+                
 
-                else
-                {
-                   return null;
-                }
+                
 
             }
-          return  null;
+
+            return null;
 
         }
         

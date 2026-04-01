@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ClinicAPI.Controllers
 {
-    [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
@@ -28,9 +27,7 @@ namespace ClinicAPI.Controllers
         }
 
         [HttpPost("Login")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(User))]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+      
         public async Task<ActionResult<TokenResponse>> Login([FromBody] LoginRequestDTO login)
         {
             var token =await _login.LogIn(login.UserName,login.Password);
