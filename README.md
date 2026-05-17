@@ -22,9 +22,7 @@ A backend system for managing daily clinic operations. It handles patients, doct
 * Track appointment statuses and types
 * Assign patients to available doctors and clinics
 
-### Billing & Payments
-* Manage payment records for appointments
-* Configured for external payment provider integration (e.g., PayPal)
+
 
 ### Logging & Validation
 * Structured event logging using Serilog
